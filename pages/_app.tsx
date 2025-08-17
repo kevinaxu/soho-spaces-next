@@ -1,30 +1,29 @@
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
-    mode: "light", // or "dark"
+    mode: "light",
     primary: {
-      main: "#1976d2", // default MUI blue
+      main: "#8b5e3c", // warm brown for a natural accent
     },
     secondary: {
-      main: "#9c27b0", // purple
+      main: "#c19a6b", // soft tan
     },
     background: {
-      default: "#f5f5f5",
-      paper: "#ffffff",
+      default: "#fdf6e3", // cream/off-white background
+      paper: "#fffaf0",   // slightly warmer paper color
+    },
+    text: {
+      primary: "#333333",
+      secondary: "#555555",
     },
   },
   typography: {
-    fontFamily: [
-      "Roboto",
-      "Helvetica",
-      "Arial",
-      "sans-serif"
-    ].join(","),
+    fontFamily: ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(","),
     h1: {
       fontSize: "2.5rem",
       fontWeight: 600,
@@ -33,18 +32,78 @@ const theme = createTheme({
       fontSize: "2rem",
       fontWeight: 500,
     },
+    h3: {
+      fontSize: "1.75rem",
+      fontWeight: 500,
+    },
     body1: {
       fontSize: "1rem",
+      lineHeight: 1.6,
     },
     body2: {
       fontSize: "0.875rem",
+      lineHeight: 1.5,
+    },
+    caption: {
+      fontSize: "0.75rem",
+      color: "#777777",
     },
   },
 });
 
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#bb86fc", // muted purple
+    },
+    secondary: {
+      main: "#03dac6", // teal accent
+    },
+    background: {
+      default: "#121212", // dark background
+      paper: "#1e1e1e",   // slightly lighter for cards/papers
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#cccccc",
+    },
+  },
+  typography: {
+    fontFamily: ["Merriweather", "Georgia", "serif"].join(","),
+    h1: {
+      fontSize: "2.5rem",
+      fontWeight: 600,
+    },
+    h2: {
+      fontSize: "2rem",
+      fontWeight: 500,
+    },
+    h3: {
+      fontSize: "1.75rem",
+      fontWeight: 500,
+    },
+    body1: {
+      fontSize: "1rem",
+      lineHeight: 1.6,
+    },
+    body2: {
+      fontSize: "0.875rem",
+      lineHeight: 1.5,
+    },
+    caption: {
+      fontSize: "0.75rem",
+      color: "#aaaaaa",
+    },
+  },
+});
+
+
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
+        <CssBaseline /> {/* resets global styles and applies theme background */}
         <Component {...pageProps} />
     </ThemeProvider>
   );
