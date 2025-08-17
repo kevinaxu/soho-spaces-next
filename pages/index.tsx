@@ -2,6 +2,8 @@ import Typography from "@mui/material/Typography";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Publicly hosted images from Unsplash
 const itemData = [
@@ -31,9 +33,22 @@ const itemData = [
   },
 ];
 
+
+const beforeImage = "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d";
+const afterImage = "https://images.unsplash.com/photo-1506744038136-46273834b3fb";
+
 export default function Home({ message }: { message: string }) {
   return (
-    <Box sx={{ p: 4, display: "flex", flexDirection: "column", gap: 3, maxWidth: 800, mx: "auto" }}>
+    <Box
+      sx={{
+        p: 4,
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        maxWidth: 800,
+        mx: "auto",
+      }}
+    >
       {/* Title */}
       <Typography variant="h2" component="h1" gutterBottom>
         Modern Gothic Bedroom
@@ -63,9 +78,31 @@ export default function Home({ message }: { message: string }) {
       {/* Outro paragraph */}
       <Typography variant="body1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        consectetur dolor in justo tristique, vitae hendrerit nunc
-        sollicitudin. Fusce in augue nec lorem fermentum tincidunt a in nunc.
+        consectetur dolor in justo tristique, vitae hendrerit nunc sollicitudin.
+        Fusce in augue nec lorem fermentum tincidunt a in nunc.
       </Typography>
+
+      {/* React Compare Slider */}
+    <Box sx={{ width: "100%", height: 400 }} >
+        <ReactCompareSlider
+          itemOne={<ReactCompareSliderImage src={beforeImage} alt="Before"         style={{ width: "100%", height: 400, objectFit: "cover" }}
+ />}
+          itemTwo={<ReactCompareSliderImage src={afterImage} alt="After"         style={{ width: "100%", height: 400, objectFit: "cover" }}
+ />}
+          handle={
+            <ReactCompareSliderHandle
+              buttonStyle={{
+                backdropFilter: undefined,
+                WebkitBackdropFilter: undefined,
+                backgroundColor: "white",
+                color: "#444",
+                boxShadow: undefined,
+                border: 0,
+              }}
+            />
+          }
+        />
+      </Box>
     </Box>
   );
 }
