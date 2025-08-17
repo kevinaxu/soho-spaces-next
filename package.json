@@ -13,8 +13,12 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.1",
     "@mui/material": "^7.3.1",
+    "@portabletext/react": "^3.2.1",
+    "@portabletext/types": "^2.0.13",
+    "@sanity/image-url": "^1.1.0",
     "keen-slider": "^6.8.6",
     "next": "15.4.6",
+    "next-sanity": "^10.0.12",
     "react": "19.1.0",
     "react-compare-slider": "^3.1.0",
     "react-dom": "19.1.0"

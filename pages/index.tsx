@@ -9,6 +9,9 @@ import {
   ReactCompareSliderHandle,
 } from "react-compare-slider";
 import ImageCarousel from "../src/components/ImageCarousel"; // Keen-Slider carousel we created
+import { client } from "../src/sanity/client";
+import { parsePortableText } from "../src/utils/portableTextParser";
+import type { PortableTextBlock } from "@portabletext/types";
 
 // Publicly hosted images from Unsplash
 const itemData = [
@@ -94,7 +97,12 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
   };
 }
 
-export default function Home({ message }: { message: string }) {
+interface Post {
+  title: string;
+  body: PortableTextBlock[];
+}
+
+export default function Home({ post }: { post: Post }) {
   const [carouselOpen, setCarouselOpen] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -118,7 +126,7 @@ export default function Home({ message }: { message: string }) {
     >
       {/* Title */}
       <Typography variant="h2" component="h1" gutterBottom>
-        Modern Gothic Bedroom
+        {post.title}
       </Typography>
 
       {/* Quilted ImageList */}
@@ -141,11 +149,7 @@ export default function Home({ message }: { message: string }) {
       </ImageList>
 
       {/* Intro paragraph */}
-      <Typography variant="body1" gutterBottom>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-        vulputate, quam id luctus convallis, velit nisl vestibulum libero, ut
-        lacinia sem arcu in nisi. Suspendisse potenti.
-      </Typography>
+      {post.body && parsePortableText(post.body)}
 
       {/* ImageList */}
       <ImageList cols={2} rowHeight={250} gap={12}>
@@ -214,8 +218,18 @@ export default function Home({ message }: { message: string }) {
 
 // This runs at build time
 export async function getStaticProps() {
+  const query = `*[_type == "post"] | order(publishedAt desc)[0]{
+    title,
+    slug,
+    publishedAt,
+    "imageUrl": image.asset->url,
+    body
+  }`;
+  const post = await client.fetch(query);
+
   return {
     props: {
+      post,
       message:
         "This page was generated at build time using getStaticProps. derrrrr whatup",
     },
