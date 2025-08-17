@@ -8,7 +8,7 @@ import {
   ReactCompareSliderImage,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import ImageCarousel from "./ImageCarousel"; // Keen-Slider carousel we created
+import ImageCarousel from "../src/components/ImageCarousel"; // Keen-Slider carousel we created
 
 // Publicly hosted images from Unsplash
 const itemData = [
