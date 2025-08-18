@@ -9,6 +9,7 @@ import {
   ReactCompareSliderHandle,
 } from "react-compare-slider";
 import ImageCarousel from "../src/components/ImageCarousel";
+import Header from "../src/components/Header";
 import { client } from "../src/sanity/client";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
@@ -42,95 +43,131 @@ export default function Home({ post }: { post: Post }) {
   const handleCloseCarousel = () => setCarouselOpen(false);
 
   return (
-    <Box
-      sx={{
-        // p: 4,
-        py: 6, // adds padding-top and padding-bottom
-        px: 4, // optional: horizontal padding
-        display: "flex",
-        flexDirection: "column",
-        gap: 3,
-        maxWidth: 800,
-        mx: "auto",
-      }}
-    >
-      {/* Title */}
-      <Typography variant="h1">{post.title}</Typography>
+    <>
+      <Header />
 
-      {/* Intro */}
-      {post.intro && parsePortableText(post.intro)}
-
-      {/* Quilted ImageList */}
-      <Typography variant="h2">The Details</Typography>
+      {/* Top full-width horizontal carousel */}
       {post.gallery && (
-        <ImageList variant="quilted" gap={8} cols={4} rowHeight={250}>
+        <Box
+          sx={{
+            width: "100vw",
+            overflowX: "auto",
+            height: 500,
+            display: "flex",
+            gap: "16px",
+          }}
+        >
           {post.gallery.map((item, idx) => (
-            <ImageListItem
+            <Box
               key={item._id}
-              cols={item.cols || 1}
-              rows={item.rows || 1}
+              sx={{ flex: "0 0 auto", height: "100%", cursor: "pointer" }}
               onClick={() => handleImageClick(idx)}
-              sx={{ cursor: "pointer" }}
             >
-              <img src={item.url} alt={item.title} loading="lazy" />
-            </ImageListItem>
+              <img
+                src={item.url}
+                alt={item.title}
+                style={{
+                  height: "100%",
+                  width: "auto",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+            </Box>
           ))}
-        </ImageList>
-      )}
-
-      {/* The Story */}
-      <Typography variant="h2">The Story</Typography>
-
-      {/* Before/After slider */}
-      {post.story && parsePortableText(post.story)}
-      {post.comparison?.before && post.comparison?.after && (
-        <Box sx={{ width: "100%", pt: 2, pb: 4 }}>
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src={post.comparison.before.url}
-                alt="Before"
-                style={{ width: "100%", height: 600, objectFit: "cover" }}
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src={post.comparison.after.url}
-                alt="After"
-                style={{ width: "100%", height: 600, objectFit: "cover" }}
-              />
-            }
-            handle={
-              <ReactCompareSliderHandle
-                buttonStyle={{
-                  width: 40,
-                  height: 40,
-                  backdropFilter: undefined,
-                  WebkitBackdropFilter: undefined,
-                  backgroundColor: "white",
-                  color: "#444",
-                  boxShadow: undefined,
-                  border: 0,
-                }}
-                linesStyle={{
-                  width: 8,
-                  backgroundColor: "white",
-                }}
-              />
-            }
-          />
         </Box>
       )}
 
-      {/* Render Carousel if open */}
-      {carouselOpen && (
-        <ImageCarousel
-          images={post.gallery?.map((i) => i.url) || []}
-          initialIndex={carouselIndex}
-          onClose={handleCloseCarousel}
-        />
-      )}
-    </Box>
+      <Box
+        sx={{
+          py: 6, // adds padding-top and padding-bottom
+          px: 4, // optional: horizontal padding
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+          maxWidth: 800,
+          mx: "auto",
+        }}
+      >
+        {/* Title */}
+        <Typography variant="h1">{post.title}</Typography>
+
+        {/* Intro */}
+        {post.intro && parsePortableText(post.intro)}
+
+        {/* Quilted ImageList */}
+        <Typography variant="h2">The Details</Typography>
+        {post.gallery && (
+          <ImageList variant="quilted" gap={8} cols={4} rowHeight={250}>
+            {post.gallery.map((item, idx) => (
+              <ImageListItem
+                key={item._id}
+                cols={item.cols || 1}
+                rows={item.rows || 1}
+                onClick={() => handleImageClick(idx)}
+                sx={{ cursor: "pointer" }}
+              >
+                <img src={item.url} alt={item.title} loading="lazy" />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        )}
+
+        {/* The Story */}
+        <Typography variant="h2">The Story</Typography>
+        {post.story && parsePortableText(post.story)}
+
+        {/* Before/After slider */}
+        <Typography variant="h2">Before & After</Typography>
+        {post.comparison?.before && post.comparison?.after && (
+          <Box sx={{ width: "100%", pb: 4 }}>
+            <ReactCompareSlider
+              itemOne={
+                <ReactCompareSliderImage
+                  src={post.comparison.before.url}
+                  alt="Before"
+                  style={{ width: "100%", height: 600, objectFit: "cover" }}
+                />
+              }
+              itemTwo={
+                <ReactCompareSliderImage
+                  src={post.comparison.after.url}
+                  alt="After"
+                  style={{ width: "100%", height: 600, objectFit: "cover" }}
+                />
+              }
+              handle={
+                <ReactCompareSliderHandle
+                  buttonStyle={{
+                    width: 40,
+                    height: 40,
+                    backdropFilter: undefined,
+                    WebkitBackdropFilter: undefined,
+                    backgroundColor: "white",
+                    color: "#444",
+                    boxShadow: undefined,
+                    border: 0,
+                  }}
+                  linesStyle={{
+                    width: 8,
+                    backgroundColor: "white",
+                  }}
+                />
+              }
+            />
+          </Box>
+        )}
+
+        {/* Render Carousel if open */}
+        {carouselOpen && (
+          <ImageCarousel
+            images={post.gallery?.map((i) => i.url) || []}
+            initialIndex={carouselIndex}
+            onClose={handleCloseCarousel}
+          />
+        )}
+      </Box>
+    </>
   );
 }
 
