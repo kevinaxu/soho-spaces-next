@@ -15,7 +15,7 @@ const lightTheme = createTheme({
     },
     background: {
       default: "#fdf6e3", // cream/off-white background
-      paper: "#fffaf0",   // slightly warmer paper color
+      paper: "#fffaf0", // slightly warmer paper color
     },
     text: {
       primary: "#333333",
@@ -62,7 +62,7 @@ const darkTheme = createTheme({
     },
     background: {
       default: "#121212", // dark background
-      paper: "#1e1e1e",   // slightly lighter for cards/papers
+      paper: "#1e1e1e", // slightly lighter for cards/papers
     },
     text: {
       primary: "#ffffff",
@@ -98,13 +98,11 @@ const darkTheme = createTheme({
   },
 });
 
-
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={darkTheme}>
-        <CssBaseline /> {/* resets global styles and applies theme background */}
-        <Component {...pageProps} />
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline /> {/* resets global styles and applies theme background */}
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }
