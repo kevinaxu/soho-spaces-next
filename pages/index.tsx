@@ -8,98 +8,27 @@ import {
   ReactCompareSliderImage,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import ImageCarousel from "../src/components/ImageCarousel"; // Keen-Slider carousel we created
+import ImageCarousel from "../src/components/ImageCarousel";
 import { client } from "../src/sanity/client";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
 
-// Publicly hosted images from Unsplash
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-    title: "Mountain",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    title: "Forest",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-    title: "Beach",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
-    title: "Desert",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c",
-    title: "City",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
-    title: "Desert",
-  },
-];
-
-const quiltedItemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-    author: "@arwinneil",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-  },
-];
-
-const beforeImage =
-  "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d";
-const afterImage =
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb";
-
-function srcset(image: string, size: number, rows = 1, cols = 1) {
-  return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
-  };
-}
-
 interface Post {
   title: string;
-  body: PortableTextBlock[];
+  intro?: PortableTextBlock[];
+  story?: PortableTextBlock[];
+  gallery?: Media[];
+  comparison?: {
+    before: Media;
+    after: Media;
+  };
+}
+interface Media {
+  _id: string;
+  title: string;
+  url: string;
+  rows?: number;
+  cols?: number;
 }
 
 export default function Home({ post }: { post: Post }) {
@@ -110,13 +39,14 @@ export default function Home({ post }: { post: Post }) {
     setCarouselIndex(index);
     setCarouselOpen(true);
   };
-
   const handleCloseCarousel = () => setCarouselOpen(false);
 
   return (
     <Box
       sx={{
-        p: 4,
+        // p: 4,
+        py: 6, // adds padding-top and padding-bottom
+        px: 4, // optional: horizontal padding
         display: "flex",
         flexDirection: "column",
         gap: 3,
@@ -125,89 +55,77 @@ export default function Home({ post }: { post: Post }) {
       }}
     >
       {/* Title */}
-      <Typography variant="h2" component="h1" gutterBottom>
-        {post.title}
-      </Typography>
+      <Typography variant="h1">{post.title}</Typography>
+
+      {/* Intro */}
+      {post.intro && parsePortableText(post.intro)}
 
       {/* Quilted ImageList */}
-      <ImageList variant="quilted" gap={12} cols={4} rowHeight={250}>
-        {quiltedItemData.map((item, idx) => (
-          <ImageListItem
-            key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
-            onClick={() => handleImageClick(idx)}
-            sx={{ cursor: "pointer" }}
-          >
-            <img
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <Typography variant="h2">The Details</Typography>
+      {post.gallery && (
+        <ImageList variant="quilted" gap={8} cols={4} rowHeight={250}>
+          {post.gallery.map((item, idx) => (
+            <ImageListItem
+              key={item._id}
+              cols={item.cols || 1}
+              rows={item.rows || 1}
+              onClick={() => handleImageClick(idx)}
+              sx={{ cursor: "pointer" }}
+            >
+              <img src={item.url} alt={item.title} loading="lazy" />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
 
-      {/* Intro paragraph */}
-      {post.body && parsePortableText(post.body)}
+      {/* The Story */}
+      <Typography variant="h2">The Story</Typography>
 
-      {/* ImageList */}
-      <ImageList cols={2} rowHeight={250} gap={12}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              srcSet={`${item.img}?w=500&h=250&fit=crop&auto=format&dpr=2 2x`}
-              src={`${item.img}?w=500&h=250&fit=crop&auto=format`}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-
-      {/* Outro paragraph */}
-      <Typography variant="body1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        consectetur dolor in justo tristique, vitae hendrerit nunc sollicitudin.
-        Fusce in augue nec lorem fermentum tincidunt a in nunc.
-      </Typography>
-
-      {/* React Compare Slider */}
-      <Box sx={{ width: "100%", height: 400 }}>
-        <ReactCompareSlider
-          itemOne={
-            <ReactCompareSliderImage
-              src={beforeImage}
-              alt="Before"
-              style={{ width: "100%", height: 400, objectFit: "cover" }}
-            />
-          }
-          itemTwo={
-            <ReactCompareSliderImage
-              src={afterImage}
-              alt="After"
-              style={{ width: "100%", height: 400, objectFit: "cover" }}
-            />
-          }
-          handle={
-            <ReactCompareSliderHandle
-              buttonStyle={{
-                backdropFilter: undefined,
-                WebkitBackdropFilter: undefined,
-                backgroundColor: "white",
-                color: "#444",
-                boxShadow: undefined,
-                border: 0,
-              }}
-            />
-          }
-        />
-      </Box>
+      {/* Before/After slider */}
+      {post.story && parsePortableText(post.story)}
+      {post.comparison?.before && post.comparison?.after && (
+        <Box sx={{ width: "100%", pt: 2, pb: 4 }}>
+          <ReactCompareSlider
+            itemOne={
+              <ReactCompareSliderImage
+                src={post.comparison.before.url}
+                alt="Before"
+                style={{ width: "100%", height: 600, objectFit: "cover" }}
+              />
+            }
+            itemTwo={
+              <ReactCompareSliderImage
+                src={post.comparison.after.url}
+                alt="After"
+                style={{ width: "100%", height: 600, objectFit: "cover" }}
+              />
+            }
+            handle={
+              <ReactCompareSliderHandle
+                buttonStyle={{
+                  width: 40,
+                  height: 40,
+                  backdropFilter: undefined,
+                  WebkitBackdropFilter: undefined,
+                  backgroundColor: "white",
+                  color: "#444",
+                  boxShadow: undefined,
+                  border: 0,
+                }}
+                linesStyle={{
+                  width: 8,
+                  backgroundColor: "white",
+                }}
+              />
+            }
+          />
+        </Box>
+      )}
 
       {/* Render Carousel if open */}
       {carouselOpen && (
         <ImageCarousel
-          images={quiltedItemData.map((i) => i.img)}
+          images={post.gallery?.map((i) => i.url) || []}
           initialIndex={carouselIndex}
           onClose={handleCloseCarousel}
         />
@@ -222,16 +140,40 @@ export async function getStaticProps() {
     title,
     slug,
     publishedAt,
-    "imageUrl": image.asset->url,
-    body
+    intro,
+    story,
+    "gallery": gallery[]->{
+        _id,
+        title,
+        "url": file.asset->url,
+        rows,
+        cols
+    },
+    "comparison": {
+        "before": comparison.before->{
+        _id,
+        title,
+        "url": file.asset->url
+        },
+        "after": comparison.after->{
+        _id,
+        title,
+        "url": file.asset->url
+        }
+    }
   }`;
   const post = await client.fetch(query);
+
+  // manually set rows / cols for now
+  // eventually this would be dynamic based on the number
+  // of elements in gallery
+  post.gallery[0].rows = 2;
+  post.gallery[0].cols = 2;
+  post.gallery[3].cols = 2;
 
   return {
     props: {
       post,
-      message:
-        "This page was generated at build time using getStaticProps. derrrrr whatup",
     },
   };
 }
