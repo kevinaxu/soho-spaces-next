@@ -56,7 +56,6 @@ export default function ImageCarousel({
         overflow: "visible",
       }}
     >
-      {/* Close Button */}
       <IconButton
         onClick={onClose}
         sx={{
@@ -70,7 +69,6 @@ export default function ImageCarousel({
         <CloseIcon sx={{ fontSize: 32 }} />
       </IconButton>
 
-      {/* Left Arrow */}
       <IconButton
         onClick={goPrev}
         sx={{
@@ -86,7 +84,6 @@ export default function ImageCarousel({
         <ArrowBackIosIcon fontSize="large" />
       </IconButton>
 
-      {/* Right Arrow */}
       <IconButton
         onClick={goNext}
         sx={{
@@ -102,7 +99,6 @@ export default function ImageCarousel({
         <ArrowForwardIosIcon fontSize="large" />
       </IconButton>
 
-      {/* Slider */}
       <Box
         ref={sliderRef}
         className="keen-slider"
@@ -129,7 +125,6 @@ export default function ImageCarousel({
         ))}
       </Box>
 
-      {/* Dots */}
       <Box sx={{ position: "absolute", bottom: 24, display: "flex", gap: 1 }}>
         {images.map((_, idx) => (
           <Box
