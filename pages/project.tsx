@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import {
   ReactCompareSlider,
@@ -40,20 +38,32 @@ interface Media {
 }
 
 export default function ProjectPage({ project }: { project: Project }) {
-  const [carouselOpen, setCarouselOpen] = useState(false);
-  const [carouselIndex, setCarouselIndex] = useState(0);
-
-  const handleImageClick = (index: number) => {
-    setCarouselIndex(index);
-    setCarouselOpen(true);
+  // hero carousel
+  const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
+  const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
+  const handleHeroImageClick = (index: number) => {
+    heroSetCarouselIndex(index);
+    heroSetCarouselOpen(true);
   };
-  const handleCloseCarousel = () => setCarouselOpen(false);
+  const handleHeroCloseCarousel = () => heroSetCarouselOpen(false);
+
+  // photo galler carousel
+  const [galleryCarouselOpen, gallerySetCarouselOpen] = useState(false);
+  const [galleryCarouselIndex, gallerySetCarouselIndex] = useState(0);
+  const handleGalleryImageClick = (index: number) => {
+    gallerySetCarouselIndex(index);
+    gallerySetCarouselOpen(true);
+  };
+  const handleGalleryCloseCarousel = () => gallerySetCarouselOpen(false);
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {project.hero && (
-        <HeroGallery hero={project.hero} handleImageClick={handleImageClick} />
+        <HeroGallery
+          hero={project.hero}
+          handleImageClick={handleHeroImageClick}
+        />
       )}
 
       <Box
@@ -77,7 +87,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         {project.gallery && (
           <QuiltedGallery
             gallery={project.gallery}
-            handleImageClick={handleImageClick}
+            handleImageClick={handleGalleryImageClick}
           />
         )}
 
@@ -105,12 +115,19 @@ export default function ProjectPage({ project }: { project: Project }) {
           />
         )}
 
-        {/* Carousel modal */}
-        {carouselOpen && (
+        {/* Carousels */}
+        {heroCarouselOpen && project.hero && (
           <ImageCarousel
-            images={project.gallery?.map((i) => i.url) || []}
-            initialIndex={carouselIndex}
-            onClose={handleCloseCarousel}
+            images={project.hero}
+            initialIndex={heroCarouselIndex}
+            onClose={handleHeroCloseCarousel}
+          />
+        )}
+        {galleryCarouselOpen && project.gallery && (
+          <ImageCarousel
+            images={project.gallery}
+            initialIndex={galleryCarouselIndex}
+            onClose={handleGalleryCloseCarousel}
           />
         )}
       </Box>
