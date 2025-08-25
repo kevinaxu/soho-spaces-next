@@ -2,7 +2,8 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ImageCarousel from "../src/components/ImageCarousel";
-import Header from "../src/components/Header";
+// import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
 import { client } from "../src/sanity/client";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
@@ -116,6 +117,8 @@ export default function ProjectPage({ project }: { project: Project }) {
           />
         )}
       </Box>
+
+      <Footer />
     </>
   );
 }
