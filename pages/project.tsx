@@ -1,11 +1,6 @@
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-  ReactCompareSliderHandle,
-} from "react-compare-slider";
 import ImageCarousel from "../src/components/ImageCarousel";
 import Header from "../src/components/Header";
 import { client } from "../src/sanity/client";
@@ -13,6 +8,7 @@ import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
 import QuiltedGallery from "../src/components/QuiltedGallery";
 import HeroGallery from "../src/components/HeroGallery";
+import PhotoComparison from "../src/components/PhotoComparison";
 
 interface Project {
   title: string;
@@ -69,7 +65,7 @@ export default function ProjectPage({ project }: { project: Project }) {
       <Box
         sx={{
           py: 6,
-          px: 4,
+          px: 2,
           maxWidth: 800,
           mx: "auto",
           display: "flex",
@@ -98,20 +94,9 @@ export default function ProjectPage({ project }: { project: Project }) {
         {/* Before/After */}
         <Typography variant="h2">Before & After</Typography>
         {project.comparison?.before && project.comparison?.after && (
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src={project.comparison.before.url}
-                alt="Before"
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src={project.comparison.after.url}
-                alt="After"
-              />
-            }
-            handle={<ReactCompareSliderHandle />}
+          <PhotoComparison
+            before={project.comparison.before}
+            after={project.comparison.after}
           />
         )}
 
