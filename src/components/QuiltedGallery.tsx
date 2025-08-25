@@ -1,6 +1,7 @@
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { urlFor } from "../utils/sanityImage";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 interface GalleryItem {
   _id: string;
@@ -14,19 +15,17 @@ interface QuiltedGalleryProps {
 }
 
 const layoutTemplates: { rows: number; cols: number }[][] = [
-  // first four
+  // first three - full height column on left
   [
     { rows: 2, cols: 2 },
-    { rows: 1, cols: 1 },
-    { rows: 1, cols: 1 },
+    { rows: 1, cols: 2 },
     { rows: 1, cols: 2 },
   ],
-  // second four
+  // second three - full height column on right
   [
     { rows: 1, cols: 2 },
     { rows: 2, cols: 2 },
-    { rows: 1, cols: 1 },
-    { rows: 1, cols: 1 },
+    { rows: 1, cols: 2 },
   ],
 ];
 
@@ -34,11 +33,19 @@ export default function QuiltedGallery({
   gallery,
   handleImageClick,
 }: QuiltedGalleryProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
   return (
-    <ImageList variant="quilted" cols={4} gap={8} rowHeight={250}>
+    <ImageList
+      variant="quilted"
+      cols={4}
+      gap={8}
+      rowHeight={isMobile ? 150 : 250} // Mobile: 150px, Desktop: 250px
+    >
       {gallery.map((item, idx) => {
-        const templateIndex = Math.floor(idx / 4) % layoutTemplates.length;
-        const template = layoutTemplates[templateIndex][idx % 4];
+        const templateIndex = Math.floor(idx / 3) % layoutTemplates.length;
+        const template = layoutTemplates[templateIndex][idx % 3];
 
         const srcSet = `
           ${urlFor(item.url).width(320).url()} 320w,
