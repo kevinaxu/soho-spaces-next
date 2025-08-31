@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
+import { Row } from "./Layout";
 import { urlFor } from "../utils/sanityImage";
 import Typography from "@mui/material/Typography";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 interface HeroGalleryProps {
   hero: { _id: string; url: string; title: string }[];
-  handleImageClick: (index: number) => void;
+  handleImageClick?: (index: number) => void;
 }
 
 export default function HeroGallery({
@@ -19,14 +20,13 @@ export default function HeroGallery({
       }}
     >
       {/* Scrollable Image Row */}
-      <Box
+      <Row
         sx={{
           overflowX: "auto",
           height: {
             xs: 350,
             sm: 500,
           },
-          display: "flex",
           gap: "16px",
         }}
       >
@@ -43,7 +43,7 @@ export default function HeroGallery({
             <Box
               key={item._id}
               sx={{ flex: "0 0 auto", height: "100%", cursor: "pointer" }}
-              onClick={() => handleImageClick(idx)}
+              onClick={() => handleImageClick?.(idx)}
             >
               <img
                 src={urlFor(item.url).width(800).url()}
@@ -61,10 +61,9 @@ export default function HeroGallery({
             </Box>
           );
         })}
-      </Box>
-      <Box
+      </Row>
+      <Row
         sx={{
-          display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
@@ -73,17 +72,16 @@ export default function HeroGallery({
         }}
       >
         <Typography variant="h6">back to interiors</Typography>
-        <Box
+        <Row
           sx={{
-            display: "flex",
             alignItems: "center",
             gap: 1,
           }}
         >
           <Typography variant="h6">scroll</Typography>
           <ArrowRightAltIcon sx={{ transform: "scaleX(1.8)" }} />
-        </Box>
-      </Box>
+        </Row>
+      </Row>
     </Box>
   );
 }
