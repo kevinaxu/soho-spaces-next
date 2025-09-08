@@ -2,7 +2,7 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ImageCarousel from "../src/components/ImageCarousel";
-// import Header from "../src/components/Header";
+import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import { client } from "../src/sanity/client";
 import { parsePortableText } from "../src/utils/portableTextParser";
@@ -55,7 +55,7 @@ export default function ProjectPage({ project }: { project: Project }) {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header sticky={true} />
       {project.hero && (
         <HeroGallery
           hero={project.hero}
@@ -66,7 +66,10 @@ export default function ProjectPage({ project }: { project: Project }) {
       <Box
         sx={{
           py: 6,
-          px: 2,
+          px: {
+            xs: 4,
+            md: 2,
+          },
           maxWidth: 800,
           mx: "auto",
           display: "flex",

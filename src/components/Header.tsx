@@ -40,9 +40,20 @@ export default function Header({ sticky }: { sticky: boolean }) {
       sx={{
         backgroundColor: (theme) => theme.palette.background.default,
         color: (theme) => theme.palette.text.primary,
+        paddingX: 2,
+        paddingY: {
+          xs: 1,
+          md: 0,
+        },
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Toolbar
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Typography variant="h5" component="a" href="/" fontSize="1.5rem">
           soho spaces
         </Typography>
@@ -88,7 +99,15 @@ function MobileDrawer({
 }) {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 400 }} role="presentation">
+      <Box
+        sx={{
+          width: {
+            xs: 300,
+            md: 400,
+          },
+        }}
+        role="presentation"
+      >
         <List>
           {links.map((link) => (
             <NavItem

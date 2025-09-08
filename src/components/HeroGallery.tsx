@@ -1,8 +1,15 @@
+import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { Row } from "./Layout";
 import { urlFor } from "../utils/sanityImage";
 import Typography from "@mui/material/Typography";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { keyframes } from "@mui/system";
+
+const nudge = keyframes`
+  0%, 100% { transform: translateX(0) scaleX(1.8); }
+  50% { transform: translateX(5px) scaleX(1.8); }
+`;
 
 interface HeroGalleryProps {
   hero: { _id: string; url: string; title: string }[];
@@ -13,6 +20,15 @@ export default function HeroGallery({
   hero,
   handleImageClick,
 }: HeroGalleryProps) {
+  const [animate, setAnimate] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimate(false), 6900);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleMouseEnter = () => setAnimate(true);
+  const handleMouseLeave = () => setAnimate(false);
+
   return (
     <Box
       sx={{
@@ -69,17 +85,49 @@ export default function HeroGallery({
           width: "100%",
           px: 2,
           paddingTop: 1,
+          paddingX: {
+            xs: 2,
+            md: 4,
+          },
         }}
       >
-        <Typography variant="h6">back to interiors</Typography>
+        <Typography
+          sx={{
+            variant: {
+              xs: "subtitle1",
+              md: "h6",
+            },
+          }}
+        >
+          back to interiors
+        </Typography>
         <Row
           sx={{
             alignItems: "center",
             gap: 1,
           }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <Typography variant="h6">scroll</Typography>
-          <ArrowRightAltIcon sx={{ transform: "scaleX(1.8)" }} />
+          <Typography
+            sx={{
+              variant: {
+                xs: "subtitle1",
+                md: "h6",
+              },
+            }}
+          >
+            scroll
+          </Typography>
+          <ArrowRightAltIcon
+            sx={{
+              transform: {
+                xs: "scaleX(1.5)",
+                md: "scaleX(1.8)",
+              },
+              animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
+            }}
+          />
         </Row>
       </Row>
     </Box>
