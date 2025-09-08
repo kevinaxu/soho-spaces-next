@@ -13,7 +13,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-// import { useTheme } from "@mui/material/styles";
 
 const links = [
   { label: "About", href: "/about" },
@@ -30,18 +29,17 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Header() {
+export default function Header({ sticky }: { sticky: boolean }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  //   const theme = useTheme();
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
   return (
     <AppBar
-      position="sticky"
+      position={sticky ? "sticky" : "relative"}
       elevation={0}
       sx={{
         backgroundColor: (theme) => theme.palette.common.white,
-        color: (theme) => theme.palette.text.primary, // text/icons
+        color: (theme) => theme.palette.text.primary,
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>

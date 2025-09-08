@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, forwardRef } from "react";
 
 import { urlFor } from "../src/utils/sanityImage";
 import { Row, Column } from "../src/components/Layout";
@@ -6,6 +6,8 @@ import { Box, Typography, Divider } from "@mui/material";
 import { client } from "../src/sanity/client";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import HeroGallery from "../src/components/HeroGallery";
+import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -28,10 +30,29 @@ const aboutUs1 = `We believe good design is about creating a feeling. Whenever w
 const aboutUs2 = `Because ultimately, we're not just designers, we're storytellers. We weave function, comfort, and mementos you've collected throughout your life to create a sense of place…and a space that is a reflection of who you are, where you've been, and what you love.`;
 
 export default function HomePage({ page }: { page: HomePageProps }) {
+  const [sticky, setSticky] = useState<boolean | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!heroRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
+      {sticky && <Header sticky={sticky} />}
+
       {/* <HeroSectionVideo /> */}
-      <HeroSection />
+      <HeroSection ref={heroRef} />
 
       {/* this is the main table shell */}
       <Column
@@ -50,6 +71,8 @@ export default function HomePage({ page }: { page: HomePageProps }) {
         {/* <TwoColumnSection /> */}
       </Column>
       {page.gallery && <HeroGallery hero={page.gallery} />}
+
+      <Footer />
     </>
   );
 }
@@ -175,9 +198,10 @@ function QuoteSection() {
   );
 }
 
-function HeroSection() {
+const HeroSection = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <Row
+      ref={ref}
       sx={{
         height: "100vh", // full viewport height
         width: "100vw", // full width
@@ -193,7 +217,8 @@ function HeroSection() {
       <HeroLogo />
     </Row>
   );
-}
+});
+HeroSection.displayName = "HeroSection";
 
 function HeroSectionVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
