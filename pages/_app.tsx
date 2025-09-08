@@ -14,7 +14,7 @@ const lightTheme = createTheme({
       main: "#c19a6b", // soft tan
     },
     background: {
-      default: "#fdf6e3", // cream/off-white background
+      default: "#F2F0E9",
       paper: "#fffaf0", // slightly warmer paper color
     },
     text: {
