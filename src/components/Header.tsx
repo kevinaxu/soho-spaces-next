@@ -1,69 +1,142 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Box, Link } from "@mui/material";
+import { useState } from "react";
 
-const NavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link
-    href={href}
-    underline="hover"
-    color="inherit"
-    sx={{
-      color: "#000", // set link text to black
-      fontWeight: 500,
-      fontSize: "1.05rem",
-      textTransform: "none",
-      cursor: "pointer",
-      "&:hover": {
-        textDecoration: "underline",
-      },
-    }}
-  >
-    {children}
-  </Link>
-);
+import {
+  AppBar,
+  Toolbar,
+  Drawer,
+  Box,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+// import { useTheme } from "@mui/material/styles";
+
+const links = [
+  { label: "About", href: "/about" },
+  {
+    label: "Portfolio",
+    href: "/portfolio",
+    children: [
+      { label: "Modern Gothic", href: "/portfolio/modern-gothic" },
+      { label: "Dark Academia", href: "/portfolio/dark-academia" },
+      { label: "Moody Romantic", href: "/portfolio/moody-romantic" },
+    ],
+  },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Header() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  //   const theme = useTheme();
+  const toggleDrawer = () => setDrawerOpen(!drawerOpen);
+
   return (
     <AppBar
-      position="static"
+      position="sticky"
+      elevation={0}
       sx={{
-        backgroundColor: "#fdf6e3", // cream/off-white background
-        // backgroundColor: "#F7F6F0", // nate berkus off white
-        boxShadow: "none", // remove AppBar shadow
+        backgroundColor: (theme) => theme.palette.common.white,
+        color: (theme) => theme.palette.text.primary, // text/icons
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        {/* Left links */}
-        <Box sx={{ display: "flex", gap: 8 }}>
-          <NavLink href="/about">ABOUT</NavLink>
-          <NavLink href="/portfolio">PORTFOLIO</NavLink>
-        </Box>
-
-        {/* Center title */}
-        <Typography
-          variant="h3"
-          component="div"
-          sx={{
-            flexGrow: 1,
-            textAlign: "center",
-            fontWeight: 600,
-            color: "#000",
-          }}
-        >
+        <Typography variant="h5" component="a" href="/" fontSize="1.5rem">
           soho spaces
         </Typography>
 
-        {/* Right links */}
-        <Box sx={{ display: "flex", gap: 8 }}>
-          <NavLink href="/services">SERVICES</NavLink>
-          <NavLink href="/about">ABOUT</NavLink>
+        {/* Desktop Header */}
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+          {links.map((link) => (
+            <Typography
+              key={link.label}
+              component="a"
+              href={link.href}
+              sx={{
+                textDecoration: "none",
+                color: "inherit",
+                "&:hover": { textDecoration: "underline" },
+              }}
+            >
+              {link.label}
+            </Typography>
+          ))}
         </Box>
+
+        {/* Mobile Header */}
+        <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}>
+          <IconButton onClick={toggleDrawer}>
+            <MenuIcon />
+          </IconButton>
+        </Box>
+
+        {/* Mobile Drawer */}
+        <MobileDrawer open={drawerOpen} onClose={toggleDrawer} />
       </Toolbar>
     </AppBar>
+  );
+}
+
+function MobileDrawer({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Drawer anchor="right" open={open} onClose={onClose}>
+      <Box sx={{ width: 400 }} role="presentation">
+        <List>
+          {links.map((link) => (
+            <NavItem
+              key={link.label}
+              label={link.label}
+              href={link.href}
+              onClick={onClose}
+            >
+              {link.children?.map((child) => (
+                <NavItem
+                  key={child.label}
+                  label={child.label}
+                  href={child.href}
+                  onClick={onClose}
+                  sx={{ pl: 4 }}
+                />
+              ))}
+            </NavItem>
+          ))}
+        </List>
+      </Box>
+    </Drawer>
+  );
+}
+
+function NavItem({
+  label,
+  href,
+  onClick,
+  sx,
+  children,
+}: {
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  sx?: object;
+  children?: React.ReactNode;
+}) {
+  return (
+    <>
+      <ListItem disablePadding>
+        <ListItemButton component="a" href={href} onClick={onClick} sx={sx}>
+          <ListItemText primary={label} />
+        </ListItemButton>
+      </ListItem>
+      {children}
+    </>
   );
 }
