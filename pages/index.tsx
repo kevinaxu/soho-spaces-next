@@ -70,10 +70,39 @@ export default function HomePage({ page }: { page: HomePageProps }) {
         )}
         {/* <TwoColumnSection /> */}
       </Column>
+
       {page.gallery && <HeroGallery hero={page.gallery} />}
 
+      <Column
+        sx={{
+          py: 6,
+          px: 2,
+          maxWidth: 800,
+          mx: "auto",
+          gap: 3,
+        }}
+      >
+        <TextSection />
+      </Column>
       <Footer />
     </>
+  );
+}
+
+function TextSection() {
+  return (
+    <Column paddingY={4} gap={2}>
+      <Typography variant="h2">About Us</Typography>
+      <Typography variant="body1">
+        We believe good design is about creating a feeling. Whenever we design a
+        place for ourselves, we first ask: how do I want to feel in this space?
+        We love traveling, reading, and immersing ourselves in different
+        cultures, so we frequently try to recreate a vibe or memory from
+        somewhere weve been. Our goal is to do the same for you—to transport you
+        to a feeling or place that will bring you comfort, but in a way that is
+        authentic, intentional, and unique to you.
+      </Typography>
+    </Column>
   );
 }
 

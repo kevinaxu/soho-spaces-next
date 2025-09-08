@@ -38,7 +38,7 @@ export default function Header({ sticky }: { sticky: boolean }) {
       position={sticky ? "sticky" : "relative"}
       elevation={0}
       sx={{
-        backgroundColor: (theme) => theme.palette.common.white,
+        backgroundColor: (theme) => theme.palette.background.default,
         color: (theme) => theme.palette.text.primary,
       }}
     >
