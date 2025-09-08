@@ -21,7 +21,7 @@ const lightTheme = createTheme({
       primary: "#333333",
       secondary: "#555555",
     },
-    footer: { main: "#78716C" },
+    footer: { main: "#78716C", contrastText: "#F2F0E9" },
   },
   typography: {
     fontFamily: ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(","),

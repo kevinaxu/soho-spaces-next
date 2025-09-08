@@ -1,22 +1,30 @@
 import { Row, Column } from "./Layout";
 import { Box, Typography, Divider } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { lighten } from "@mui/material/styles";
 import Link from "@mui/material/Link";
 import PhoneIcon from "@mui/icons-material/Phone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import { useTheme } from "@mui/material/styles";
 
 export default function Footer() {
   const theme = useTheme();
   return (
     <Column
-      paddingY={2}
-      paddingX={4}
-      gap={2}
       sx={{
-        backgroundColor: theme.palette.footer.main,
-        color: theme.palette.common.white,
+        gap: 2,
+        backgroundColor: "footer.main",
+        color: "footer.contrastText",
+        paddingX: {
+          xs: 4,
+          md: 8,
+        },
+        paddingTop: {
+          xs: 4,
+          md: 8,
+        },
+        paddingBottom: 2,
       }}
     >
       <FooterMain />
@@ -33,11 +41,10 @@ export default function Footer() {
 function FooterMain() {
   return (
     <Box
-      display="flex"
-      width="100%"
-      gap={4}
-      paddingY={2}
       sx={{
+        display: "flex",
+        width: "100%",
+        gap: 4,
         flexDirection: {
           xs: "column",
           md: "row",
@@ -45,6 +52,14 @@ function FooterMain() {
         justifyContent: {
           xs: "center",
           md: "space-between",
+        },
+        paddingBottom: {
+          xs: 4,
+          md: 2,
+        },
+        paddingTop: {
+          xs: 8,
+          md: 2,
         },
       }}
     >
@@ -59,8 +74,8 @@ function FooterMain() {
         <FooterMainLogo />
       </Box>
       <Box
-        gap={2}
         sx={{
+          gap: 2,
           width: {
             xs: "100%",
             md: "fit-content",
@@ -75,47 +90,57 @@ function FooterMain() {
 
 function FooterMainLogo() {
   return (
-    <Typography variant="h2" color="common.white">
-      SOHO SPACES
-    </Typography>
+    <Box
+      component="img"
+      src="https://soho-spaces.com/assets/soho_logo_white.svg"
+      alt="sohoh spaces logo"
+      sx={{ width: 120, height: "auto" }}
+    />
   );
 }
 
 function FooterMainLinks() {
   return (
     <Row
-      gap={12}
       sx={{
         width: {
           xs: "100%",
-          sm: "fit-content",
+          md: "fit-content",
+        },
+        gap: {
+          xs: 6,
+          md: 12,
         },
       }}
     >
       <Column gap={1}>
-        <Typography variant="h5" fontWeight="medium">
-          explore
-        </Typography>
-        <Link color="common.white" variant="body2" underline="hover" href="#">
+        <Row paddingBottom={1}>
+          <Typography variant="h5" fontWeight="medium">
+            explore
+          </Typography>
+        </Row>
+        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
           moody romantic
         </Link>
-        <Link color="common.white" variant="body2" underline="hover" href="#">
+        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
           dark academia
         </Link>
-        <Link color="common.white" variant="body2" underline="hover" href="#">
+        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
           modern gothic
         </Link>
-        <Link color="common.white" variant="body2" underline="hover" href="#">
+        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
           east meets west
         </Link>
       </Column>
       <Column gap={1}>
-        <Typography variant="h5" fontWeight="medium">
-          contact us
-        </Typography>
+        <Row paddingBottom={1}>
+          <Typography variant="h5" fontWeight="medium">
+            contact us
+          </Typography>
+        </Row>
         <Link
-          color="common.white"
-          variant="body2"
+          color="inherit"
+          variant="subtitle1"
           underline="hover"
           href="mailto:hello@soho-spaces.com"
           display="flex"
@@ -126,8 +151,8 @@ function FooterMainLinks() {
           hello@soho-spaces.com
         </Link>
         <Link
-          color="common.white"
-          variant="body2"
+          color="inherit"
+          variant="subtitle1"
           underline="hover"
           href="#"
           display="flex"
@@ -138,8 +163,8 @@ function FooterMainLinks() {
           404.566.5796
         </Link>
         <Link
-          color="common.white"
-          variant="body2"
+          color="inherit"
+          variant="subtitle1"
           underline="hover"
           href="#"
           display="flex"
@@ -157,10 +182,10 @@ function FooterMainLinks() {
 function FooterAttribution() {
   return (
     <Box
-      display="flex"
-      width="100%"
-      alignItems="center"
       sx={{
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
         flexDirection: {
           xs: "column",
           md: "row",
@@ -174,13 +199,29 @@ function FooterAttribution() {
       }}
     >
       <Row>
-        <Typography variant="body2" color="common.white">
-          Terms of Service / Westside Labs
-        </Typography>
+        <Row alignItems="center" gap={0.5}>
+          <CopyrightIcon
+            fontSize="small"
+            sx={{ color: "footer.contrastText" }}
+          />
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "footer.contrastText",
+            }}
+          >
+            2020 Soho Spaces. All Rights Reserved
+          </Typography>
+        </Row>
       </Row>
       <Row>
-        <Typography variant="body2" color="common.white">
-          Created by Westside Labs
+        <Typography
+          variant="body2"
+          sx={{
+            color: "footer.contrastText",
+          }}
+        >
+          / Westside Labs
         </Typography>
       </Row>
     </Box>
