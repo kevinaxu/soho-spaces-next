@@ -38,12 +38,21 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
 
   return (
     <>
-      <Box position="relative" width="100%" maxWidth={900}>
+      <Box
+        position="relative"
+        width="100%"
+        sx={{ maxWidth: { xs: "100%", md: 900 } }}
+      >
         <Box
           component="img"
           src={image}
           alt="Interactive"
-          sx={{ width: "100%", display: "block" }}
+          sx={{
+            width: "100%",
+            height: { xs: 500, md: "auto" },
+            objectFit: "cover",
+            display: "block",
+          }}
         />
 
         {hotspots.map((hotspot, idx) => (
@@ -95,7 +104,15 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
       ></Popover>
 
       {/* Caption always rendered, but empty when no hotspot is active */}
-      <Row gap={1} minHeight={96}>
+      <Row
+        gap={1}
+        sx={{
+          minHeight: {
+            xs: 48,
+            md: 96,
+          },
+        }}
+      >
         <Typography variant="body1" fontWeight="bold">
           {isActiveHotspot?.title ?? ""}
         </Typography>

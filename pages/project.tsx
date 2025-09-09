@@ -106,10 +106,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           },
           mx: "auto",
           maxWidth: 800,
-          gap: {
-            xs: 2,
-            md: 6,
-          },
+          gap: 6,
         }}
       >
         {/* Intro */}
