@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Row, Column } from "../src/components/Layout";
 import ImageCarousel from "../src/components/ImageCarousel";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
@@ -10,6 +11,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 import QuiltedGallery from "../src/components/QuiltedGallery";
 import HeroGallery from "../src/components/HeroGallery";
 import PhotoComparison from "../src/components/PhotoComparison";
+import HotspotImage from "../src/components/HotspotImage";
 
 interface Project {
   title: string;
@@ -33,6 +35,38 @@ interface Media {
   rows?: number;
   cols?: number;
 }
+
+const hotspots = [
+  {
+    title: "Cabinets",
+    description:
+      "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+    percent: {
+      x: 20,
+      y: 25,
+    },
+  },
+  {
+    title: "Counter",
+    description:
+      "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
+    percent: {
+      x: 90,
+      y: 80,
+    },
+  },
+  {
+    title: "Appliances",
+    description:
+      "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
+    percent: {
+      x: 40,
+      y: 60,
+    },
+  },
+];
+const hotspotImage =
+  "https://soho-spaces.com/assets/modern-gothic/IMG_0965.jpeg";
 
 export default function ProjectPage({ project }: { project: Project }) {
   // hero carousel
@@ -63,65 +97,85 @@ export default function ProjectPage({ project }: { project: Project }) {
         />
       )}
 
-      <Box
+      <Column
         sx={{
           py: 6,
           px: {
             xs: 4,
             md: 2,
           },
-          maxWidth: 800,
           mx: "auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: 3,
+          maxWidth: 800,
+          gap: {
+            xs: 2,
+            md: 6,
+          },
         }}
       >
-        <Typography variant="h1">{project.title}</Typography>
-
         {/* Intro */}
-        {project.intro && parsePortableText(project.intro)}
+        <Column gap={2}>
+          <Typography variant="h1">{project.title}</Typography>
+          {project.intro && parsePortableText(project.intro)}
+        </Column>
 
         {/* Quilted gallery */}
-        <Typography variant="h2">Gallery</Typography>
-        {project.gallery && (
-          <QuiltedGallery
-            gallery={project.gallery}
-            handleImageClick={handleGalleryImageClick}
-          />
-        )}
+        <Column gap={1}>
+          <Typography variant="h2">Gallery</Typography>
+          {project.gallery && (
+            <QuiltedGallery
+              gallery={project.gallery}
+              handleImageClick={handleGalleryImageClick}
+            />
+          )}
+        </Column>
 
         {/* Story */}
-        <Typography variant="h2">The Story</Typography>
-        {project.story && parsePortableText(project.story)}
+        <Column gap={1}>
+          <Typography variant="h2">The Story</Typography>
+          {project.story && parsePortableText(project.story)}
+        </Column>
 
         {/* Before/After */}
-        <Typography variant="h2">Before & After</Typography>
-        {project.comparison?.before && project.comparison?.after && (
-          <PhotoComparison
-            before={project.comparison.before}
-            after={project.comparison.after}
-          />
-        )}
+        <Column gap={1}>
+          <Typography variant="h2">Before & After</Typography>
+          <Typography variant="body1">
+            Swipe to see the before and after photos
+          </Typography>
+          {project.comparison?.before && project.comparison?.after && (
+            <PhotoComparison
+              before={project.comparison.before}
+              after={project.comparison.after}
+            />
+          )}
+        </Column>
 
-        {/* Carousels */}
-        {heroCarouselOpen && project.hero && (
-          <ImageCarousel
-            images={project.hero}
-            initialIndex={heroCarouselIndex}
-            onClose={handleHeroCloseCarousel}
-          />
-        )}
-        {galleryCarouselOpen && project.gallery && (
-          <ImageCarousel
-            images={project.gallery}
-            initialIndex={galleryCarouselIndex}
-            onClose={handleGalleryCloseCarousel}
-          />
-        )}
-      </Box>
+        {/* Hotspot Image */}
+        <Column gap={1}>
+          <Typography variant="h2">Materials</Typography>
+          <Typography variant="body1">
+            Click to view the different materials used in this project
+          </Typography>
+          <HotspotImage image={hotspotImage} hotspots={hotspots} />
+        </Column>
+      </Column>
 
       <Footer />
+
+      {/* Carousels */}
+      {heroCarouselOpen && project.hero && (
+        <ImageCarousel
+          images={project.hero}
+          initialIndex={heroCarouselIndex}
+          onClose={handleHeroCloseCarousel}
+        />
+      )}
+      {galleryCarouselOpen && project.gallery && (
+        <ImageCarousel
+          images={project.gallery}
+          initialIndex={galleryCarouselIndex}
+          onClose={handleGalleryCloseCarousel}
+        />
+      )}
     </>
   );
 }
