@@ -1,7 +1,6 @@
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { useState } from "react";
+import { Box, Grid, Typography, Chip } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import Grid from "@mui/material/Grid";
 import { Row, Column } from "../src/components/Layout";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
@@ -10,9 +9,25 @@ import styles from "@/styles/projectImage.module.css";
 interface Project {
   title: string;
   img: string;
+  tags: string[];
 }
 
+const allTags = [
+  "Kitchen",
+  "Living Room",
+  "Powder Room",
+  "Commercial",
+  "Residential",
+];
+
 export default function PortfolioPage({ projects }: { projects: Project[] }) {
+  const [isActiveTag, setIsActiveTag] = useState<string | null>(null);
+
+  // Filter projects by selected tag
+  const filteredProjects = isActiveTag
+    ? projects.filter((p) => p.tags.includes(isActiveTag))
+    : projects;
+
   return (
     <>
       <Header sticky={true} />
@@ -27,9 +42,24 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           px: 2,
           maxWidth: 1200,
           mx: "auto",
-          gap: 3,
+          gap: 1,
         }}
       >
+        {/* Chips row */}
+        <Row gap={1} flexWrap="wrap">
+          {allTags.map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              color={isActiveTag === tag ? "primary" : "default"}
+              onClick={() =>
+                setIsActiveTag((prev) => (prev === tag ? null : tag))
+              }
+              clickable
+            />
+          ))}
+        </Row>
+
         <Box sx={{ flexGrow: 1, p: 2 }}>
           <Grid
             container
@@ -39,13 +69,21 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               md: 8,
             }}
           >
-            {projects.map((project, idx) => (
-              <Grid size={{ xs: 12, md: 4 }} key={idx}>
-                <Column>
+            {filteredProjects.map((project, idx) => (
+              <Grid
+                size={{
+                  xs: 12,
+                  md: 4,
+                }}
+                key={idx}
+                display="flex"
+                justifyContent="center"
+              >
+                <Column sx={{ width: "100%", maxWidth: 350 }}>
                   {/* Image with hover trim effect */}
                   <Box
                     className={styles.containerBlock}
-                    sx={{ width: 350, height: 500, position: "relative" }}
+                    sx={{ width: "100%", height: 500, position: "relative" }}
                   >
                     <Box
                       component="img"
@@ -86,35 +124,43 @@ export async function getStaticProps() {
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
       title: "Breakfast",
+      tags: ["Residential", "Living Room"],
     },
     {
       img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
       title: "Burger",
+      tags: ["Powder Room"],
     },
     {
       img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
       title: "Camera",
+      tags: ["Living Room"],
     },
     {
       img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
       title: "Coffee",
+      tags: ["Powder Room"],
     },
     // second four
     {
       img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
+      tags: ["Residential"],
     },
     {
       img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
       title: "Hats",
+      tags: ["Residential"],
     },
     {
       img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
+      tags: ["Residential"],
     },
     {
       img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
       title: "Hats",
+      tags: ["Residential"],
     },
   ];
 
