@@ -94,7 +94,11 @@ function FooterMainLogo() {
       component="img"
       src="https://soho-spaces.com/assets/soho_logo_white.svg"
       alt="sohoh spaces logo"
-      sx={{ width: 120, height: "auto" }}
+      sx={{
+        opacity: 0.2,
+        width: 180,
+        height: "auto",
+      }}
     />
   );
 }
