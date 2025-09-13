@@ -42,11 +42,21 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           px: 2,
           maxWidth: 1200,
           mx: "auto",
-          gap: 1,
+          gap: 2,
         }}
       >
         {/* Chips row */}
-        <Row gap={1} flexWrap="wrap">
+        <Row
+          flexWrap="wrap"
+          sx={{
+            gap: 1,
+            width: "100%",
+            justifyContent: {
+              xs: "center",
+              md: "flex-end",
+            },
+          }}
+        >
           {allTags.map((tag) => (
             <Chip
               key={tag}
@@ -60,7 +70,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           ))}
         </Row>
 
-        <Box sx={{ flexGrow: 1, p: 2 }}>
+        <Box sx={{ flexGrow: 1, py: 2 }}>
           <Grid
             container
             columnSpacing={4}
