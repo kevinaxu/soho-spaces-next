@@ -1,0 +1,95 @@
+/**********************************************
+ * 
+ * "Trim" Image Effect on Hover (only on desktop)
+ * 
+ *********************************************/
+
+@media (min-width: 1024px) {
+
+  .containerBlock {
+    position: relative;
+  }
+
+  .containerBlock img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Overlay pseudo-elements */
+  .innerBlock::before,
+  .sliderTopRight::after {
+    height: 0%;
+    width: 1.5px;
+    transition: height 0.75s ease;
+    background-color: rgb(231, 229, 228);
+    content: '';
+    display: block;
+    position: absolute;
+  }
+
+  .innerBlock::after,
+  .sliderTopRight::before {
+    height: 1.5px;
+    width: 0%;
+    transition: width 0.75s ease;
+    background-color: rgb(231, 229, 228);
+    content: '';
+    display: block;
+    position: absolute;
+  }
+
+  .containerBlock:hover .innerBlock::before,
+  .containerBlock:hover .sliderTopRight::after {
+    height: 100%;
+  }
+
+  .containerBlock:hover .innerBlock::after,
+  .containerBlock:hover .sliderTopRight::before {
+    width: 100%;
+  }
+
+  .innerBlock {
+    font-size: 0.5em;
+    width: 95%;
+    height: 95%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .innerBlock::before {
+    bottom: 0;
+    left: 0;
+  }
+
+  .innerBlock::after {
+    bottom: 0;
+    right: 0;
+  }
+
+  .sliderTopRight {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sliderTopRight::before {
+    top: 0;
+    left: 0;
+  }
+
+  .sliderTopRight::after {
+    top: 0;
+    right: 0;
+  }
+
+  .blockContent {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    padding: 0 1rem;
+  }
+}
