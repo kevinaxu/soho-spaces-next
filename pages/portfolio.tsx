@@ -5,11 +5,20 @@ import { Row, Column } from "../src/components/Layout";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import styles from "@/styles/projectImage.module.css";
+import Link from "next/link";
+
+enum ProjectStatus {
+  COMING_SOON = "COMING_SOON",
+  ACTIVE = "ACTIVE",
+  COMPLETED = "COMPLETED",
+}
 
 interface Project {
   title: string;
-  img: string;
+  heroImage: string;
+  slug: string;
   tags: string[];
+  status?: ProjectStatus;
 }
 
 const allTags = [
@@ -62,8 +71,9 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               key={tag}
               label={tag}
               color={isActiveTag === tag ? "primary" : "default"}
-              onClick={() =>
-                setIsActiveTag((prev) => (prev === tag ? null : tag))
+              onClick={() => setIsActiveTag(tag)}
+              onDelete={
+                isActiveTag === tag ? () => setIsActiveTag(null) : undefined
               }
               clickable
             />
@@ -90,33 +100,55 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
                 justifyContent="center"
               >
                 <Column sx={{ width: "100%", maxWidth: 350 }}>
-                  {/* Image with hover trim effect */}
-                  <Box
-                    className={styles.containerBlock}
-                    sx={{ width: "100%", height: 500, position: "relative" }}
-                  >
+                  <Link href={project.slug} passHref>
+                    {/* Image with hover trim effect */}
                     <Box
-                      component="img"
-                      src={project.img}
-                      alt={project.title}
+                      className={styles.containerBlock}
                       sx={{
                         width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
+                        height: 500,
+                        position: "relative",
+                        //   filter:
+                        //     project.status === "COMING_SOON"
+                        //       ? "grayscale(50%) brightness(80%)"
+                        //       : "none",
                       }}
-                    />
-                    <Box className={styles.innerBlock}>
-                      <Box className={styles.sliderTopRight} />
+                    >
+                      <Box
+                        component="img"
+                        src={project.heroImage}
+                        alt={project.title}
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
+                      <Box className={styles.innerBlock}>
+                        <Box className={styles.sliderTopRight} />
+                      </Box>
                     </Box>
-                  </Box>
+                  </Link>
                   <Row
                     justifyContent="space-between"
                     alignItems="center"
                     sx={{ mt: 1 }}
                   >
-                    <Typography variant="body1">{project.title}</Typography>
-                    <ArrowRightAltIcon />
+                    <Link href={project.slug} passHref>
+                      <Typography variant="body1">{project.title}</Typography>
+                    </Link>
+                    {project.status === "COMING_SOON" ? (
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        sx={{ fontStyle: "italic" }}
+                      >
+                        coming soon
+                      </Typography>
+                    ) : (
+                      <ArrowRightAltIcon />
+                    )}
                   </Row>
                 </Column>
               </Grid>
@@ -132,45 +164,60 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
 export async function getStaticProps() {
   const projects = [
     {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      heroImage: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
       title: "Breakfast",
+      slug: "/project",
       tags: ["Residential", "Living Room"],
+      status: ProjectStatus.ACTIVE,
     },
     {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+      heroImage: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
       title: "Burger",
+      slug: "/project",
       tags: ["Powder Room"],
+      status: ProjectStatus.COMING_SOON,
     },
     {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+      heroImage: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
       title: "Camera",
+      slug: "/project",
       tags: ["Living Room"],
+      status: ProjectStatus.COMING_SOON,
     },
     {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+      heroImage: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
       title: "Coffee",
+      slug: "/project",
       tags: ["Powder Room"],
+      status: ProjectStatus.ACTIVE,
     },
-    // second four
     {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+      heroImage: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
+      slug: "/project",
       tags: ["Residential"],
+      status: ProjectStatus.ACTIVE,
     },
     {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+      heroImage: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
       title: "Hats",
+      slug: "/project",
       tags: ["Residential"],
+      status: ProjectStatus.ACTIVE,
     },
     {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+      heroImage: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
+      slug: "/project",
       tags: ["Residential"],
+      status: ProjectStatus.ACTIVE,
     },
     {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+      heroImage: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
       title: "Hats",
+      slug: "/project",
       tags: ["Residential"],
+      status: ProjectStatus.ACTIVE,
     },
   ];
 
