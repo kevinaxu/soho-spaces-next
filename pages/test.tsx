@@ -1,37 +1,50 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import TeamSection from "../src/components/TeamSection";
+// import HotspotImage from "../src/components/HotspotImage";
 import { Column } from "../src/components/Layout";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Row } from "../src/components/Layout";
+import { Box, Popover, Typography } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const team = [
+const hotspots = [
   {
-    heroImage:
-      "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/466620435_10234280326938948_8848555020260980839_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=BsdM6Ox9zIYQ7kNvwHl6aR5&_nc_oc=Adnsm9PV6AnUO_1SpAEIAVEmjtTys_Pvu4pJyM-UXCuWKE5TGA_tyv1IkOlri2wtBjA&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=cfb9r_YoLC7xuL_8nfVbVQ&oh=00_AfaCreR9MeVeiyadfGUMwy6VQUFOhuDDlwb_LlCAQ9blfg&oe=68CC28DB",
-    name: "Maisa Sohail",
-    title: "Co-Founder, Principal Designer",
-    content:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+    title: "Cabinets",
+    description:
+      "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+    percent: {
+      x: 20,
+      y: 25,
+    },
   },
   {
-    heroImage: "https://soho-spaces.com/assets/home/sohail_sisters.jpeg",
-    name: "Tahaiya Sohail",
-    title: "Co-Founder, Head of Sales",
-    content:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+    title: "Counter",
+    description:
+      "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
+    percent: {
+      x: 90,
+      y: 80,
+    },
   },
   {
-    heroImage:
-      "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/402893763_10160167215898542_3166251289793318081_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=UbfmZ3U2HbEQ7kNvwEE3rIn&_nc_oc=AdlBZCT8mthqBmGTU-Q1PK3Bj0RfTjPvZp0SdOHAmcXJEn7gWqU9ra_WyCm8xLHfaq8&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=Y5cSkYbPuszOnKAGbtaZ4w&oh=00_AfbgY_A2CzvRNbkhpu1g63ib6ohUvUPTdpinOHqSPCtO0A&oe=68CC17F8",
-    name: "Kevin Xu",
-    title: "Co-Founder, Technical Architect",
-    content:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+    title: "Appliances",
+    description:
+      "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
+    percent: {
+      x: 40,
+      y: 60,
+    },
   },
 ];
+const hotspotImage =
+  "https://soho-spaces.com/assets/modern-gothic/IMG_0965.jpeg";
 
 export default function HomePage({}) {
   return (
@@ -42,13 +55,16 @@ export default function HomePage({}) {
       <Column
         sx={{
           py: 6,
-          px: 2,
-          maxWidth: 1200,
+          px: {
+            xs: 4,
+            md: 2,
+          },
           mx: "auto",
-          gap: 3,
+          maxWidth: 800,
+          gap: 2,
         }}
       >
-        <TeamSection team={team} />
+        <ImageWithHotspots image={hotspotImage} hotspots={hotspots} />
       </Column>
 
       <Footer />
@@ -56,45 +72,201 @@ export default function HomePage({}) {
   );
 }
 
-// export async function getStaticProps() {
-//   const query = `*[_type == "home"] | order(publishedAt desc)[0]{
-//     title,
-//     publishedAt,
-//     about,
-//     "aboutImage": aboutImage->{
-//       _id,
-//       title,
-//       "url": image.asset->url
-//     },
-//     "gallery": gallery[]->{
-//       _id,
-//       title,
-//       "url": image.asset->url,
-//       rows,
-//       cols
-//     },
-//   }`;
-//   const page = await client.fetch(query);
-//   console.log("dumping page", JSON.stringify(page, null, 2));
-//   return { props: { page } };
-// }
-
-function ScreenSizeLogger() {
-  const theme = useTheme();
-
-  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
-  const isSm = useMediaQuery(theme.breakpoints.only("sm"));
-  const isMd = useMediaQuery(theme.breakpoints.only("md"));
-  const isLg = useMediaQuery(theme.breakpoints.only("lg"));
-  const isXl = useMediaQuery(theme.breakpoints.only("xl"));
-
-  useEffect(() => {
-    if (isXs) console.log("Current screen: xs");
-    if (isSm) console.log("Current screen: sm");
-    if (isMd) console.log("Current screen: md");
-    if (isLg) console.log("Current screen: lg");
-    if (isXl) console.log("Current screen: xl");
-  }, [isXs, isSm, isMd, isLg, isXl]);
-
-  return <div>Resize the window and check the console!</div>;
+interface Hotspot {
+  title: string;
+  description: string;
+  percent: {
+    x: number;
+    y: number;
+  };
 }
+
+interface HotspotImageProps {
+  image: string;
+  hotspots: Hotspot[];
+}
+
+function ImageWithHotspots({ image, hotspots }: HotspotImageProps) {
+  const [activeIdx, setActiveIdx] = useState<number | null>(0);
+
+  const handleClick = (idx: number) => {
+    setActiveIdx(idx === activeIdx ? null : idx);
+  };
+  const handleNext = () => {
+    if (activeIdx === null) {
+      setActiveIdx(0);
+    } else {
+      setActiveIdx((activeIdx + 1) % hotspots.length);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeIdx === null) {
+      setActiveIdx(hotspots.length - 1);
+    } else {
+      setActiveIdx((activeIdx - 1 + hotspots.length) % hotspots.length);
+    }
+  };
+
+  return (
+    <>
+      <Row position="relative" width="100%" justifyContent="center">
+        <Box
+          position="relative"
+          sx={{
+            maxWidth: { xs: "100%", md: 900 },
+          }}
+        >
+          <Box
+            component="img"
+            src={image}
+            alt="Interactive"
+            sx={{
+              width: "100%",
+              height: { xs: 500, md: "auto" },
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+
+          {hotspots.map((hotspot, idx) => {
+            const isActive = idx === activeIdx;
+            return (
+              <Box
+                key={idx}
+                sx={{
+                  position: "absolute",
+                  top: `${hotspot.percent.y}%`,
+                  left: `${hotspot.percent.x}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <Box
+                  onClick={() => handleClick(idx)}
+                  sx={{
+                    width: isActive ? 20 : 12,
+                    height: isActive ? 20 : 12,
+                    borderRadius: "50%",
+                    backgroundColor: isActive ? "red" : "gray",
+                    border: "2px solid white",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    animation: isActive
+                      ? "pulse 1.5s infinite ease-in-out"
+                      : "none",
+                    "@keyframes pulse": {
+                      "0%": { transform: "scale(1)" },
+                      "50%": { transform: "scale(1.2)" },
+                      "100%": { transform: "scale(1)" },
+                    },
+                  }}
+                />
+              </Box>
+            );
+          })}
+
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 16,
+              right: 16,
+              display: "flex",
+              gap: 0,
+            }}
+          >
+            <IconButton
+              onClick={handlePrev}
+              sx={{
+                bgcolor: "transparent",
+                color: "white",
+                p: 0.5,
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.2)", // subtle hover
+                },
+              }}
+            >
+              <ChevronLeftIcon sx={{ fontSize: 32 }} />
+            </IconButton>
+            <IconButton
+              onClick={handleNext}
+              sx={{
+                bgcolor: "transparent",
+                color: "white",
+                p: 0.5,
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                },
+              }}
+            >
+              <ChevronRightIcon sx={{ fontSize: 32 }} />
+            </IconButton>
+          </Box>
+        </Box>
+      </Row>
+      <Row
+        sx={{
+          gap: 0,
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+        }}
+      >
+        {activeIdx !== null ? (
+          <>
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="body1" fontWeight="bold">
+                {hotspots[activeIdx].title}
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                {hotspots[activeIdx].description}
+              </Typography>
+            </Box>
+            <Box>
+              <IconButton
+                size="small"
+                onClick={() => setActiveIdx(null)}
+                sx={{
+                  p: 0.5,
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                  "&:focus": {
+                    outline: "none",
+                  },
+                }}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Box>
+          </>
+        ) : (
+          <Typography variant="body1" fontStyle="italic">
+            Select a design feature to learn more
+          </Typography>
+        )}
+      </Row>
+    </>
+  );
+}
+
+/*
+// Styling of controls with background
+<Box
+    sx={{
+        position: "absolute",
+        bottom: 16,
+        right: 16,
+        display: "flex",
+        gap: 1,
+        backgroundColor: "rgba(255,255,255,0.7)",
+        borderRadius: 1,
+        p: 0.5,
+    }}
+>
+    <IconButton size="small">
+        <ChevronLeftIcon />
+    </IconButton>
+    <IconButton size="small">
+        <ChevronRightIcon />
+    </IconButton>
+</Box>
+*/
