@@ -1,7 +1,11 @@
 import { useState } from "react";
 
 import { Row } from "../components/Layout";
-import { Box, Popover, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 interface Hotspot {
   title: string;
@@ -18,107 +22,162 @@ interface HotspotImageProps {
 }
 
 export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
-  const [isAnchorElement, setIsAnchorElement] = useState<HTMLElement | null>(
-    null
-  );
-  const [isActiveHotspot, setIsActiveHotspot] = useState<Hotspot | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number | null>(0);
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLElement>,
-    hotspot: Hotspot
-  ) => {
-    setIsAnchorElement(event.currentTarget);
-    setIsActiveHotspot(hotspot);
+  const handleClick = (idx: number) => {
+    setActiveIdx(idx === activeIdx ? null : idx);
+  };
+  const handleNext = () => {
+    if (activeIdx === null) {
+      setActiveIdx(0);
+    } else {
+      setActiveIdx((activeIdx + 1) % hotspots.length);
+    }
   };
 
-  const handleClose = () => {
-    setIsAnchorElement(null);
-    setIsActiveHotspot(null);
+  const handlePrev = () => {
+    if (activeIdx === null) {
+      setActiveIdx(hotspots.length - 1);
+    } else {
+      setActiveIdx((activeIdx - 1 + hotspots.length) % hotspots.length);
+    }
   };
 
   return (
     <>
-      <Box
-        position="relative"
-        width="100%"
-        sx={{ maxWidth: { xs: "100%", md: 900 } }}
-      >
+      <Row position="relative" width="100%" justifyContent="center">
         <Box
-          component="img"
-          src={image}
-          alt="Interactive"
+          position="relative"
           sx={{
-            width: "100%",
-            height: { xs: 500, md: "auto" },
-            objectFit: "cover",
-            display: "block",
+            maxWidth: { xs: "100%", md: 900 },
           }}
-        />
-
-        {hotspots.map((hotspot, idx) => (
+        >
           <Box
-            key={idx}
+            component="img"
+            src={image}
+            alt="Interactive"
+            sx={{
+              width: "100%",
+              height: { xs: 500, md: "auto" },
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+
+          {hotspots.map((hotspot, idx) => {
+            const isActive = idx === activeIdx;
+            return (
+              <Box
+                key={idx}
+                sx={{
+                  position: "absolute",
+                  top: `${hotspot.percent.y}%`,
+                  left: `${hotspot.percent.x}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <Box
+                  onClick={() => handleClick(idx)}
+                  sx={{
+                    width: isActive ? 20 : 12,
+                    height: isActive ? 20 : 12,
+                    borderRadius: "50%",
+                    backgroundColor: isActive ? "red" : "gray",
+                    border: "2px solid white",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    animation: isActive
+                      ? "pulse 1.5s infinite ease-in-out"
+                      : "none",
+                    "@keyframes pulse": {
+                      "0%": { transform: "scale(1)" },
+                      "50%": { transform: "scale(1.2)" },
+                      "100%": { transform: "scale(1)" },
+                    },
+                  }}
+                />
+              </Box>
+            );
+          })}
+
+          <Box
             sx={{
               position: "absolute",
-              top: `${hotspot.percent.y}%`,
-              left: `${hotspot.percent.x}%`,
-              transform: "translate(-50%, -50%)",
+              bottom: 16,
+              right: 16,
+              display: "flex",
+              gap: 0,
             }}
           >
-            <Box
-              onClick={(e) => handleClick(e, hotspot)}
+            <IconButton
+              onClick={handlePrev}
               sx={{
-                width: 16,
-                height: 16,
-                borderRadius: "50%",
-                backgroundColor: "red",
-                border: "2px solid white",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
+                bgcolor: "transparent",
+                color: "white",
+                p: 0.5,
                 "&:hover": {
-                  transform: "scale(1.2)",
+                  backgroundColor: "rgba(255,255,255,0.2)", // subtle hover
                 },
               }}
-            />
+            >
+              <ChevronLeftIcon sx={{ fontSize: 32 }} />
+            </IconButton>
+            <IconButton
+              onClick={handleNext}
+              sx={{
+                bgcolor: "transparent",
+                color: "white",
+                p: 0.5,
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                },
+              }}
+            >
+              <ChevronRightIcon sx={{ fontSize: 32 }} />
+            </IconButton>
           </Box>
-        ))}
-      </Box>
-
-      <Popover
-        open={Boolean(isAnchorElement)}
-        anchorEl={isAnchorElement}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "left" }}
-        transformOrigin={{ vertical: "bottom", horizontal: "center" }}
-        transitionDuration={0}
-        disableScrollLock
-        slotProps={{
-          paper: {
-            sx: {
-              backgroundColor: "transparent",
-              boxShadow: "none",
-              pointerEvents: "none",
-            },
-          },
-        }}
-      ></Popover>
-
-      {/* Caption always rendered, but empty when no hotspot is active */}
+        </Box>
+      </Row>
       <Row
-        gap={1}
         sx={{
-          minHeight: {
-            xs: 48,
-            md: 96,
-          },
+          gap: 0,
+          alignItems: "flex-start",
+          justifyContent: "space-between",
         }}
       >
-        <Typography variant="body1" fontWeight="bold">
-          {isActiveHotspot?.title ?? ""}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {isActiveHotspot?.description ?? ""}
-        </Typography>
+        {activeIdx !== null ? (
+          <>
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="body1" fontWeight="bold">
+                {hotspots[activeIdx].title}
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                {hotspots[activeIdx].description}
+              </Typography>
+            </Box>
+            <Box>
+              <IconButton
+                size="small"
+                onClick={() => setActiveIdx(null)}
+                sx={{
+                  p: 0.5,
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                  "&:focus": {
+                    outline: "none",
+                  },
+                }}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Box>
+          </>
+        ) : (
+          <Typography variant="body1" fontStyle="italic">
+            Select a design feature to learn more
+          </Typography>
+        )}
       </Row>
     </>
   );

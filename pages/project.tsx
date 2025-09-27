@@ -149,9 +149,6 @@ export default function ProjectPage({ project }: { project: Project }) {
         {/* Hotspot Image */}
         <Column gap={1}>
           <Typography variant="h2">Materials</Typography>
-          <Typography variant="body1">
-            Click to view the different materials used in this project
-          </Typography>
           <HotspotImage image={hotspotImage} hotspots={hotspots} />
         </Column>
       </Column>
