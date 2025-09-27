@@ -10,6 +10,7 @@ import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
+import StackedDeck from "../src/components/StackedDeck";
 
 interface HomePageProps {
   title: string;
@@ -28,6 +29,37 @@ interface Media {
 
 const aboutUs1 = `We believe good design is about creating a feeling. Whenever we design a place for ourselves, we first ask: how do I want to feel in this space? We love traveling, reading, and immersing ourselves in different cultures, so we frequently try to recreate a vibe or memory from somewhere we've been. Our goal is to do the same for you—to transport you to a feeling or place that will bring you comfort, but in a way that is authentic, intentional, and unique to you.`;
 const aboutUs2 = `Because ultimately, we're not just designers, we're storytellers. We weave function, comfort, and mementos you've collected throughout your life to create a sense of place…and a space that is a reflection of who you are, where you've been, and what you love.`;
+
+const cards = [
+  {
+    numberText: "04 / 04",
+    title: "Content Creation",
+    bg: "#bab2a3",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "03 / 04",
+    title: "Brand Strategy",
+    bg: "#c8c0b3",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "02 / 04",
+    title: "Video Strategy",
+    bg: "#d9d3ca",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "01 / 04",
+    title: "Video Production",
+    bg: "#f1eeed",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+];
 
 export default function HomePage({ page }: { page: HomePageProps }) {
   const [sticky, setSticky] = useState<boolean | null>(null);
@@ -70,6 +102,8 @@ export default function HomePage({ page }: { page: HomePageProps }) {
         )}
         {/* <TwoColumnSection /> */}
       </Column>
+
+      <StackedDeck cards={cards} />
 
       {page.gallery && <HeroGallery hero={page.gallery} />}
 
