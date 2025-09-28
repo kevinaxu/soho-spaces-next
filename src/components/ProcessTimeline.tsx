@@ -1,38 +1,93 @@
-import Header from "../src/components/Header";
-import Footer from "../src/components/Footer";
-import ProcessTimeline from "../src/components/ProcessTimeline";
+import * as React from "react";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import Typography from "@mui/material/Typography";
+import { Row, Column } from "../components/Layout";
 
-const cards = [
-  {
-    numberText: "04 / 04",
-    title: "Content Creation",
-    bg: "#bab2a3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "03 / 04",
-    title: "Brand Strategy",
-    bg: "#c8c0b3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "02 / 04",
-    title: "Video Strategy",
-    bg: "#d9d3ca",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "01 / 04",
-    title: "Video Production",
-    bg: "#f1eeed",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-];
+interface ProcessStepContent {
+  title: string;
+  description: string;
+}
 
+export default function ProcessTimeline({
+  timelineData,
+}: {
+  timelineData: ProcessStepContent[];
+}) {
+  return (
+    <Column
+      sx={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h2">Our Process</Typography>
+      <Row
+        sx={{
+          py: 4,
+          gap: 8,
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <Timeline
+          position="alternate-reverse"
+          sx={{
+            px: 2,
+            maxWidth: "1100px",
+          }}
+        >
+          {timelineData.map((item, index) => (
+            <TimelineItem key={index}>
+              <TimelineSeparator>
+                <TimelineDot variant="outlined" />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContentCard
+                title={item.title}
+                description={item.description}
+              />
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </Row>
+    </Column>
+  );
+}
+
+function TimelineContentCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <TimelineContent>
+      <Column
+        sx={{
+          gap: 1,
+          mx: {
+            xs: 0,
+            md: 4,
+          },
+          alignSelf: "center",
+        }}
+      >
+        <Typography variant="h6">{title}</Typography>
+        <Typography color="text.secondary" sx={{ textAlign: "justify" }}>
+          {description}
+        </Typography>
+      </Column>
+    </TimelineContent>
+  );
+}
+
+/*
 const timelineData = [
   {
     title: "Design Consultation",
@@ -72,13 +127,4 @@ const timelineData = [
       "It's ordering time! After you've given the green light to your design, we swing into action by reaching out to our suppliers and meticulously tracking timelines for smooth deliveries. In tandem with our contractor, we take charge of ensuring the flawless execution of the Design Plans. Consider this a stress-free zone for you, as we handle all the details and project manage the design and build process from start to finish.",
   },
 ];
-
-export default function HomePage({}) {
-  return (
-    <>
-      <Header sticky={false} />
-      <ProcessTimeline timelineData={timelineData} />
-      <Footer />
-    </>
-  );
-}
+*/
