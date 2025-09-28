@@ -7,10 +7,12 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import Typography from "@mui/material/Typography";
 import { Row, Column } from "../components/Layout";
+import { SvgIconComponent } from "@mui/icons-material";
 
 interface ProcessStepContent {
   title: string;
   description: string;
+  icon?: SvgIconComponent;
 }
 
 export default function ProcessTimeline({
@@ -44,7 +46,13 @@ export default function ProcessTimeline({
           {timelineData.map((item, index) => (
             <TimelineItem key={index}>
               <TimelineSeparator>
-                <TimelineDot variant="outlined" />
+                {item.icon ? (
+                  <TimelineDot>
+                    <item.icon fontSize="small" />
+                  </TimelineDot>
+                ) : (
+                  <TimelineDot variant="outlined" />
+                )}
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContentCard

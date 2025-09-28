@@ -1,6 +1,39 @@
+import { useState, useEffect } from "react";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import ProcessTimeline from "../src/components/ProcessTimeline";
+import { Box, Fade } from "@mui/material";
+import { Column } from "../src/components/Layout";
+import ImageCrossFade from "../src/components/ImageCrossFade";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import GroupsIcon from "@mui/icons-material/Groups";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import CoPresentIcon from "@mui/icons-material/CoPresent";
+import ConstructionIcon from "@mui/icons-material/Construction";
+
+export default function HomePage({}) {
+  return (
+    <>
+      <Header sticky={false} />
+
+      <ProcessTimeline timelineData={timelineData} />
+
+      <Column
+        sx={{
+          py: 6,
+          px: 2,
+          mx: "auto",
+          maxWidth: "1000px",
+          gap: 3,
+        }}
+      >
+        <ImageCrossFade images={images} />
+      </Column>
+
+      <Footer />
+    </>
+  );
+}
 
 const cards = [
   {
@@ -36,6 +69,7 @@ const cards = [
 const timelineData = [
   {
     title: "Design Consultation",
+    icon: GroupsIcon,
     description: `The initial meeting will occur in your home to discuss your
       needs, desires, wish list, and budget, aiming to establish a
       vision for your residence. This two-hour session provides an
@@ -45,6 +79,7 @@ const timelineData = [
   },
   {
     title: "Design Proposal & Approval",
+    icon: DriveFileRenameOutlineIcon,
     description: `With a finalized preliminary design plan that outlines the scope
       of work and budget, the next step is to create a legally binding
       Letter of Agreement tailored to your project. Upon the mutual
@@ -53,6 +88,7 @@ const timelineData = [
   },
   {
     title: "Concept and Detailed Design",
+    icon: TipsAndUpdatesIcon,
     description: `We kick off the design phase, diving into the creative process
       where our team gathers all those exciting design ideas we've
       been brewing. As construction is often a component, we meet with
@@ -63,22 +99,19 @@ const timelineData = [
   },
   {
     title: "Presentation",
+    icon: CoPresentIcon,
     description:
       "Once the design plan is finalized, we will present the reimagined rooms and the overall space, bringing it to life with detailed drawings, fabric swatches, and finish samples. Depending on the project's scale, phased presentations may be required. If any revisions or tweaks are requested, we'll meticulously fine-tune them by exploring alternatives, ensuring you end up with the perfect design plan that resonates with your preferences.",
   },
   {
     title: "Implementation",
+    icon: ConstructionIcon,
     description:
       "It's ordering time! After you've given the green light to your design, we swing into action by reaching out to our suppliers and meticulously tracking timelines for smooth deliveries. In tandem with our contractor, we take charge of ensuring the flawless execution of the Design Plans. Consider this a stress-free zone for you, as we handle all the details and project manage the design and build process from start to finish.",
   },
 ];
 
-export default function HomePage({}) {
-  return (
-    <>
-      <Header sticky={false} />
-      <ProcessTimeline timelineData={timelineData} />
-      <Footer />
-    </>
-  );
-}
+const images = [
+  "/emily_bedroom.png",
+  "https://soho-spaces.com/assets/moody-romantic/IMG_0017.jpeg",
+];
