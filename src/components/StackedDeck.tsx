@@ -26,14 +26,11 @@ export default function StackedDeck({
         let rightOffset: number;
 
         if (index === 0) {
-          // bottom card: full width
-          rightOffset = 0;
+          rightOffset = 0; // bottom card: full width
         } else if (index === 1) {
-          // second-to-last card
-          rightOffset = OFFSET_BASE;
+          rightOffset = OFFSET_BASE; // second-to-last card
         } else {
-          // all other top cards
-          rightOffset = OFFSET_BASE + OFFSET * (index - 1);
+          rightOffset = OFFSET_BASE + OFFSET * (index - 1); // all other top cards
         }
 
         // Apply reveal offset if hovered card is on top
@@ -121,3 +118,36 @@ function ServicesColumn({
     </Column>
   );
 }
+
+/*
+const cards = [
+  {
+    numberText: "04 / 04",
+    title: "Content Creation",
+    bg: "#bab2a3",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "03 / 04",
+    title: "Brand Strategy",
+    bg: "#c8c0b3",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "02 / 04",
+    title: "Video Strategy",
+    bg: "#d9d3ca",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+  {
+    numberText: "01 / 04",
+    title: "Video Production",
+    bg: "#f1eeed",
+    description:
+      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+];
+*/
