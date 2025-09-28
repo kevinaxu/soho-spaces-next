@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import ProcessTimeline from "../src/components/ProcessTimeline";
-import { Box, Fade } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Fade,
+  useMediaQuery,
+  useTheme,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
 import { Column } from "../src/components/Layout";
 import ImageCrossFade from "../src/components/ImageCrossFade";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -11,12 +19,90 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
+const travelImages = [
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // ocean
+  "https://images.unsplash.com/photo-1493558103817-58b2924bce98", // mountain
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470", // desert
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee", // city
+  "https://images.unsplash.com/photo-1518684079-3c830dcef090", // temple
+  "https://images.unsplash.com/photo-1506744038136-46273834b3fb", // airplane
+  "https://images.unsplash.com/photo-1500534623283-312aade485b7", // lake
+  "https://images.unsplash.com/photo-1506744038136-46273834b3fb", // airplane
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // beach
+];
+
 export default function HomePage({}) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  console.log("is mobile", isMobile);
+
   return (
     <>
       <Header sticky={false} />
 
-      <ProcessTimeline timelineData={timelineData} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: "flex-start",
+          py: 4,
+          justifyContent: "center", // ✅ center content horizontally
+          width: "100%",
+          mx: "auto",
+          position: "relative",
+          bgcolor: "#e3e2dc",
+          alignContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            maxWidth: "1200px",
+            width: "100%",
+          }}
+        >
+          {/* LEFT COLUMN (Sticky) */}
+          <Box
+            sx={{
+              flex: { xs: "0 0 auto", md: "0 0 40%" },
+              p: 4,
+              position: "relative",
+            }}
+          >
+            <Box
+              sx={{
+                position: "sticky",
+                top: theme.spacing(8),
+                gap: 4,
+              }}
+            >
+              <Typography variant="h2" gutterBottom>
+                Designs inspired by the world.
+              </Typography>
+              <Typography color="text.secondary">
+                Through our travels, we are able to incorporate unique looks and
+                source uniue products.
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* RIGHT COLUMN (3x3 Image Grid) */}
+          <Box sx={{ flex: 1, p: 4 }}>
+            <ImageList cols={3} gap={12}>
+              {travelImages.map((src, i) => (
+                <ImageListItem key={i}>
+                  <img
+                    src={`${src}?auto=format&fit=crop&w=400&h=600&q=80`}
+                    alt={`Travel ${i + 1}`}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Box>
+        </Box>
+      </Box>
 
       <Column
         sx={{
@@ -30,6 +116,7 @@ export default function HomePage({}) {
         <ImageCrossFade images={images} />
       </Column>
 
+      {/* <ProcessTimeline timelineData={timelineData} /> */}
       <Footer />
     </>
   );
