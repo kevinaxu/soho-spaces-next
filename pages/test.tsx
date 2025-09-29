@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import ProcessTimeline from "../src/components/ProcessTimeline";
+import TeamSection from "../src/components/TeamSection";
 import {
   Box,
   Typography,
@@ -10,8 +11,9 @@ import {
   useTheme,
   ImageList,
   ImageListItem,
+  ImageListItemBar,
 } from "@mui/material";
-import { Column } from "../src/components/Layout";
+import { Row, Column } from "../src/components/Layout";
 import ImageCrossFade from "../src/components/ImageCrossFade";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -19,106 +21,181 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
-const travelImages = [
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // ocean
-  "https://images.unsplash.com/photo-1493558103817-58b2924bce98", // mountain
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470", // desert
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee", // city
-  "https://images.unsplash.com/photo-1518684079-3c830dcef090", // temple
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb", // airplane
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7", // lake
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb", // airplane
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e", // beach
-];
-
 export default function HomePage({}) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  console.log("is mobile", isMobile);
-
   return (
     <>
       <Header sticky={false} />
 
-      <Box
+      <Column
         sx={{
+          pt: 4,
+          pb: 8,
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          alignItems: "flex-start",
-          py: 4,
-          justifyContent: "center", // ✅ center content horizontally
-          width: "100%",
-          mx: "auto",
-          position: "relative",
-          bgcolor: "#e3e2dc",
-          alignContent: "center",
+          flexDirection: "column",
+          alignItems: "center", // centers inner column horizontally
+          gap: 4,
         }}
       >
-        <Box
+        <Column
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
             maxWidth: "1200px",
-            width: "100%",
+            pb: 8,
           }}
         >
-          {/* LEFT COLUMN (Sticky) */}
-          <Box
-            sx={{
-              flex: { xs: "0 0 auto", md: "0 0 40%" },
-              p: 4,
-              position: "relative",
-            }}
-          >
-            <Box
-              sx={{
-                position: "sticky",
-                top: theme.spacing(8),
-                gap: 4,
-              }}
-            >
-              <Typography variant="h2" gutterBottom>
-                Designs inspired by the world.
-              </Typography>
-              <Typography color="text.secondary">
-                Through our travels, we are able to incorporate unique looks and
-                source uniue products.
-              </Typography>
-            </Box>
-          </Box>
+          <ImageCrossFade images={images} />
+        </Column>
 
-          {/* RIGHT COLUMN (3x3 Image Grid) */}
-          <Box sx={{ flex: 1, p: 4 }}>
-            <ImageList cols={3} gap={12}>
-              {travelImages.map((src, i) => (
-                <ImageListItem key={i}>
-                  <img
-                    src={`${src}?auto=format&fit=crop&w=400&h=600&q=80`}
-                    alt={`Travel ${i + 1}`}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </Box>
-        </Box>
-      </Box>
+        <Column
+          sx={{
+            gap: 3,
+            alignItems: "center",
+            textAlign: "center",
+            maxWidth: "800px",
+            pb: 4,
+          }}
+        >
+          <Typography variant="h2">Our Process</Typography>
+          <Typography color="text.secondary">
+            Our clients range from large companies to individual homeowners
+            looking to refresh their homes (in some cases even our own
+            neighbors). Throughout this process, our goal as designers is to
+            understand your vision and provide a plan that works for you. Our
+            goal as designers is to understand your vision and provide a plan
+            that
+          </Typography>
+        </Column>
+        <ProcessTimeline timelineData={timelineData} />
+      </Column>
+
+      <ImageListSectionWithStickyLeft />
 
       <Column
         sx={{
-          py: 6,
+          py: 12,
           px: 2,
           mx: "auto",
-          maxWidth: "1000px",
-          gap: 3,
+          maxWidth: "1200px",
+          alignItems: "center", // centers children horizontally
+          gap: 8,
         }}
       >
-        <ImageCrossFade images={images} />
+        <Column
+          sx={{
+            gap: 3,
+            alignItems: "center",
+            textAlign: "center",
+            maxWidth: "800px",
+          }}
+        >
+          <Typography variant="h2">Meet the Team</Typography>
+          <Typography color="text.secondary">
+            Soho Spaces was a dream for Maisa and Tahaiya. They always loved
+            experimenting with design, a passion which started from a young age
+            decorating their rooms. It wasn't until Maisa met Kevin that Soho
+            Spaces became a reality.
+          </Typography>
+        </Column>
+        <TeamSection team={team} />
       </Column>
 
-      {/* <ProcessTimeline timelineData={timelineData} /> */}
       <Footer />
     </>
+  );
+}
+
+function ImageListSectionWithStickyLeft() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: "flex-start",
+        py: 12,
+        justifyContent: "center",
+        width: "100%",
+        mx: "auto",
+        position: "relative",
+        bgcolor: "#e3e2dc",
+        alignContent: "center",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          maxWidth: "1200px",
+          width: "100%",
+        }}
+      >
+        {/* LEFT COLUMN (Sticky) */}
+        <Box
+          sx={{
+            flex: { xs: "0 0 auto", md: "0 0 40%" },
+            p: 4,
+            position: "relative",
+          }}
+        >
+          <Column
+            sx={{
+              position: "sticky",
+              top: theme.spacing(8),
+              gap: 2,
+            }}
+          >
+            <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
+              Design inspired by the world
+            </Typography>
+            <Typography color="text.secondary">
+              Through our travels, we discover inspiration in every corner of
+              the world — from the textures of local markets to the architecture
+              of distant cities. Each journey allows us to source unique,
+              handcrafted pieces and uncover emerging design styles that bring
+              depth and authenticity to our interiors.
+            </Typography>
+          </Column>
+        </Box>
+
+        {/* RIGHT COLUMN (3x3 Image Grid) */}
+        <Box sx={{ flex: 1, p: 4 }}>
+          <ImageList cols={3} gap={12}>
+            {travelImages.map((item, i) => (
+              <ImageListItem
+                key={i}
+                sx={{
+                  "&:hover .MuiImageListItemBar-root": {
+                    opacity: 1,
+                  },
+                }}
+              >
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  loading="lazy"
+                  style={{
+                    width: "200px",
+                    height: "300px",
+                    objectFit: "cover",
+                  }}
+                />
+                <ImageListItemBar
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  sx={{
+                    opacity: 0,
+                    transition: "opacity 0.3s ease",
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
+                  }}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
@@ -201,4 +278,76 @@ const timelineData = [
 const images = [
   "/emily_bedroom.png",
   "https://soho-spaces.com/assets/moody-romantic/IMG_0017.jpeg",
+];
+
+const team = [
+  {
+    heroImage: "/team_maisa.jpg",
+    name: "Maisa Sohail",
+    title: "Co-Founder, Principal Designer",
+    content:
+      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+  },
+  {
+    heroImage: "https://soho-spaces.com/assets/home/sohail_sisters.jpeg",
+    name: "Tahaiya Sohail",
+    title: "Co-Founder, Head of Sales",
+    content:
+      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+  },
+  {
+    heroImage: "/team_kevin.jpg",
+    name: "Kevin Xu",
+    title: "Co-Founder, Technical Architect",
+    content:
+      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
+  },
+];
+
+const travelImages = [
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_0002_landscape.jpeg",
+    title: "Hand-painted umbrellas",
+    subtitle: "Chiang Mai, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/gingkos-and-greys/IMG_0004.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg",
+    title: "Watercolor scroll",
+    subtitle: "Guangzhou, China",
+  },
+  {
+    src: "https://soho-spaces.com/assets/dark-academia/IMG_0021.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0013.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0011.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_3699.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9480.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9474.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
 ];

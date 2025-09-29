@@ -27,11 +27,8 @@ export default function ProcessTimeline({
         alignItems: "center",
       }}
     >
-      <Typography variant="h2">Our Process</Typography>
       <Row
         sx={{
-          py: 4,
-          gap: 8,
           justifyContent: "center",
           width: "100%",
         }}
@@ -39,8 +36,7 @@ export default function ProcessTimeline({
         <Timeline
           position="alternate-reverse"
           sx={{
-            px: 2,
-            maxWidth: "1100px",
+            maxWidth: "1200px",
           }}
         >
           {timelineData.map((item, index) => (
@@ -79,6 +75,7 @@ function TimelineContentCard({
       <Column
         sx={{
           gap: 1,
+          // this is causing the left / right align to be less than the 1200
           mx: {
             xs: 0,
             md: 4,
