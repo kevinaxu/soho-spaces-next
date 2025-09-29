@@ -94,7 +94,7 @@ export default function AboutPage({}) {
           <Typography color="text.secondary">
             Soho Spaces was a dream for Maisa and Tahaiya. They always loved
             experimenting with design, a passion which started from a young age
-            decorating their rooms. It wasn't until Maisa met Kevin that Soho
+            decorating their rooms. It wasnt until Maisa met Kevin that Soho
             Spaces became a reality.
           </Typography>
         </Column>

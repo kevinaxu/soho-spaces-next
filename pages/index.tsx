@@ -86,38 +86,8 @@ export default function HomePage({ page }: { page: HomePageProps }) {
       {/* <HeroSectionVideo /> */}
       <HeroSection ref={heroRef} />
 
-      {/* this is the main table shell */}
-      <Column
-        sx={{
-          py: 6,
-          px: 2,
-          maxWidth: 800,
-          mx: "auto",
-          gap: 3,
-        }}
-      >
-        <QuoteSection />
-        {page.about && (
-          <AboutUsSection content={page.about} image={page.aboutImage} />
-        )}
-        {/* <TwoColumnSection /> */}
-      </Column>
-
       <StackedDeck cards={cards} />
 
-      {page.gallery && <HeroGallery hero={page.gallery} />}
-
-      <Column
-        sx={{
-          py: 6,
-          px: 2,
-          maxWidth: 800,
-          mx: "auto",
-          gap: 3,
-        }}
-      >
-        <TextSection />
-      </Column>
       <Footer />
     </>
   );
