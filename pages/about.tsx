@@ -163,7 +163,8 @@ function ImageListSectionWithStickyLeft() {
 
         {/* RIGHT COLUMN (3x3 Image Grid) */}
         <Box sx={{ flex: 1, p: 4 }}>
-          <ImageList cols={3} gap={12}>
+          {/* taller than width */}
+          <ImageList cols={3} gap={16} rowHeight={300}>
             {travelImages.map((item, i) => (
               <ImageListItem
                 key={i}
@@ -178,9 +179,10 @@ function ImageListSectionWithStickyLeft() {
                   alt={item.title}
                   loading="lazy"
                   style={{
-                    width: "200px",
-                    height: "300px",
+                    width: "100%",
+                    height: "100%",
                     objectFit: "cover",
+                    display: "block",
                   }}
                 />
                 <ImageListItemBar
