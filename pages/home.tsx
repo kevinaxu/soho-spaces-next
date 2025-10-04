@@ -46,9 +46,8 @@ export default function HomePage({}) {
   return (
     <>
       {sticky && <Header sticky={sticky} />}
-      {/* <Header sticky={false} /> */}
 
-      <HeroImageSection ref={heroRef} />
+      <HomePageHeroImageSection ref={heroRef} />
 
       <StackedDeck cards={servicesSectionCards} />
 
@@ -56,12 +55,60 @@ export default function HomePage({}) {
         <HomePageFeaturedProjectSection />
       </FullWidthSection>
 
+      <FullWidthSection sx={{ bgcolor: "#073027", py: 12, px: 4 }}>
+        <HomePageTestimonialSection />
+      </FullWidthSection>
+
       <Footer />
     </>
   );
 }
 
-const HeroImageSection = forwardRef<HTMLDivElement>((props, ref) => {
+function HomePageTestimonialSection() {
+  return (
+    <Column
+      sx={{
+        width: "100%",
+        maxWidth: "800px",
+        gap: 2,
+        alignItems: "center",
+        mx: "auto",
+      }}
+    >
+      <Typography
+        variant="h2"
+        sx={{ color: "footer.contrastText", fontStyle: "italic" }}
+      >
+        Testimonial
+      </Typography>
+      <Typography sx={{ color: "footer.contrastText" }}>
+        “Gemma has been a wonderful help in the renovation of my central Bath
+        apartment. Gemma has been professionally trained which I specifically
+        wanted, as I had already interior design experience but needed some
+        extra expert guidance. There were several space planning issues and her
+        spatial planning was brilliant, so I had the confidence to buy furniture
+        items that I knew would fit. Gemma sourced some AMAZING PIECES that I
+        would never have found on my own.
+      </Typography>
+      <Typography sx={{ color: "footer.contrastText" }}>
+        One of these was a rug that brought my whole scheme together
+        brilliantly. I think that is a special talent to find something that
+        integrates with all of someone’s personal items . The living space just
+        looked fantastic after she added the rug! Gemma was super friendly and
+        approachable and it was a real joy to work with her. She maintains a
+        professional manner though in her work, maintains deadlines and you can
+        tell she really cares about getting an excellent result. I’m looking
+        forward to working with Gemma on future home projects and would highly
+        recommend her to anyone!”
+      </Typography>
+      <Typography sx={{ color: "#f5945c", alignSelf: "flex-start" }}>
+        Korbinian Scheitzach, CEO ViscoTec America
+      </Typography>
+    </Column>
+  );
+}
+
+const HomePageHeroImageSection = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <Row
       ref={ref}
@@ -81,7 +128,7 @@ const HeroImageSection = forwardRef<HTMLDivElement>((props, ref) => {
     </Row>
   );
 });
-HeroImageSection.displayName = "HeroSection";
+HomePageHeroImageSection.displayName = "HeroSection";
 
 function HeroLogo() {
   return (

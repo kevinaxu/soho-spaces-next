@@ -68,12 +68,11 @@ export default function StackedDeck({
         );
       })}
 
-      {/* Fixed label column */}
       <Row
         sx={{
           position: "absolute",
-          px: 4,
-          py: 2,
+          py: 4,
+          px: 8,
           backgroundColor: "#f1eeed",
           zIndex: cards.length + 1,
         }}
