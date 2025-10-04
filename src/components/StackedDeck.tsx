@@ -19,9 +19,10 @@ export default function StackedDeck({
   cards: StackedDeckCard[];
 }): React.JSX.Element {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const heightPx = 700;
 
   return (
-    <Box sx={{ position: "relative", width: "100%", height: 700 }}>
+    <Box sx={{ position: "relative", width: "100%", height: heightPx }}>
       {cards.map((card, index) => {
         let rightOffset: number;
 
