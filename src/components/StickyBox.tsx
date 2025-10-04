@@ -18,7 +18,7 @@ export default function StickyBox({
     <Box
       sx={{
         flex: { xs: "0 0 auto", md: `0 0 ${leftWidth}` },
-        p: 2,
+        px: 4,
         position: "sticky",
         top,
         alignSelf: "flex-start",

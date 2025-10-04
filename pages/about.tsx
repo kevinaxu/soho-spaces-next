@@ -5,8 +5,6 @@ import TeamSection from "../src/components/TeamSection";
 import {
   Box,
   Typography,
-  Fade,
-  useMediaQuery,
   useTheme,
   ImageList,
   ImageListItem,
@@ -20,37 +18,26 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import StickyBox from "../src/components/StickyBox";
+import { FullWidthSection, Section } from "../src/components/Section";
 
 export default function AboutPage({}) {
   return (
     <>
       <Header sticky={false} />
 
-      <Column
-        sx={{
-          pt: 4,
-          pb: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center", // centers inner column horizontally
-          gap: 4,
-        }}
-      >
-        <Column
-          sx={{
-            maxWidth: "1200px",
-            pb: 8,
-          }}
-        >
+      <Section>
+        <Column>
           <ImageCrossFade images={images} />
         </Column>
+      </Section>
 
+      <Section>
         <Column
           sx={{
             gap: 3,
             alignItems: "center",
             textAlign: "center",
-            maxWidth: "800px",
+            maxWidth: 800,
             pb: 4,
           }}
         >
@@ -67,26 +54,19 @@ export default function AboutPage({}) {
           </Typography>
         </Column>
         <ProcessTimeline timelineData={timelineData} />
-      </Column>
+      </Section>
 
-      <ImageListSectionWithStickyLeft />
+      <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 12, px: 4 }}>
+        <ImageListSectionWithStickyLeft />
+      </FullWidthSection>
 
-      <Column
-        sx={{
-          py: 12,
-          px: 2,
-          mx: "auto",
-          maxWidth: "1200px",
-          alignItems: "center", // centers children horizontally
-          gap: 8,
-        }}
-      >
+      <Section gap={8}>
         <Column
           sx={{
             gap: 3,
             alignItems: "center",
             textAlign: "center",
-            maxWidth: "800px",
+            maxWidth: 800,
           }}
         >
           <Typography variant="h2" sx={{ fontStyle: "italic" }}>
@@ -99,9 +79,9 @@ export default function AboutPage({}) {
             Spaces became a reality.
           </Typography>
         </Column>
-        <TeamSection team={team} />
-      </Column>
 
+        <TeamSection team={team} />
+      </Section>
       <Footer />
     </>
   );
@@ -109,89 +89,62 @@ export default function AboutPage({}) {
 
 function ImageListSectionWithStickyLeft() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: isMobile ? "column" : "row",
-        alignItems: "flex-start",
-        py: 12,
-        justifyContent: "center",
-        width: "100%",
-        mx: "auto",
-        position: "relative",
-        bgcolor: "#e3e2dc",
-        alignContent: "center",
+        flexDirection: { xs: "column", md: "row" },
+        gap: 4,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          maxWidth: "1200px",
-          width: "100%",
-        }}
-      >
-        <StickyBox top={theme.spacing(8)}>
-          <Column
-            sx={{
-              alignItems: "flex-start",
-              gap: 2,
-            }}
-          >
-            <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-              Design inspired by the world
-            </Typography>
-            <Typography color="text.secondary">
-              Through our travels, we discover inspiration in every corner of
-              the world — from the textures of local markets to the architecture
-              of distant cities. Each journey allows us to source unique,
-              handcrafted pieces and uncover emerging design styles that bring
-              depth and authenticity to our interiors.
-            </Typography>
-          </Column>
-        </StickyBox>
+      <StickyBox top={theme.spacing(8)}>
+        <Column sx={{ alignItems: "flex-start", gap: 2 }}>
+          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
+            Design inspired by the world
+          </Typography>
+          <Typography color="text.secondary">
+            Through our travels, we discover inspiration in every corner of the
+            world — from the textures of local markets to the architecture of
+            distant cities. Each journey allows us to source unique, handcrafted
+            pieces and uncover emerging design styles that bring depth and
+            authenticity to our interiors.
+          </Typography>
+        </Column>
+      </StickyBox>
 
-        {/* RIGHT COLUMN (3x3 Image Grid) */}
-        <Box sx={{ flex: 1, p: 4 }}>
-          {/* taller than width */}
-          <ImageList cols={3} gap={16} rowHeight={300}>
-            {travelImages.map((item, i) => (
-              <ImageListItem
-                key={i}
-                sx={{
-                  "&:hover .MuiImageListItemBar-root": {
-                    opacity: 1,
-                  },
+      <Box sx={{ flex: 1 }}>
+        <ImageList cols={3} gap={16} rowHeight={300}>
+          {travelImages.map((item, i) => (
+            <ImageListItem
+              key={i}
+              sx={{
+                "&:hover .MuiImageListItemBar-root": { opacity: 1 },
+              }}
+            >
+              <img
+                src={item.src}
+                alt={item.title}
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
                 }}
-              >
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-                <ImageListItemBar
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  sx={{
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
-                  }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Box>
+              />
+              <ImageListItemBar
+                title={item.title}
+                subtitle={item.subtitle}
+                sx={{
+                  opacity: 0,
+                  transition: "opacity 0.3s ease",
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
+                }}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
       </Box>
     </Box>
   );
