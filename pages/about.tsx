@@ -19,6 +19,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import StickyBox from "../src/components/StickyBox";
 
 export default function AboutPage({}) {
   return (
@@ -133,18 +134,10 @@ function ImageListSectionWithStickyLeft() {
           width: "100%",
         }}
       >
-        {/* LEFT COLUMN (Sticky) */}
-        <Box
-          sx={{
-            flex: { xs: "0 0 auto", md: "0 0 40%" },
-            p: 4,
-            position: "relative",
-          }}
-        >
+        <StickyBox top={theme.spacing(8)}>
           <Column
             sx={{
-              position: "sticky",
-              top: theme.spacing(8),
+              alignItems: "flex-start",
               gap: 2,
             }}
           >
@@ -159,7 +152,7 @@ function ImageListSectionWithStickyLeft() {
               depth and authenticity to our interiors.
             </Typography>
           </Column>
-        </Box>
+        </StickyBox>
 
         {/* RIGHT COLUMN (3x3 Image Grid) */}
         <Box sx={{ flex: 1, p: 4 }}>
