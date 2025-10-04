@@ -21,7 +21,7 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import StickyBox from "../src/components/StickyBox";
-import { FullWidthSection } from "../src/components/Section";
+import { Section, FullWidthSection } from "../src/components/Section";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import StackedDeck from "../src/components/StackedDeck";
 
@@ -59,8 +59,95 @@ export default function HomePage({}) {
         <HomePageTestimonialSection />
       </FullWidthSection>
 
+      <Section>
+        <HomePageExploreProjectsSection />
+      </Section>
+
       <Footer />
     </>
+  );
+}
+
+function HomePageExploreProjectsSection() {
+  const theme = useTheme();
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        gap: 4,
+      }}
+    >
+      <StickyBox leftWidth={"60%"} top={theme.spacing(12)}>
+        <Column sx={{ alignItems: "flex-start", gap: 2, paddingX: 4 }}>
+          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
+            A Glimpse Into Our Projects
+          </Typography>
+          <Typography color="text.secondary">
+            Dive into our portfolio and see the details that make each project
+            unique
+          </Typography>
+          <Row
+            sx={{
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Typography
+              color="text.secondary"
+              sx={{
+                variant: "body1",
+              }}
+            >
+              explore our projects
+            </Typography>
+            <ArrowRightAltIcon
+              sx={{
+                transform: {
+                  xs: "scaleX(1.5)",
+                  md: "scaleX(1.8)",
+                },
+              }}
+            />
+          </Row>
+        </Column>
+      </StickyBox>
+
+      <Box sx={{ flex: 1, height: 1100, overflow: "hidden" }}>
+        <ImageList variant="masonry" cols={2} gap={12}>
+          {exploreSectionImages.map((item, i) => (
+            <ImageListItem
+              key={i}
+              sx={{
+                "&:hover .MuiImageListItemBar-root": { opacity: 1 },
+              }}
+            >
+              <img
+                src={item.src}
+                alt={item.title}
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+              <ImageListItemBar
+                title={item.title}
+                subtitle={item.subtitle}
+                sx={{
+                  opacity: 0,
+                  transition: "opacity 0.3s ease",
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
+                }}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
+    </Box>
   );
 }
 
@@ -290,5 +377,53 @@ const servicesSectionCards = [
     bg: "#f1eeed",
     description:
       "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+  },
+];
+
+const exploreSectionImages = [
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_0002_landscape.jpeg",
+    title: "Hand-painted umbrellas",
+    subtitle: "Chiang Mai, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/gingkos-and-greys/IMG_0004.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg",
+    title: "Watercolor scroll",
+    subtitle: "Guangzhou, China",
+  },
+  {
+    src: "https://soho-spaces.com/assets/dark-academia/IMG_0021.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0013.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0011.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_3699.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9480.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
+  },
+  {
+    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9474.jpeg",
+    title: "Brass towel bar",
+    subtitle: "Bangkok, Thailand",
   },
 ];
