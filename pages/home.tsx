@@ -49,6 +49,12 @@ export default function HomePage({}) {
 
       <HomePageHeroImageSection ref={heroRef} />
 
+      <FullWidthSection
+        sx={{ height: "800px", alignItems: "center", py: 12, px: 4 }}
+      >
+        <HomePageDesignPhilosophySection />
+      </FullWidthSection>
+
       <StackedDeck cards={servicesSectionCards} />
 
       <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 12, px: 4 }}>
@@ -99,7 +105,7 @@ function HomePageExploreProjectsSection() {
                 variant: "body1",
               }}
             >
-              explore our projects
+              wander
             </Typography>
             <ArrowRightAltIcon
               sx={{
@@ -148,6 +154,44 @@ function HomePageExploreProjectsSection() {
         </ImageList>
       </Box>
     </Box>
+  );
+}
+
+function HomePageDesignPhilosophySection() {
+  return (
+    <Column
+      sx={{
+        width: "100%",
+        maxWidth: "800px",
+        alignItems: "center",
+        mx: "auto",
+        gap: 4,
+      }}
+    >
+      <Row
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="h2" sx={{ fontStyle: "italic" }}>
+          Our approach is deep rooted in collaboration—an exercise designed to
+          uncover the process, perspective, and nuances that define your work.
+        </Typography>
+      </Row>
+      <Row
+        sx={{
+          paddingX: 12,
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="body1">
+          The wonder—and challenge—of designing digital spaces for interior
+          designers is in understanding each one's deeply personal perspective.
+          For us, that means tailoring our process to embrace the needs of every
+          project.
+        </Typography>
+      </Row>
+    </Column>
   );
 }
 
