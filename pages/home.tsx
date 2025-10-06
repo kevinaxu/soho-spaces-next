@@ -61,7 +61,15 @@ export default function HomePage({}) {
         <HomePageFeaturedProjectSection />
       </FullWidthSection>
 
-      <FullWidthSection sx={{ bgcolor: "#073027", py: 12, px: 4 }}>
+      <FullWidthSection
+        sx={{
+          height: "800px",
+          alignItems: "center",
+          bgcolor: "#073027",
+          py: 12,
+          px: 4,
+        }}
+      >
         <HomePageTestimonialSection />
       </FullWidthSection>
 
@@ -81,6 +89,7 @@ function HomePageExploreProjectsSection() {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
+        paddingY: 8,
         gap: 4,
       }}
     >
