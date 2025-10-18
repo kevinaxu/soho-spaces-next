@@ -55,7 +55,11 @@ export default function HomePage({}) {
         <HomePageDesignPhilosophySection />
       </FullWidthSection>
 
-      <StackedDeck cards={servicesSectionCards} />
+      <FullWidthSection
+        sx={{ alignItems: "center", backgroundColor: "#f1eeed", py: 4 }}
+      >
+        <StackedDeck cards={servicesSectionCards} />
+      </FullWidthSection>
 
       <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 4, px: 4 }}>
         <HomePageFeaturedProjectSection />
