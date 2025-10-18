@@ -57,7 +57,7 @@ export default function HomePage({}) {
 
       <StackedDeck cards={servicesSectionCards} />
 
-      <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 12, px: 4 }}>
+      <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 4, px: 4 }}>
         <HomePageFeaturedProjectSection />
       </FullWidthSection>
 
@@ -73,9 +73,14 @@ export default function HomePage({}) {
         <HomePageTestimonialSection />
       </FullWidthSection>
 
-      <Section>
+      <FullWidthSection
+        sx={{
+          py: 4,
+          px: 4,
+        }}
+      >
         <HomePageExploreProjectsSection />
-      </Section>
+      </FullWidthSection>
 
       <HomePageContactUsSection />
 
@@ -88,7 +93,7 @@ function HomePageContactUsSection() {
   return (
     <Row
       sx={{
-        padding: 8,
+        padding: 4,
       }}
     >
       <Row
@@ -98,7 +103,7 @@ function HomePageContactUsSection() {
           position: "relative", // parent for absolute children
           justifyContent: "center",
           alignItems: "center",
-          px: 8,
+          px: 4,
         }}
       >
         {/* Background image */}
@@ -197,12 +202,15 @@ function HomePageExploreProjectsSection() {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        paddingY: 8,
         gap: 4,
       }}
     >
-      <StickyBox leftWidth={"60%"} top={theme.spacing(12)}>
-        <Column sx={{ alignItems: "flex-start", gap: 2, paddingX: 4 }}>
+      <StickyBox leftWidth={"40%"} top={theme.spacing(12)}>
+        <Column
+          sx={{
+            alignItems: "flex-start",
+          }}
+        >
           <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
             A Glimpse Into Our Projects
           </Typography>
@@ -236,8 +244,8 @@ function HomePageExploreProjectsSection() {
         </Column>
       </StickyBox>
 
-      <Box sx={{ flex: 1, height: 1100, overflow: "hidden" }}>
-        <ImageList variant="masonry" cols={2} gap={12}>
+      <Box sx={{ flex: 1, height: "1900px", overflow: "hidden" }}>
+        <ImageList variant="masonry" cols={2} gap={16}>
           {exploreSectionImages.map((item, i) => (
             <ImageListItem
               key={i}
@@ -303,7 +311,7 @@ function HomePageDesignPhilosophySection() {
       >
         <Typography variant="body1">
           The wonder—and challenge—of designing digital spaces for interior
-          designers is in understanding each one's deeply personal perspective.
+          designers is in understanding each ones deeply personal perspective.
           For us, that means tailoring our process to embrace the needs of every
           project.
         </Typography>
@@ -325,31 +333,34 @@ function HomePageTestimonialSection() {
     >
       <Typography
         variant="h2"
-        sx={{ color: "footer.contrastText", fontStyle: "italic" }}
+        sx={{ pb: 4, textAlign: "center", color: "footer.contrastText" }}
       >
         Testimonial
       </Typography>
-      <Typography sx={{ color: "footer.contrastText" }}>
+      <Typography
+        variant="h6"
+        sx={{
+          color: "footer.contrastText",
+          textAlign: "center",
+          fontStyle: "italic",
+        }}
+      >
         “Gemma has been a wonderful help in the renovation of my central Bath
         apartment. Gemma has been professionally trained which I specifically
         wanted, as I had already interior design experience but needed some
         extra expert guidance. There were several space planning issues and her
         spatial planning was brilliant, so I had the confidence to buy furniture
         items that I knew would fit. Gemma sourced some AMAZING PIECES that I
-        would never have found on my own.
+        would never have found on my own."
       </Typography>
-      <Typography sx={{ color: "footer.contrastText" }}>
-        One of these was a rug that brought my whole scheme together
-        brilliantly. I think that is a special talent to find something that
-        integrates with all of someone’s personal items . The living space just
-        looked fantastic after she added the rug! Gemma was super friendly and
-        approachable and it was a real joy to work with her. She maintains a
-        professional manner though in her work, maintains deadlines and you can
-        tell she really cares about getting an excellent result. I’m looking
-        forward to working with Gemma on future home projects and would highly
-        recommend her to anyone!”
-      </Typography>
-      <Typography sx={{ color: "#f5945c", alignSelf: "flex-start" }}>
+      <Typography
+        variant="body1"
+        sx={{
+          color: "#f5945c",
+          textAlign: "center",
+          //   alignSelf: "flex-start",
+        }}
+      >
         Korbinian Scheitzach, CEO ViscoTec America
       </Typography>
     </Column>
@@ -416,7 +427,7 @@ function HomePageFeaturedProjectSection() {
       }}
     >
       <Box sx={{ flex: 1 }}>
-        <ImageList cols={1} gap={16} rowHeight={500}>
+        <ImageList cols={1} gap={28} rowHeight={500}>
           {featuredProjectSectionImages.map((item, i) => (
             <ImageListItem
               key={i}
@@ -450,18 +461,18 @@ function HomePageFeaturedProjectSection() {
         </ImageList>
       </Box>
 
-      <StickyBox leftWidth={"60%"} top={theme.spacing(12)}>
-        <Column sx={{ alignItems: "flex-start", gap: 2, paddingX: 4 }}>
+      <StickyBox leftWidth={"50%"} top={theme.spacing(12)}>
+        <Column sx={{ alignItems: "flex-start", gap: 4 }}>
           <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
             Dark Academia Living Room
           </Typography>
           <Typography color="text.secondary">
             When we asked Kevin to tell us about a place that brought back good
             memories and made him feel at ease, he began describing the Sterling
-            Memorial Library at Yale University. It's where he used to spend
-            many late nights listening to music while studying or reading a
-            book. He loved the Gothic architecture and how the stained glass
-            windows cast colorful patterns across the floors.
+            Memorial Library at Yale University. Its where he used to spend many
+            late nights listening to music while studying or reading a book. He
+            loved the Gothic architecture and how the stained glass windows cast
+            colorful patterns across the floors.
           </Typography>
           <Row
             sx={{
