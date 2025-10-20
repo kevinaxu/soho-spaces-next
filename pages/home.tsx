@@ -1,29 +1,17 @@
-import { useState, useRef, useEffect, forwardRef } from "react";
-import Header from "../src/components/Header";
-import Footer from "../src/components/Footer";
-import ProcessTimeline from "../src/components/ProcessTimeline";
-import TeamSection from "../src/components/TeamSection";
+import { useState, useRef, useEffect } from "react";
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
+import { FullWidthSection } from "@/src/components/Section";
+import StackedDeck from "@/src/pages/home/StackedDeckSection";
+import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
+import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
+import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
+import { ExploreProjectsSection } from "@/src/pages/home/ExploreProjectsSection";
+import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import {
-  Box,
-  Typography,
-  Fade,
-  useMediaQuery,
-  useTheme,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-} from "@mui/material";
-import { Row, Column } from "../src/components/Layout";
-import ImageCrossFade from "../src/components/ImageCrossFade";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import GroupsIcon from "@mui/icons-material/Groups";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import StickyBox from "../src/components/StickyBox";
-import { Section, FullWidthSection } from "../src/components/Section";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import StackedDeck from "../src/components/StackedDeck";
+  HeroImageSection,
+  HeroVideoSection,
+} from "@/src/pages/home/HeroImageSection";
 
 export default function HomePage({}) {
   const [sticky, setSticky] = useState<boolean | null>(null);
@@ -47,12 +35,13 @@ export default function HomePage({}) {
     <>
       {sticky && <Header sticky={sticky} />}
 
-      <HomePageHeroImageSection ref={heroRef} />
+      <HeroImageSection ref={heroRef} />
+      {/* <HeroVideoSection ref={heroRef} /> */}
 
       <FullWidthSection
         sx={{ height: "800px", alignItems: "center", py: 12, px: 4 }}
       >
-        <HomePageDesignPhilosophySection />
+        <DesignPhilosophySection />
       </FullWidthSection>
 
       <FullWidthSection
@@ -62,7 +51,7 @@ export default function HomePage({}) {
       </FullWidthSection>
 
       <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 4, px: 4 }}>
-        <HomePageFeaturedProjectSection />
+        <FeaturedProjectSection images={featuredProjectSectionImages} />
       </FullWidthSection>
 
       <FullWidthSection
@@ -74,7 +63,7 @@ export default function HomePage({}) {
           px: 4,
         }}
       >
-        <HomePageTestimonialSection />
+        <TestimonialSection />
       </FullWidthSection>
 
       <FullWidthSection
@@ -83,427 +72,13 @@ export default function HomePage({}) {
           px: 4,
         }}
       >
-        <HomePageExploreProjectsSection />
+        <ExploreProjectsSection images={exploreSectionImages} />
       </FullWidthSection>
 
-      <HomePageContactUsSection />
+      <ContactUsSection />
 
       <Footer />
     </>
-  );
-}
-
-function HomePageContactUsSection() {
-  return (
-    <Row
-      sx={{
-        padding: 4,
-      }}
-    >
-      <Row
-        sx={{
-          height: "100vh",
-          width: "100vw",
-          position: "relative", // parent for absolute children
-          justifyContent: "center",
-          alignItems: "center",
-          px: 4,
-        }}
-      >
-        {/* Background image */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url("/shady_glen_sketch.png")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            opacity: 0.2,
-            zIndex: 1,
-          }}
-        />
-
-        {/* Semi-transparent overlay */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.4)", // 50% opacity, black
-            // backgroundColor: "rgba(255,255,255,0.8)", // semi-transparent white
-            zIndex: 2,
-          }}
-        />
-
-        {/* Text content */}
-        <Box
-          sx={{
-            position: "relative",
-            textAlign: "center",
-            maxWidth: "600px",
-            color: "#fff",
-            zIndex: 3,
-          }}
-        >
-          <Column
-            sx={{
-              width: "100%",
-              alignItems: "center",
-              mx: "auto",
-              gap: 4,
-            }}
-          >
-            <Row
-              sx={{
-                textAlign: "center",
-              }}
-            >
-              <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-                Ready to transform your space? Schedule a design consultation
-                and bring your vision to life.
-              </Typography>
-            </Row>
-            <Row
-              sx={{
-                alignItems: "center",
-                gap: 2,
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "footer.contrastText",
-                  variant: "h4",
-                }}
-              >
-                book a call
-              </Typography>
-              <ArrowRightAltIcon
-                sx={{
-                  transform: {
-                    xs: "scaleX(1.5)",
-                    md: "scaleX(1.8)",
-                  },
-                }}
-              />
-            </Row>
-          </Column>
-        </Box>
-      </Row>
-    </Row>
-  );
-}
-
-function HomePageExploreProjectsSection() {
-  const theme = useTheme();
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        gap: 4,
-      }}
-    >
-      <StickyBox leftWidth={"40%"} top={theme.spacing(12)}>
-        <Column
-          sx={{
-            alignItems: "flex-start",
-          }}
-        >
-          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-            A Glimpse Into Our Projects
-          </Typography>
-          <Typography color="text.secondary">
-            Dive into our portfolio and see the details that make each project
-            unique
-          </Typography>
-          <Row
-            sx={{
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              color="text.secondary"
-              sx={{
-                variant: "body1",
-              }}
-            >
-              wander
-            </Typography>
-            <ArrowRightAltIcon
-              sx={{
-                transform: {
-                  xs: "scaleX(1.5)",
-                  md: "scaleX(1.8)",
-                },
-              }}
-            />
-          </Row>
-        </Column>
-      </StickyBox>
-
-      <Box sx={{ flex: 1, height: "1900px", overflow: "hidden" }}>
-        <ImageList variant="masonry" cols={2} gap={16}>
-          {exploreSectionImages.map((item, i) => (
-            <ImageListItem
-              key={i}
-              sx={{
-                "&:hover .MuiImageListItemBar-root": { opacity: 1 },
-              }}
-            >
-              <img
-                src={item.src}
-                alt={item.title}
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={item.subtitle}
-                sx={{
-                  opacity: 0,
-                  transition: "opacity 0.3s ease",
-                  background:
-                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
-                }}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box>
-    </Box>
-  );
-}
-
-function HomePageDesignPhilosophySection() {
-  return (
-    <Column
-      sx={{
-        width: "100%",
-        maxWidth: "800px",
-        alignItems: "center",
-        mx: "auto",
-        gap: 4,
-      }}
-    >
-      <Row
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-          Our approach is deep rooted in collaboration—an exercise designed to
-          uncover the process, perspective, and nuances that define your work.
-        </Typography>
-      </Row>
-      <Row
-        sx={{
-          paddingX: 12,
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="body1">
-          The wonder—and challenge—of designing digital spaces for interior
-          designers is in understanding each ones deeply personal perspective.
-          For us, that means tailoring our process to embrace the needs of every
-          project.
-        </Typography>
-      </Row>
-    </Column>
-  );
-}
-
-function HomePageTestimonialSection() {
-  return (
-    <Column
-      sx={{
-        width: "100%",
-        maxWidth: "800px",
-        gap: 2,
-        alignItems: "center",
-        mx: "auto",
-      }}
-    >
-      <Typography
-        variant="h2"
-        sx={{ pb: 4, textAlign: "center", color: "footer.contrastText" }}
-      >
-        Testimonial
-      </Typography>
-      <Typography
-        variant="h6"
-        sx={{
-          color: "footer.contrastText",
-          textAlign: "center",
-          fontStyle: "italic",
-        }}
-      >
-        “Gemma has been a wonderful help in the renovation of my central Bath
-        apartment. Gemma has been professionally trained which I specifically
-        wanted, as I had already interior design experience but needed some
-        extra expert guidance. There were several space planning issues and her
-        spatial planning was brilliant, so I had the confidence to buy furniture
-        items that I knew would fit. Gemma sourced some AMAZING PIECES that I
-        would never have found on my own."
-      </Typography>
-      <Typography
-        variant="body1"
-        sx={{
-          color: "#f5945c",
-          textAlign: "center",
-          //   alignSelf: "flex-start",
-        }}
-      >
-        Korbinian Scheitzach, CEO ViscoTec America
-      </Typography>
-    </Column>
-  );
-}
-
-const HomePageHeroImageSection = forwardRef<HTMLDivElement>((props, ref) => {
-  return (
-    <Row
-      ref={ref}
-      sx={{
-        height: "100vh", // full viewport height
-        width: "100vw", // full width
-        backgroundImage:
-          "url('https://soho-spaces.com/assets/modern-gothic/IMG_0965.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <HeroLogo />
-    </Row>
-  );
-});
-HomePageHeroImageSection.displayName = "HeroSection";
-
-function HeroLogo() {
-  return (
-    <Typography
-      variant="h1"
-      component="h1"
-      sx={{
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: {
-          xs: "2rem",
-          sm: "4rem",
-          md: "8rem",
-        },
-        letterSpacing: {
-          xs: "1rem",
-          sm: "1rem",
-          md: "2rem",
-        },
-        textAlign: "center",
-        textTransform: "uppercase",
-      }}
-    >
-      SOHO SPACES
-    </Typography>
-  );
-}
-
-function HomePageFeaturedProjectSection() {
-  const theme = useTheme();
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        gap: 4,
-      }}
-    >
-      <Box sx={{ flex: 1 }}>
-        <ImageList cols={1} gap={28} rowHeight={500}>
-          {featuredProjectSectionImages.map((item, i) => (
-            <ImageListItem
-              key={i}
-              sx={{
-                "&:hover .MuiImageListItemBar-root": { opacity: 1 },
-              }}
-            >
-              <img
-                src={item.src}
-                alt={item.title}
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={item.subtitle}
-                sx={{
-                  opacity: 0,
-                  transition: "opacity 0.3s ease",
-                  background:
-                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
-                }}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box>
-
-      <StickyBox leftWidth={"50%"} top={theme.spacing(12)}>
-        <Column sx={{ alignItems: "flex-start", gap: 4 }}>
-          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-            Dark Academia Living Room
-          </Typography>
-          <Typography color="text.secondary">
-            When we asked Kevin to tell us about a place that brought back good
-            memories and made him feel at ease, he began describing the Sterling
-            Memorial Library at Yale University. Its where he used to spend many
-            late nights listening to music while studying or reading a book. He
-            loved the Gothic architecture and how the stained glass windows cast
-            colorful patterns across the floors.
-          </Typography>
-          <Row
-            sx={{
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              color="text.secondary"
-              sx={{
-                variant: "body1",
-              }}
-            >
-              see the project
-            </Typography>
-            <ArrowRightAltIcon
-              sx={{
-                transform: {
-                  xs: "scaleX(1.5)",
-                  md: "scaleX(1.8)",
-                },
-              }}
-            />
-          </Row>
-        </Column>
-      </StickyBox>
-    </Box>
   );
 }
 
