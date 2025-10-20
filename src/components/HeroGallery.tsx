@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
-import { Row } from "./Layout";
-import { urlFor } from "../utils/sanityImage";
-import Typography from "@mui/material/Typography";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
+import { useState, useEffect } from "react";
+
+import { Row } from "@/src/components/Layout";
+import { urlFor } from "@/src/utils/sanityImage";
 
 const nudge = keyframes`
   0%, 100% { transform: translateX(0) scaleX(1.8); }

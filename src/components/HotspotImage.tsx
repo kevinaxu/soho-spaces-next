@@ -1,11 +1,11 @@
-import { useState } from "react";
-
-import { Row } from "../components/Layout";
-import { Box, Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
+
+import { Row } from "@/src/components/Layout";
 
 interface Hotspot {
   title: string;

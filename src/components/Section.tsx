@@ -1,6 +1,7 @@
-import React from "react";
 import { Box, SxProps, Theme } from "@mui/material";
-import { Column } from "../components/Layout";
+import React from "react";
+
+import { Column } from "@/src/components/Layout";
 
 interface SectionProps {
   children: React.ReactNode;

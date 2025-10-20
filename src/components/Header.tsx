@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Toolbar,
@@ -12,7 +11,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 
 const links = [
   { label: "About", href: "/about" },

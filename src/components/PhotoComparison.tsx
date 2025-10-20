@@ -1,9 +1,9 @@
+import Box from "@mui/material/Box";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import Box from "@mui/material/Box";
 
 interface GalleryItem {
   _id: string;

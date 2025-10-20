@@ -1,5 +1,5 @@
-import React from "react";
 import { Box, SxProps, Theme } from "@mui/material";
+import React from "react";
 
 interface StickyBoxProps {
   children: React.ReactNode;

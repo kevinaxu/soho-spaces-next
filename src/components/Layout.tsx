@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { Box, BoxProps } from "@mui/material";
+import { ReactNode } from "react";
 
 interface FlexProps extends BoxProps {
   children?: ReactNode;

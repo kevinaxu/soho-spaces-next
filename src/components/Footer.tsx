@@ -1,12 +1,13 @@
-import { Row, Column } from "./Layout";
-import { Box, Typography, Divider } from "@mui/material";
-import { lighten } from "@mui/material/styles";
-import Link from "@mui/material/Link";
-import PhoneIcon from "@mui/icons-material/Phone";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import EmailIcon from "@mui/icons-material/Email";
 import CopyrightIcon from "@mui/icons-material/Copyright";
+import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import PhoneIcon from "@mui/icons-material/Phone";
+import { Box, Typography, Divider } from "@mui/material";
+import Link from "@mui/material/Link";
+import { lighten } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
+
+import { Row, Column } from "@/src/components/Layout";
 
 export default function Footer() {
   const theme = useTheme();

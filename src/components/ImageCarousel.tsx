@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Box, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { urlFor } from "../utils/sanityImage";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, IconButton } from "@mui/material";
+import { useKeenSlider } from "keen-slider/react";
+import React, { useState, useEffect } from "react";
+
+import { urlFor } from "@/src/utils/sanityImage";
 
 interface GalleryItem {
   _id: string;
