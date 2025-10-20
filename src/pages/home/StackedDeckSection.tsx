@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { Row, Column } from "@/src/components/Layout";
 import { Box, Typography } from "@mui/material";
+import { useState } from "react";
+
+import { Row, Column } from "@/src/components/Layout";
 
 const OFFSET_BASE = 200;
 const OFFSET = 100;

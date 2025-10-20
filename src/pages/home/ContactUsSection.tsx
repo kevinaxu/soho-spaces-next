@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { Row, Column } from "@/src/components/Layout";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { Box, Typography } from "@mui/material";
+
+import { Row, Column } from "@/src/components/Layout";
 
 export function ContactUsSection() {
   return (

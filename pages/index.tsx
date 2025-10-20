@@ -1,19 +1,20 @@
-import { client } from "@/src/sanity/client";
-import { useState, useRef, useEffect } from "react";
 import type { PortableTextBlock } from "@portabletext/types";
-import Header from "@/src/components/Header";
+import { useState, useRef, useEffect } from "react";
+
 import Footer from "@/src/components/Footer";
+import Header from "@/src/components/Header";
 import { FullWidthSection } from "@/src/components/Section";
-import StackedDeck from "@/src/pages/home/StackedDeckSection";
-import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
-import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
+import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import { ExploreProjectsSection } from "@/src/pages/home/ExploreProjectsSection";
-import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
+import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
 import {
   HeroImageSection,
   HeroVideoSection,
 } from "@/src/pages/home/HeroImageSection";
+import StackedDeck from "@/src/pages/home/StackedDeckSection";
+import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
+import { client } from "@/src/sanity/client";
 
 interface HomePageProps {
   title: string;

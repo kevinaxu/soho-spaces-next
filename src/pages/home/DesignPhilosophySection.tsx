@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+
 import { Row, Column } from "@/src/components/Layout";
 
 export function DesignPhilosophySection() {

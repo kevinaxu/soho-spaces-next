@@ -1,7 +1,8 @@
-import { forwardRef } from "react";
-import { Row } from "@/src/components/Layout";
 import { Box, Typography } from "@mui/material";
+import { forwardRef } from "react";
 import { useState } from "react";
+
+import { Row } from "@/src/components/Layout";
 
 export const HeroImageSection = forwardRef<HTMLDivElement>((_, ref) => {
   return (

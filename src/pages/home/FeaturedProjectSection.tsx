@@ -1,3 +1,4 @@
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   Box,
   Typography,
@@ -6,9 +7,9 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
+
 import { Row, Column } from "@/src/components/Layout";
 import StickyBox from "@/src/components/StickyBox";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 // TODO: update this to use consistent type throughout project
 interface ProjectImage {
