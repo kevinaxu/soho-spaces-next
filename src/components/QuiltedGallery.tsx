@@ -1,7 +1,8 @@
+import { useTheme, useMediaQuery } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { urlFor } from "../utils/sanityImage";
-import { useTheme, useMediaQuery } from "@mui/material";
+
+import { urlFor } from "@/src/utils/sanityImage";
 
 interface GalleryItem {
   _id: string;

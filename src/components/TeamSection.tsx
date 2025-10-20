@@ -1,5 +1,6 @@
-import { Column } from "../components/Layout";
 import { Box, Grid, Typography } from "@mui/material";
+
+import { Column } from "@/src/components/Layout";
 import styles from "@/styles/projectImage.module.css";
 
 interface TeamMember {

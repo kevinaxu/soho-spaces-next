@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
 import { Box, Fade } from "@mui/material";
-import { Row } from "../components/Layout";
+import { useState, useEffect } from "react";
+
+import { Row } from "@/src/components/Layout";
 
 interface ImageCrossFadeProps {
   images: string[];
