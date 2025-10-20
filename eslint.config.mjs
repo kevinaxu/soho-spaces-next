@@ -15,7 +15,7 @@ const eslintConfig = [
       "@next/next/no-img-element": "off",
       "react/no-unescaped-entities": "off",
       "import/order": [
-        "warning",
+        "warn",
         {
           groups: [
             "builtin", // node built-ins like fs, path
