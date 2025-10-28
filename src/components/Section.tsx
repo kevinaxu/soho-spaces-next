@@ -48,7 +48,9 @@ export const FullWidthSection: React.FC<FullWidthSectionProps> = ({
   px = 0,
   sx,
 }) => (
-  <Box sx={{ display: "flex", justifyContent: "center", bgcolor, py, ...sx }}>
+  <Box
+    sx={{ display: "flex", justifyContent: "center", bgcolor, px, py, ...sx }}
+  >
     <Box sx={{ width: "100%" }}>{children}</Box>
   </Box>
 );
