@@ -15,7 +15,7 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
     <Row
