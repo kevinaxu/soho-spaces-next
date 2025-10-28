@@ -1,18 +1,18 @@
-import { useState } from "react";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { Row, Column } from "../src/components/Layout";
-import ImageCarousel from "../src/components/ImageCarousel";
-import Header from "../src/components/Header";
-import Footer from "../src/components/Footer";
-import { client } from "../src/sanity/client";
-import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
-import PhotoGallerySection from "../src/pages/project/PhotoGallerySection";
-import HeroGallery from "../src/components/HeroGallery";
-import PhotoComparison from "../src/pages/project/PhotoComparison";
-import HotspotImage from "../src/components/HotspotImage";
+import { useState } from "react";
+
+import Footer from "@/src/components/Footer";
+import Header from "@/src/components/Header";
+import ImageCarousel from "@/src/components/ImageCarousel";
+import { Column } from "@/src/components/Layout";
 import { FullWidthSection, Section } from "@/src/components/Section";
+import HeroGallery from "@/src/pages/project/HeroGallery";
+import HotspotImage from "@/src/pages/project/HotspotImage";
+import PhotoComparison from "@/src/pages/project/PhotoComparison";
+import PhotoGallerySection from "@/src/pages/project/PhotoGallerySection";
+import { client } from "@/src/sanity/client";
+import { parsePortableText } from "@/src/utils/portableTextParser";
 
 interface Project {
   title: string;
