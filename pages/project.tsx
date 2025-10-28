@@ -8,10 +8,11 @@ import Footer from "../src/components/Footer";
 import { client } from "../src/sanity/client";
 import { parsePortableText } from "../src/utils/portableTextParser";
 import type { PortableTextBlock } from "@portabletext/types";
-import QuiltedGallery from "../src/components/QuiltedGallery";
+import PhotoGallerySection from "../src/pages/project/PhotoGallerySection";
 import HeroGallery from "../src/components/HeroGallery";
-import PhotoComparison from "../src/components/PhotoComparison";
+import PhotoComparison from "../src/pages/project/PhotoComparison";
 import HotspotImage from "../src/components/HotspotImage";
+import { FullWidthSection, Section } from "@/src/components/Section";
 
 interface Project {
   title: string;
@@ -78,24 +79,32 @@ export default function ProjectPage({ project }: { project: Project }) {
   };
   const handleHeroCloseCarousel = () => heroSetCarouselOpen(false);
 
-  // photo galler carousel
-  const [galleryCarouselOpen, gallerySetCarouselOpen] = useState(false);
-  const [galleryCarouselIndex, gallerySetCarouselIndex] = useState(0);
-  const handleGalleryImageClick = (index: number) => {
-    gallerySetCarouselIndex(index);
-    gallerySetCarouselOpen(true);
-  };
-  const handleGalleryCloseCarousel = () => gallerySetCarouselOpen(false);
-
   return (
     <>
       <Header sticky={true} />
+
       {project.hero && (
-        <HeroGallery
-          hero={project.hero}
-          handleImageClick={handleHeroImageClick}
-        />
+        <FullWidthSection sx={{ alignItems: "center", py: 0 }}>
+          <HeroGallery
+            hero={project.hero}
+            handleImageClick={handleHeroImageClick}
+          />
+        </FullWidthSection>
       )}
+
+      <Section sx={{ alignItems: "center" }}>
+        <Column gap={2}>
+          <Typography variant="h1">{project.title}</Typography>
+          {project.intro && parsePortableText(project.intro)}
+        </Column>
+      </Section>
+
+      <FullWidthSection sx={{ py: 4, px: 4 }}>
+        <Column gap={1}>
+          {/* <Typography variant="h2">Gallery</Typography> */}
+          {project.gallery && <PhotoGallerySection gallery={project.gallery} />}
+        </Column>
+      </FullWidthSection>
 
       <Column
         sx={{
@@ -118,12 +127,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         {/* Quilted gallery */}
         <Column gap={1}>
           <Typography variant="h2">Gallery</Typography>
-          {project.gallery && (
-            <QuiltedGallery
-              gallery={project.gallery}
-              handleImageClick={handleGalleryImageClick}
-            />
-          )}
+          {project.gallery && <PhotoGallerySection gallery={project.gallery} />}
         </Column>
 
         {/* Story */}
@@ -161,13 +165,6 @@ export default function ProjectPage({ project }: { project: Project }) {
           images={project.hero}
           initialIndex={heroCarouselIndex}
           onClose={handleHeroCloseCarousel}
-        />
-      )}
-      {galleryCarouselOpen && project.gallery && (
-        <ImageCarousel
-          images={project.gallery}
-          initialIndex={galleryCarouselIndex}
-          onClose={handleGalleryCloseCarousel}
         />
       )}
     </>
