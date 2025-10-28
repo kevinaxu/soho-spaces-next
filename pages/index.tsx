@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { FullWidthSection } from "@/src/components/Section";
+import { PADDING_X_SECTION } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import { ExploreProjectsSection } from "@/src/pages/home/ExploreProjectsSection";
@@ -57,18 +58,29 @@ export default function HomePage({ page }: { page: HomePageProps }) {
       {/* <HeroVideoSection ref={heroRef} /> */}
 
       <FullWidthSection
-        sx={{ height: "800px", alignItems: "center", py: 12, px: 4 }}
+        sx={{
+          height: "800px",
+          alignItems: "center",
+          py: 12,
+          px: PADDING_X_SECTION,
+        }}
       >
         <DesignPhilosophySection />
       </FullWidthSection>
 
       <FullWidthSection
-        sx={{ alignItems: "center", backgroundColor: "#f1eeed", py: 4 }}
+        sx={{
+          alignItems: "center",
+          backgroundColor: "#f1eeed",
+          py: PADDING_X_SECTION,
+        }}
       >
         <StackedDeck cards={servicesSectionCards} />
       </FullWidthSection>
 
-      <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 4, px: 4 }}>
+      <FullWidthSection
+        sx={{ bgcolor: "#e3e2dc", py: 4, px: PADDING_X_SECTION }}
+      >
         <FeaturedProjectSection images={featuredProjectSectionImages} />
       </FullWidthSection>
 
@@ -78,7 +90,7 @@ export default function HomePage({ page }: { page: HomePageProps }) {
           alignItems: "center",
           bgcolor: "#073027",
           py: 12,
-          px: 4,
+          px: PADDING_X_SECTION,
         }}
       >
         <TestimonialSection />
@@ -87,7 +99,7 @@ export default function HomePage({ page }: { page: HomePageProps }) {
       <FullWidthSection
         sx={{
           py: 4,
-          px: 4,
+          px: PADDING_X_SECTION,
         }}
       >
         <ExploreProjectsSection images={exploreSectionImages} />
