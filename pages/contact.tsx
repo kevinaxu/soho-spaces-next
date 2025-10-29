@@ -1,41 +1,42 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import ContactFormSection from "@/src/pages/contact/ContactFormSection";
 
-const sidebarImage =
-  "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg";
-
 export default function ContactPage() {
   return (
     <>
       <Header sticky={true} />
 
-      {/* this is the main table shell */}
       <Box
         sx={{
           display: "flex",
           width: "100%",
           minHeight: "70vh",
-          maxHeight: "800px",
+          maxHeight: {
+            md: "800px",
+          },
           gap: 4,
         }}
       >
-        {/* LEFT COLUMN: Image */}
+        {/* Left Column: Sidebar Image */}
         <Box
           sx={{
             flex: 1,
             maxWidth: "33%",
-            backgroundImage: `url(${sidebarImage})`,
+            backgroundImage: `url(${mockData.sidebarImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center bottom",
+            display: {
+              xs: "none",
+              md: "block",
+            },
           }}
         />
 
-        {/* RIGHT COLUMN: Form */}
+        {/* Right Column: Contact Form */}
         <Box
           sx={{
             flex: 2,
@@ -45,6 +46,7 @@ export default function ContactPage() {
             flexDirection: "column",
             gap: 8,
             maxWidth: "100%",
+            height: "100%",
           }}
         >
           <Column
@@ -56,15 +58,12 @@ export default function ContactPage() {
             }}
           >
             <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              Design your dream space with us
+              {mockData.title}
             </Typography>
             <Typography color="text.secondary">
-              Whether you're starting fresh or refining a vision,we would love
-              to learn more about how we can help you bring your design vision
-              to life.
+              {mockData.description}
             </Typography>
           </Column>
-
           <ContactFormSection />
         </Box>
       </Box>
@@ -72,3 +71,10 @@ export default function ContactPage() {
     </>
   );
 }
+
+const mockData = {
+  sidebarImage: "/IMG_0008.jpeg",
+  title: "Design your dream space with us",
+  description:
+    "Whether you're starting fresh or refining a vision,we would love to learn more about how we can help you bring your design vision to life.",
+};
