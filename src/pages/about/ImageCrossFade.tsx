@@ -25,7 +25,16 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
         width: "100%",
       }}
     >
-      <Box sx={{ position: "relative", px: 8, width: 1100, height: 700 }}>
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: {
+            xs: 500,
+            md: 700,
+          },
+        }}
+      >
         {images.map((src, index) => (
           <Fade key={index} in={index === current} timeout={2000}>
             <Box
@@ -47,10 +56,3 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
     </Row>
   );
 }
-
-/*
-const images = [
-  "/emily_bedroom.png",
-  "https://soho-spaces.com/assets/moody-romantic/IMG_0017.jpeg",
-];
-*/

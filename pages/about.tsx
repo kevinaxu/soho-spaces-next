@@ -9,7 +9,11 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import { FullWidthSection, Section } from "@/src/components/Section";
-import { MAX_WIDTH_TEXT_CONTAINER, PADDING_X_SECTION } from "@/src/constants";
+import {
+  MAX_WIDTH_TEXT_CONTAINER,
+  PADDING_X_SECTION,
+  PADDING_X_MOBILE,
+} from "@/src/constants";
 import ImageCrossFade from "@/src/pages/about/ImageCrossFade";
 import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
 import TeamSection from "@/src/pages/about/TeamSection";
@@ -20,11 +24,18 @@ export default function AboutPage({}) {
     <>
       <Header sticky={false} />
 
-      <Section>
-        <Column>
-          <ImageCrossFade images={mockData.progression} />
-        </Column>
-      </Section>
+      <FullWidthSection
+        sx={{
+          px: {
+            xs: PADDING_X_MOBILE,
+          },
+          py: {
+            xs: 0,
+          },
+        }}
+      >
+        <ImageCrossFade images={mockData.progression} />
+      </FullWidthSection>
 
       <Section>
         <Column
@@ -58,7 +69,10 @@ export default function AboutPage({}) {
       <FullWidthSection
         sx={{
           py: 8,
-          px: PADDING_X_SECTION,
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
           alignItems: "center",
         }}
       >

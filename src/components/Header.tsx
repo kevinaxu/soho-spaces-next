@@ -12,6 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useState } from "react";
+import { PADDING_X_MOBILE } from "../constants";
 
 const links = [
   { label: "About", href: "/about" },
@@ -39,7 +40,10 @@ export default function Header({ sticky }: { sticky: boolean }) {
       sx={{
         backgroundColor: (theme) => theme.palette.background.default,
         color: (theme) => theme.palette.text.primary,
-        paddingX: 2,
+        paddingX: {
+          xs: PADDING_X_MOBILE,
+          md: 2,
+        },
         paddingY: {
           xs: 1,
           md: 0,
@@ -51,6 +55,7 @@ export default function Header({ sticky }: { sticky: boolean }) {
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
+          paddingX: 0,
         }}
       >
         <Typography variant="h5" component="a" href="/" fontSize="1.5rem">
