@@ -1,13 +1,14 @@
 import { Typography } from "@mui/material";
 
 import { Column } from "@/src/components/Layout";
+import { MAX_WIDTH_TEXT_CONTAINER } from "@/src/constants";
 
 export function TestimonialSection() {
   return (
     <Column
       sx={{
         width: "100%",
-        maxWidth: "800px",
+        maxWidth: MAX_WIDTH_TEXT_CONTAINER,
         gap: 2,
         alignItems: "center",
         mx: "auto",
