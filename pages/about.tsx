@@ -148,6 +148,7 @@ const mockData = {
     {
       title: "Design Consultation",
       icon: GroupsIcon,
+      image: "/IMG_0020.jpeg",
       description: `The initial meeting will occur in your home to discuss your
       needs, desires, wish list, and budget, aiming to establish a
       vision for your residence. This two-hour session provides an
@@ -158,6 +159,7 @@ const mockData = {
     {
       title: "Design Proposal & Approval",
       icon: DriveFileRenameOutlineIcon,
+      image: "/IMG_0020.jpeg",
       description: `With a finalized preliminary design plan that outlines the scope
       of work and budget, the next step is to create a legally binding
       Letter of Agreement tailored to your project. Upon the mutual
@@ -167,6 +169,7 @@ const mockData = {
     {
       title: "Concept and Detailed Design",
       icon: TipsAndUpdatesIcon,
+      image: "/IMG_0020.jpeg",
       description: `We kick off the design phase, diving into the creative process
       where our team gathers all those exciting design ideas we've
       been brewing. As construction is often a component, we meet with
@@ -178,12 +181,14 @@ const mockData = {
     {
       title: "Presentation",
       icon: CoPresentIcon,
+      image: "/IMG_0020.jpeg",
       description:
         "Once the design plan is finalized, we will present the reimagined rooms and the overall space, bringing it to life with detailed drawings, fabric swatches, and finish samples. Depending on the project's scale, phased presentations may be required. If any revisions or tweaks are requested, we'll meticulously fine-tune them by exploring alternatives, ensuring you end up with the perfect design plan that resonates with your preferences.",
     },
     {
       title: "Implementation",
       icon: ConstructionIcon,
+      image: "/IMG_0020.jpeg",
       description:
         "It's ordering time! After you've given the green light to your design, we swing into action by reaching out to our suppliers and meticulously tracking timelines for smooth deliveries. In tandem with our contractor, we take charge of ensuring the flawless execution of the Design Plans. Consider this a stress-free zone for you, as we handle all the details and project manage the design and build process from start to finish.",
     },
