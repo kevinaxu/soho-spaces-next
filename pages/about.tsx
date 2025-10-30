@@ -62,7 +62,18 @@ export default function AboutPage({}) {
         <ProcessTimeline timelineData={mockData.timeline} />
       </Section>
 
-      <FullWidthSection sx={{ bgcolor: "#e3e2dc", py: 12, px: 4 }}>
+      <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
+        }}
+      >
         <TravelInspirationGallery images={mockData.travel} />
       </FullWidthSection>
 

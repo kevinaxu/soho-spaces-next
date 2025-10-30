@@ -5,6 +5,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  useMediaQuery,
 } from "@mui/material";
 
 import { Column } from "@/src/components/Layout";
@@ -23,32 +24,57 @@ export default function TravelInspirationGallery({
   images: ProjectImage[];
 }) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const imagesToDisplay = isMobile ? images.slice(0, 8) : images;
+
+  const titleSection = (
+    <Column sx={{ alignItems: "flex-start", gap: 2 }}>
+      <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
+        Design inspired by the world
+      </Typography>
+      <Typography color="text.secondary">
+        Through our travels, we discover inspiration in every corner of the
+        world — from the textures of local markets to the architecture of
+        distant cities. Each journey allows us to source unique, handcrafted
+        pieces and uncover emerging design styles that bring depth and
+        authenticity to our interiors.
+      </Typography>
+    </Column>
+  );
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         gap: 4,
+        py: {
+          xs: 8,
+        },
       }}
     >
-      <StickyBox top={theme.spacing(8)}>
-        <Column sx={{ alignItems: "flex-start", gap: 2 }}>
-          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-            Design inspired by the world
-          </Typography>
-          <Typography color="text.secondary">
-            Through our travels, we discover inspiration in every corner of the
-            world — from the textures of local markets to the architecture of
-            distant cities. Each journey allows us to source unique, handcrafted
-            pieces and uncover emerging design styles that bring depth and
-            authenticity to our interiors.
-          </Typography>
-        </Column>
-      </StickyBox>
-
+      {/* Left column should be sticky on desktop */}
+      {isMobile ? (
+        titleSection
+      ) : (
+        <StickyBox
+          top={theme.spacing(8)}
+          sx={{
+            paddingX: {
+              md: 0,
+            },
+          }}
+        >
+          {titleSection}
+        </StickyBox>
+      )}
       <Box sx={{ flex: 1 }}>
-        <ImageList cols={3} gap={16} rowHeight={300}>
-          {images.map((item, i) => (
+        <ImageList
+          cols={isMobile ? 2 : 3}
+          gap={16}
+          rowHeight={isMobile ? 300 : 450}
+        >
+          {imagesToDisplay.map((item, i) => (
             <ImageListItem
               key={i}
               sx={{
