@@ -28,39 +28,61 @@ export default function AboutPage({}) {
         sx={{
           px: {
             xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
           },
           py: {
             xs: 0,
+            md: 2,
           },
         }}
       >
         <ImageCrossFade images={mockData.progression} />
       </FullWidthSection>
 
-      <Section>
+      <FullWidthSection
+        sx={{
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
+          py: {
+            xs: 4,
+            md: 8,
+          },
+        }}
+      >
         <Column
           sx={{
-            gap: 3,
-            alignItems: "center",
-            textAlign: "center",
-            maxWidth: 800,
-            pb: 4,
+            gap: {
+              xs: 4,
+              md: 8,
+            },
           }}
         >
-          <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-            Our Process
-          </Typography>
-          <Typography color="text.secondary">
-            Our clients range from large companies to individual homeowners
-            looking to refresh their homes (in some cases even our own
-            neighbors). Throughout this process, our goal as designers is to
-            understand your vision and provide a plan that works for you. Our
-            goal as designers is to understand your vision and provide a plan
-            that
-          </Typography>
+          <Column
+            sx={{
+              width: "100%",
+              maxWidth: MAX_WIDTH_TEXT_CONTAINER,
+              gap: 2,
+              alignItems: "center",
+              mx: "auto",
+            }}
+          >
+            <Typography variant="h2" sx={{ fontStyle: "italic" }}>
+              Our Process
+            </Typography>
+            <Typography color="text.secondary">
+              Our clients range from large companies to individual homeowners
+              looking to refresh their homes (in some cases even our own
+              neighbors). Throughout this process, our goal as designers is to
+              understand your vision and provide a plan that works for you. Our
+              goal as designers is to understand your vision and provide a plan
+              that
+            </Typography>
+          </Column>
+          <ProcessTimeline timelineData={mockData.timeline} />
         </Column>
-        <ProcessTimeline timelineData={mockData.timeline} />
-      </Section>
+      </FullWidthSection>
 
       <FullWidthSection
         sx={{

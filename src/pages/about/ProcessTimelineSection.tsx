@@ -7,7 +7,10 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@mui/lab";
-import Typography from "@mui/material/Typography";
+import TimelineOppositeContent, {
+  timelineOppositeContentClasses,
+} from "@mui/lab/TimelineOppositeContent";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 
 import { Row, Column } from "@/src/components/Layout";
 
@@ -17,11 +20,19 @@ interface ProcessStepContent {
   icon?: SvgIconComponent;
 }
 
+const TIMELINE_MAX_WIDTH = "1400px";
+
+const image = "/IMG_0020.jpeg";
+
+// image,
+// showImage = false
 export default function ProcessTimeline({
   timelineData,
 }: {
   timelineData: ProcessStepContent[];
 }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
   return (
     <Column
       sx={{
@@ -36,9 +47,16 @@ export default function ProcessTimeline({
         }}
       >
         <Timeline
-          position="alternate-reverse"
+          position={isMobile ? "right" : "alternate-reverse"}
           sx={{
-            maxWidth: "1200px",
+            padding: 0,
+            maxWidth: {
+              md: TIMELINE_MAX_WIDTH,
+            },
+            // TODO: FIX THIS LEFT ALIGN ON MOBILE
+            // [`& .${timelineOppositeContentClasses.root}`]: {
+            //   flex: 0.2,
+            // },
           }}
         >
           {timelineData.map((item, index) => (
@@ -73,10 +91,17 @@ function TimelineContentCard({
   description: string;
 }) {
   return (
-    <TimelineContent>
+    <TimelineContent
+      sx={{
+        paddingBottom: {
+          xs: 8,
+          //   md: 4,
+        },
+      }}
+    >
       <Column
         sx={{
-          gap: 1,
+          gap: 2,
           // this is causing the left / right align to be less than the 1200
           mx: {
             xs: 0,
@@ -85,10 +110,39 @@ function TimelineContentCard({
           alignSelf: "center",
         }}
       >
-        <Typography variant="h6">{title}</Typography>
-        <Typography color="text.secondary" sx={{ textAlign: "justify" }}>
-          {description}
-        </Typography>
+        <Column
+          sx={{
+            gap: 1,
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              textAlign: {
+                md: "center",
+              },
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography color="text.secondary" sx={{ textAlign: "justify" }}>
+            {description}
+          </Typography>
+        </Column>
+        <Box
+          component="img"
+          src={image}
+          sx={{
+            width: {
+              md: "100%",
+            },
+            height: {
+              md: "300px",
+            },
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
       </Column>
     </TimelineContent>
   );
