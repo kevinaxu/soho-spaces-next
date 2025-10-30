@@ -4,15 +4,23 @@ import { useState } from "react";
 
 import { Row } from "@/src/components/Layout";
 
-export const HeroImageSection = forwardRef<HTMLDivElement>((_, ref) => {
+interface HeroImageSectionProps {
+  image?: string;
+}
+
+export const HeroImageSection = forwardRef<
+  HTMLDivElement,
+  HeroImageSectionProps
+>((props, ref) => {
+  const { image } = props;
+
   return (
     <Row
       ref={ref}
       sx={{
         height: "100vh",
         width: "100vw",
-        backgroundImage:
-          "url('https://soho-spaces.com/assets/modern-gothic/IMG_0965.jpeg')",
+        backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

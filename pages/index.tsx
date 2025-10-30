@@ -32,7 +32,7 @@ interface Media {
   cols?: number;
 }
 
-export default function HomePage({ page }: { page: HomePageProps }) {
+export default function HomePage() {
   const [sticky, setSticky] = useState<boolean | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
 
@@ -54,7 +54,7 @@ export default function HomePage({ page }: { page: HomePageProps }) {
     <>
       {sticky && <Header sticky={sticky} />}
 
-      <HeroImageSection ref={heroRef} />
+      <HeroImageSection image="/IMG_0965.jpeg" ref={heroRef} />
       {/* <HeroVideoSection ref={heroRef} /> */}
 
       <FullWidthSection
@@ -75,13 +75,13 @@ export default function HomePage({ page }: { page: HomePageProps }) {
           py: PADDING_X_SECTION,
         }}
       >
-        <StackedDeck cards={servicesSectionCards} />
+        <StackedDeck cards={mockData.services} />
       </FullWidthSection>
 
       <FullWidthSection
         sx={{ bgcolor: "#e3e2dc", py: 4, px: PADDING_X_SECTION }}
       >
-        <FeaturedProjectSection images={featuredProjectSectionImages} />
+        <FeaturedProjectSection images={mockData.featuredProject} />
       </FullWidthSection>
 
       <FullWidthSection
@@ -102,7 +102,7 @@ export default function HomePage({ page }: { page: HomePageProps }) {
           px: PADDING_X_SECTION,
         }}
       >
-        <ExploreProjectsSection images={exploreSectionImages} />
+        <ExploreProjectsSection images={mockData.explore} />
       </FullWidthSection>
 
       <ContactUsSection />
@@ -112,6 +112,7 @@ export default function HomePage({ page }: { page: HomePageProps }) {
   );
 }
 
+/*
 export async function getStaticProps() {
   const query = `*[_type == "home"] | order(publishedAt desc)[0]{
     title,
@@ -133,100 +134,101 @@ export async function getStaticProps() {
   const page = await client.fetch(query);
   return { props: { page } };
 }
+*/
 
-const featuredProjectSectionImages = [
-  {
-    src: "https://soho-spaces.com/assets/dark-academia/chair2.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/dark-academia/IMG_0003.jpeg",
-    title: "Hand-painted umbrellas",
-    subtitle: "Chiang Mai, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/dark-academia/IMG_0006.jpeg",
-    title: "Watercolor scroll",
-    subtitle: "Guangzhou, China",
-  },
-];
-
-const servicesSectionCards = [
-  {
-    numberText: "04 / 04",
-    title: "Content Creation",
-    bg: "#bab2a3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "03 / 04",
-    title: "Brand Strategy",
-    bg: "#c8c0b3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "02 / 04",
-    title: "Video Strategy",
-    bg: "#d9d3ca",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "01 / 04",
-    title: "Video Production",
-    bg: "#f1eeed",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-];
-
-const exploreSectionImages = [
-  {
-    src: "https://soho-spaces.com/assets/east-meets-west/IMG_0002_landscape.jpeg",
-    title: "Hand-painted umbrellas",
-    subtitle: "Chiang Mai, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/gingkos-and-greys/IMG_0004.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg",
-    title: "Watercolor scroll",
-    subtitle: "Guangzhou, China",
-  },
-  {
-    src: "https://soho-spaces.com/assets/dark-academia/IMG_0021.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0013.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0011.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_3699.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9480.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-  {
-    src: "https://soho-spaces.com/assets/east-meets-west/IMG_9474.jpeg",
-    title: "Brass towel bar",
-    subtitle: "Bangkok, Thailand",
-  },
-];
+const mockData = {
+  featuredProject: [
+    {
+      src: "/IMG_0008.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "/IMG_0002_landscape.jpeg",
+      title: "Hand-painted umbrellas",
+      subtitle: "Chiang Mai, Thailand",
+    },
+    {
+      src: "/IMG_00017.jpeg",
+      title: "Watercolor scroll",
+      subtitle: "Guangzhou, China",
+    },
+  ],
+  services: [
+    {
+      numberText: "04 / 04",
+      title: "Content Creation",
+      bg: "#bab2a3",
+      description:
+        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+    },
+    {
+      numberText: "03 / 04",
+      title: "Brand Strategy",
+      bg: "#c8c0b3",
+      description:
+        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+    },
+    {
+      numberText: "02 / 04",
+      title: "Video Strategy",
+      bg: "#d9d3ca",
+      description:
+        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+    },
+    {
+      numberText: "01 / 04",
+      title: "Video Production",
+      bg: "#f1eeed",
+      description:
+        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+    },
+  ],
+  explore: [
+    {
+      src: "/IMG_0002_landscape.jpeg",
+      title: "Hand-painted umbrellas",
+      subtitle: "Chiang Mai, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/gingkos-and-greys/IMG_0004.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg",
+      title: "Watercolor scroll",
+      subtitle: "Guangzhou, China",
+    },
+    {
+      src: "https://soho-spaces.com/assets/dark-academia/IMG_0021.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0013.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0011.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_3699.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/east-meets-west/IMG_9480.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+    {
+      src: "https://soho-spaces.com/assets/east-meets-west/IMG_9474.jpeg",
+      title: "Brass towel bar",
+      subtitle: "Bangkok, Thailand",
+    },
+  ],
+};
