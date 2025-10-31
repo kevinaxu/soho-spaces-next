@@ -3,12 +3,14 @@
 - Home page
   - Explore section
     - [] Instead of using quilted, use separate ImageList option which will allow top / bottom images to align instead of custom calculation
+  - Hero
+    - Hook up hero video dynamically when video is passed
 - About page
   - CrossFade
     - [] Update this so that it fades on scroll (nice to have)
   - Timeline
-    - [] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
-    - [] Add icon highlighting when container is centered
+    - [] Add icon highlighting when container is centered (nice to have)
+    - [x] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
 - Project page
   - Materials component
     - [] Update this so that details show up as tooltip
@@ -16,6 +18,7 @@
   - [] Hook up React Hook form backend to Netlify
 - Shared Components
   - Header
+    - [] Desktop - make this thinner
     - [] Mobile - lots of real-estate in Drawer right now. Add in some additional
   - Footer
     - [] Logo should be transparent and slightly overflow on the top of the footer, creating a watermark effect
@@ -24,6 +27,7 @@
   - [] Implement this using Mosaic
 - Refactor
   - [] Extract all the Layout constants and move them into the FullWidthSection, if possible
+  - [] "See the project" CTA links should be extracted into shared component
   - [] Extract Image responsiveness into a shared component which handles viewport checks, `srcset`, etc
   - [] Move all mockData into a separate /data directory (/data/mockData/about.json). This can be the output of `sanity dataset export production`
     - Does this need to be pushed? Really only needs to be used for local development

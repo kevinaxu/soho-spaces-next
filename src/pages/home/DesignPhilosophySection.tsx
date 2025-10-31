@@ -25,7 +25,10 @@ export function DesignPhilosophySection() {
       </Row>
       <Row
         sx={{
-          paddingX: 12,
+          paddingX: {
+            xs: 4,
+            md: 12,
+          },
           textAlign: "center",
         }}
       >

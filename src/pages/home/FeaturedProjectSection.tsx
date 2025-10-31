@@ -3,6 +3,7 @@ import {
   Box,
   Typography,
   useTheme,
+  useMediaQuery,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -20,12 +21,58 @@ interface ProjectImage {
 
 export function FeaturedProjectSection({ images }: { images: ProjectImage[] }) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
+  const titleSection = (
+    <Column sx={{ alignItems: "flex-start", gap: 2 }}>
+      <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
+        Dark Academia Living Room
+      </Typography>
+      <Typography color="text.secondary">
+        When we asked Kevin to tell us about a place that brought back good
+        memories and made him feel at ease, he began describing the Sterling
+        Memorial Library at Yale University. Its where he used to spend many
+        late nights listening to music while studying or reading a book. He
+        loved the Gothic architecture and how the stained glass windows cast
+        colorful patterns across the floors.
+      </Typography>
+      <Row
+        sx={{
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Typography
+          color="text.secondary"
+          sx={{
+            variant: "body1",
+          }}
+        >
+          see the project
+        </Typography>
+        <ArrowRightAltIcon
+          sx={{
+            transform: {
+              xs: "scaleX(1.5)",
+              md: "scaleX(1.8)",
+            },
+          }}
+        />
+      </Row>
+    </Column>
+  );
+
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column-reverse", md: "row" },
         gap: 4,
+        // TODO: move this to parent layout
+        // same for TravelInspirationGallery component
+        py: {
+          xs: 8,
+        },
       }}
     >
       <Box sx={{ flex: 1 }}>
@@ -62,45 +109,21 @@ export function FeaturedProjectSection({ images }: { images: ProjectImage[] }) {
           ))}
         </ImageList>
       </Box>
-
-      <StickyBox leftWidth={"50%"} top={theme.spacing(12)}>
-        <Column sx={{ alignItems: "flex-start", gap: 4 }}>
-          <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-            Dark Academia Living Room
-          </Typography>
-          <Typography color="text.secondary">
-            When we asked Kevin to tell us about a place that brought back good
-            memories and made him feel at ease, he began describing the Sterling
-            Memorial Library at Yale University. Its where he used to spend many
-            late nights listening to music while studying or reading a book. He
-            loved the Gothic architecture and how the stained glass windows cast
-            colorful patterns across the floors.
-          </Typography>
-          <Row
-            sx={{
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              color="text.secondary"
-              sx={{
-                variant: "body1",
-              }}
-            >
-              see the project
-            </Typography>
-            <ArrowRightAltIcon
-              sx={{
-                transform: {
-                  xs: "scaleX(1.5)",
-                  md: "scaleX(1.8)",
-                },
-              }}
-            />
-          </Row>
-        </Column>
-      </StickyBox>
+      {isMobile ? (
+        titleSection
+      ) : (
+        <StickyBox
+          leftWidth={"50%"}
+          top={theme.spacing(8)}
+          sx={{
+            paddingX: {
+              md: 0,
+            },
+          }}
+        >
+          {titleSection}
+        </StickyBox>
+      )}
     </Box>
   );
 }

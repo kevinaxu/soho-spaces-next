@@ -22,7 +22,7 @@ import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery
 export default function AboutPage({}) {
   return (
     <>
-      <Header sticky={false} />
+      <Header sticky={true} />
 
       <FullWidthSection
         sx={{

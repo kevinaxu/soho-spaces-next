@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { FullWidthSection } from "@/src/components/Section";
-import { PADDING_X_SECTION } from "@/src/constants";
+import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import { ExploreProjectsSection } from "@/src/pages/home/ExploreProjectsSection";
@@ -79,7 +79,16 @@ export default function HomePage() {
       </FullWidthSection>
 
       <FullWidthSection
-        sx={{ bgcolor: "#e3e2dc", py: 4, px: PADDING_X_SECTION }}
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
+        }}
       >
         <FeaturedProjectSection images={mockData.featuredProject} />
       </FullWidthSection>
@@ -149,7 +158,7 @@ const mockData = {
       subtitle: "Chiang Mai, Thailand",
     },
     {
-      src: "/IMG_00017.jpeg",
+      src: "/IMG_0017.jpeg",
       title: "Watercolor scroll",
       subtitle: "Guangzhou, China",
     },
@@ -191,12 +200,12 @@ const mockData = {
       subtitle: "Chiang Mai, Thailand",
     },
     {
-      src: "https://soho-spaces.com/assets/gingkos-and-greys/IMG_0004.jpeg",
+      src: "/IMG_0004.jpeg",
       title: "Brass towel bar",
       subtitle: "Bangkok, Thailand",
     },
     {
-      src: "https://soho-spaces.com/assets/dark-academia/IMG_0008.jpeg",
+      src: "/IMG_0008.jpeg",
       title: "Watercolor scroll",
       subtitle: "Guangzhou, China",
     },
