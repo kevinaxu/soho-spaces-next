@@ -5,11 +5,7 @@ import { Row, Column } from "@/src/components/Layout";
 
 export function ContactUsSection() {
   return (
-    <Row
-      sx={{
-        padding: 4,
-      }}
-    >
+    <Row>
       <Row
         sx={{
           height: "100vh",

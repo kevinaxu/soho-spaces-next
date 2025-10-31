@@ -114,7 +114,20 @@ export default function HomePage() {
         <ExploreProjectsSection images={mockData.explore} />
       </FullWidthSection>
 
-      <ContactUsSection />
+      <FullWidthSection
+        sx={{
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
+          py: {
+            xs: 2,
+            md: 2,
+          },
+        }}
+      >
+        <ContactUsSection />
+      </FullWidthSection>
 
       <Footer />
     </>

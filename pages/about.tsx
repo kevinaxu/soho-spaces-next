@@ -22,7 +22,7 @@ import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery
 export default function AboutPage({}) {
   return (
     <>
-      <Header sticky={true} />
+      <Header sticky={false} />
 
       <FullWidthSection
         sx={{
@@ -31,7 +31,7 @@ export default function AboutPage({}) {
             md: PADDING_X_SECTION,
           },
           py: {
-            xs: 0,
+            xs: 2,
             md: 2,
           },
         }}
