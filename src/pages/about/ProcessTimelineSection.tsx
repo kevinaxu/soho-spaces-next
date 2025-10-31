@@ -50,14 +50,21 @@ export default function ProcessTimeline({
             maxWidth: {
               md: TIMELINE_MAX_WIDTH,
             },
-            // TODO: FIX THIS LEFT ALIGN ON MOBILE
-            // [`& .${timelineOppositeContentClasses.root}`]: {
-            //   flex: 0.2,
-            // },
           }}
         >
           {timelineData.map((item, index) => (
-            <TimelineItem key={index}>
+            <TimelineItem
+              key={index}
+              sx={{
+                // Hide the unnecessary timeline left-padding on opposite content
+                "&::before": {
+                  display: {
+                    xs: "none",
+                    md: "flex",
+                  },
+                },
+              }}
+            >
               <TimelineSeparator>
                 {item.icon ? (
                   <TimelineDot>
