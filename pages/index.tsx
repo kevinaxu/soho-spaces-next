@@ -72,7 +72,9 @@ export default function HomePage() {
         sx={{
           alignItems: "center",
           backgroundColor: "#f1eeed",
-          py: PADDING_X_SECTION,
+          py: {
+            md: 8,
+          },
         }}
       >
         <StackedDeck cards={mockData.services} />

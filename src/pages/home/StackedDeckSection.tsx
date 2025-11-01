@@ -1,11 +1,14 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 
+import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { Row, Column } from "@/src/components/Layout";
 
-const OFFSET_BASE = 200;
-const OFFSET = 100;
-const REVEAL_OFFSET = 300;
+const DESKTOP_OFFSET_BASE = 200;
+const DESKTOP_OFFSET = 100;
+const DESKTOP_REVEAL_OFFSET = 300;
+
+const MOBILE_CARD_HEIGHT = "650px";
 
 interface StackedDeckCard {
   numberText: string;
@@ -15,6 +18,24 @@ interface StackedDeckCard {
 }
 
 export default function StackedDeck({
+  cards,
+}: {
+  cards: StackedDeckCard[];
+}): React.JSX.Element {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  return (
+    <>
+      {isMobile ? (
+        <StackedDeckMobile cards={cards} />
+      ) : (
+        <StackedDeckDesktop cards={cards} />
+      )}
+    </>
+  );
+}
+
+function StackedDeckDesktop({
   cards,
 }: {
   cards: StackedDeckCard[];
@@ -30,14 +51,14 @@ export default function StackedDeck({
         if (index === 0) {
           rightOffset = 0; // bottom card: full width
         } else if (index === 1) {
-          rightOffset = OFFSET_BASE; // second-to-last card
+          rightOffset = DESKTOP_OFFSET_BASE; // second-to-last card
         } else {
-          rightOffset = OFFSET_BASE + OFFSET * (index - 1); // all other top cards
+          rightOffset = DESKTOP_OFFSET_BASE + DESKTOP_OFFSET * (index - 1); // all other top cards
         }
 
         // Apply reveal offset if hovered card is on top
         if (hoveredIndex !== null && index > hoveredIndex) {
-          rightOffset += REVEAL_OFFSET;
+          rightOffset += DESKTOP_REVEAL_OFFSET;
         }
 
         return (
@@ -55,7 +76,6 @@ export default function StackedDeck({
               backgroundColor: card.bg,
               zIndex: index + 1,
               transition: "all 0.3s ease",
-              //   cursor: "pointer",
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -72,8 +92,8 @@ export default function StackedDeck({
       <Row
         sx={{
           position: "absolute",
-          py: 4,
-          px: 8,
+          py: 2,
+          px: 4,
           backgroundColor: "#f1eeed",
           zIndex: cards.length + 1,
         }}
@@ -86,6 +106,58 @@ export default function StackedDeck({
         </Box>
       </Row>
     </Box>
+  );
+}
+
+function StackedDeckMobile({
+  cards,
+}: {
+  cards: StackedDeckCard[];
+}): React.JSX.Element {
+  return (
+    <>
+      <Row
+        sx={{
+          width: "100%",
+          backgroundColor: "#f1eeed",
+          paddingY: 4,
+        }}
+      >
+        <Column sx={{ paddingX: PADDING_X_MOBILE, gap: 1 }}>
+          <Typography variant="h6">Services</Typography>
+          <Typography variant="body1">
+            Story and strategy cultivated in every touchpoint.
+          </Typography>
+        </Column>
+      </Row>
+      {cards
+        .slice()
+        .reverse()
+        .map((card) => {
+          return (
+            <Row
+              key={card.title}
+              sx={{
+                alignItems: "center",
+                backgroundColor: card.bg,
+              }}
+            >
+              <Row
+                key={card.title}
+                sx={{
+                  padding: PADDING_X_MOBILE,
+                }}
+              >
+                <ServicesColumn
+                  numberText={card.numberText}
+                  title={card.title}
+                  description={card.description}
+                />
+              </Row>
+            </Row>
+          );
+        })}
+    </>
   );
 }
 
@@ -102,9 +174,13 @@ function ServicesColumn({
     <Column
       sx={{
         justifyContent: "space-between",
-        height: "100%",
-        maxWidth: 300,
-        gap: 8,
+        height: {
+          xs: MOBILE_CARD_HEIGHT,
+          md: "100%",
+        },
+        maxWidth: {
+          md: 300,
+        },
       }}
     >
       <Typography variant="body1" sx={{ py: 2, alignSelf: "flex-end" }}>
