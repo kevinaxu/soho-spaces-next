@@ -7,7 +7,7 @@ import { FullWidthSection } from "@/src/components/Section";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
-import { ExploreProjectsSection } from "@/src/pages/home/ExploreProjectsSection";
+import ExploreSection from "@/src/pages/home/ExploreSection";
 import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
 import {
   HeroImageSection,
@@ -109,11 +109,17 @@ export default function HomePage() {
 
       <FullWidthSection
         sx={{
-          py: 4,
-          px: PADDING_X_SECTION,
+          alignItems: "center",
+          py: {
+            md: 4,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
         }}
       >
-        <ExploreProjectsSection images={mockData.explore} />
+        <ExploreSection images={mockData.explore} />
       </FullWidthSection>
 
       <FullWidthSection
