@@ -1,8 +1,8 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 
-import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { Row, Column } from "@/src/components/Layout";
+import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 
 const DESKTOP_OFFSET_BASE = 200;
 const DESKTOP_OFFSET = 100;
@@ -10,36 +10,46 @@ const DESKTOP_REVEAL_OFFSET = 300;
 
 const MOBILE_CARD_HEIGHT = "650px";
 
-interface StackedDeckCard {
-  numberText: string;
+interface StackedDeckProps {
   title: string;
-  bg: string;
   description: string;
+  cards: StackedDeckCard[];
 }
 
-export default function StackedDeck({
-  cards,
-}: {
-  cards: StackedDeckCard[];
-}): React.JSX.Element {
+interface StackedDeckCard {
+  title: string;
+  description: string;
+  bg: string;
+}
+
+export default function StackedDeck(
+  props: StackedDeckProps
+): React.JSX.Element {
+  const { title, description, cards } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
   return (
     <>
       {isMobile ? (
-        <StackedDeckMobile cards={cards} />
+        <StackedDeckMobile
+          title={title}
+          description={description}
+          cards={cards}
+        />
       ) : (
-        <StackedDeckDesktop cards={cards} />
+        <StackedDeckDesktop
+          title={title}
+          description={description}
+          cards={cards}
+        />
       )}
     </>
   );
 }
 
-function StackedDeckDesktop({
-  cards,
-}: {
-  cards: StackedDeckCard[];
-}): React.JSX.Element {
+function StackedDeckDesktop(props: StackedDeckProps): React.JSX.Element {
+  const { title, description, cards } = props;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const heightPx = 700;
 
@@ -81,7 +91,7 @@ function StackedDeckDesktop({
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <ServicesColumn
-              numberText={card.numberText}
+              numberText={getNumberText(cards.length, cards.indexOf(card))}
               title={card.title}
               description={card.description}
             />
@@ -99,21 +109,16 @@ function StackedDeckDesktop({
         }}
       >
         <Box sx={{ maxWidth: 200, gap: 12 }}>
-          <Typography variant="h6">Services</Typography>
-          <Typography variant="body1">
-            Story and strategy cultivated in every touchpoint.
-          </Typography>
+          <Typography variant="h6">{title}</Typography>
+          <Typography variant="body1">{description}</Typography>
         </Box>
       </Row>
     </Box>
   );
 }
 
-function StackedDeckMobile({
-  cards,
-}: {
-  cards: StackedDeckCard[];
-}): React.JSX.Element {
+function StackedDeckMobile(props: StackedDeckProps) {
+  const { title, description, cards } = props;
   return (
     <>
       <Row
@@ -124,10 +129,8 @@ function StackedDeckMobile({
         }}
       >
         <Column sx={{ paddingX: PADDING_X_MOBILE, gap: 1 }}>
-          <Typography variant="h6">Services</Typography>
-          <Typography variant="body1">
-            Story and strategy cultivated in every touchpoint.
-          </Typography>
+          <Typography variant="h6">{title}</Typography>
+          <Typography variant="body1">{description}</Typography>
         </Column>
       </Row>
       {cards
@@ -149,7 +152,7 @@ function StackedDeckMobile({
                 }}
               >
                 <ServicesColumn
-                  numberText={card.numberText}
+                  numberText={getNumberText(cards.length, cards.indexOf(card))}
                   title={card.title}
                   description={card.description}
                 />
@@ -194,6 +197,10 @@ function ServicesColumn({
       </Box>
     </Column>
   );
+}
+
+function getNumberText(length: number, index: number): string {
+  return `${String(length - index).padStart(2, "0")} / ${String(length).padStart(2, "0")}`;
 }
 
 /*

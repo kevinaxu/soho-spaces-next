@@ -13,6 +13,7 @@ import { HeroSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
+import { describe } from "node:test";
 
 interface HomePageProps {
   title: string;
@@ -80,7 +81,11 @@ export default function HomePage() {
           },
         }}
       >
-        <StackedDeck cards={mockData.services} />
+        <StackedDeck
+          title={mockData.services.title}
+          description={mockData.services.description}
+          cards={mockData.services.cards}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -199,36 +204,37 @@ const mockData = {
     subtitle:
       "The wonder—and challenge—of designing digital spaces for interior designers is in understanding each ones deeply personal perspective. For us, that means tailoring our process to embrace the needs of every project.",
   },
-  services: [
-    {
-      numberText: "04 / 04",
-      title: "Content Creation",
-      bg: "#bab2a3",
-      description:
-        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-    },
-    {
-      numberText: "03 / 04",
-      title: "Brand Strategy",
-      bg: "#c8c0b3",
-      description:
-        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-    },
-    {
-      numberText: "02 / 04",
-      title: "Video Strategy",
-      bg: "#d9d3ca",
-      description:
-        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-    },
-    {
-      numberText: "01 / 04",
-      title: "Video Production",
-      bg: "#f1eeed",
-      description:
-        "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-    },
-  ],
+  services: {
+    title: "Our Services",
+    description: "Story and strategy cultivated in every touchpoint.",
+    cards: [
+      // Cards are ordered where first one is last shown
+      {
+        title: "Content Creation",
+        bg: "#bab2a3",
+        description:
+          "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+      },
+      {
+        title: "Brand Strategy",
+        bg: "#c8c0b3",
+        description:
+          "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+      },
+      {
+        title: "Video Strategy",
+        bg: "#d9d3ca",
+        description:
+          "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+      },
+      {
+        title: "Video Production",
+        bg: "#f1eeed",
+        description:
+          "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
+      },
+    ],
+  },
   featuredProject: {
     title: "Dark Academia Living Room",
     description:
