@@ -100,20 +100,22 @@ function HeroLogo() {
         color: "#fff",
         fontWeight: "bold",
         fontSize: {
-          xs: "2rem",
-          sm: "4rem",
+          xs: "4rem",
           md: "8rem",
         },
         letterSpacing: {
           xs: "1rem",
-          sm: "1rem",
           md: "2rem",
+        },
+        lineHeight: {
+          xs: "6rem",
+          md: "normal",
         },
         textAlign: "center",
         textTransform: "uppercase",
       }}
     >
-      SOHO SPACES
+      soho spaces
     </Typography>
   );
 }
