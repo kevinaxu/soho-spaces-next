@@ -9,10 +9,7 @@ import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import ExploreSection from "@/src/pages/home/ExploreSection";
 import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
-import {
-  HeroImageSection,
-  HeroVideoSection,
-} from "@/src/pages/home/HeroImageSection";
+import { HeroSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
@@ -54,8 +51,11 @@ export default function HomePage() {
     <>
       {sticky && <Header sticky={sticky} />}
 
-      {/* <HeroImageSection media="/IMG_0965.jpeg" ref={heroRef} /> */}
-      <HeroVideoSection src="/hero_video.mp4" ref={heroRef} />
+      <HeroSection
+        src={mockData.hero.src}
+        type={mockData.hero.type}
+        ref={heroRef}
+      />
 
       <FullWidthSection
         sx={{
@@ -167,14 +167,14 @@ export async function getStaticProps() {
 */
 
 const mockData = {
-  //   hero: {
-  //     src: "/IMG_0965.jpeg",
-  //     type: "image",
-  //   },
   hero: {
-    src: "/hero_video.mp4",
-    type: "video",
+    src: "/IMG_0965.jpeg",
+    type: "image" as const,
   },
+  //   hero: {
+  //     src: "/hero_video.mp4",
+  //     type: "video" as const,
+  //   },
   featuredProject: [
     {
       src: "/IMG_0008.jpeg",
