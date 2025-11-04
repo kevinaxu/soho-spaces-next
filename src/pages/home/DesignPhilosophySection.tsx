@@ -2,7 +2,13 @@ import { Typography } from "@mui/material";
 
 import { Row, Column } from "@/src/components/Layout";
 
-export function DesignPhilosophySection() {
+interface DesignPhilosophySectionProps {
+  title: string;
+  subtitle: string;
+}
+
+export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
+  const { title, subtitle } = props;
   return (
     <Column
       sx={{
@@ -19,8 +25,7 @@ export function DesignPhilosophySection() {
         }}
       >
         <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-          Our approach is deep rooted in collaboration—an exercise designed to
-          uncover the process, perspective, and nuances that define your work.
+          {title}
         </Typography>
       </Row>
       <Row
@@ -32,12 +37,7 @@ export function DesignPhilosophySection() {
           textAlign: "center",
         }}
       >
-        <Typography variant="body1">
-          The wonder—and challenge—of designing digital spaces for interior
-          designers is in understanding each ones deeply personal perspective.
-          For us, that means tailoring our process to embrace the needs of every
-          project.
-        </Typography>
+        <Typography variant="body1">{subtitle}</Typography>
       </Row>
     </Column>
   );

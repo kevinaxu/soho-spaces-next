@@ -3,7 +3,13 @@ import { Box, Typography } from "@mui/material";
 
 import { Row, Column } from "@/src/components/Layout";
 
-export function ContactUsSection() {
+interface ContactUsSectionProps {
+  title: string;
+  cta: string;
+}
+
+export function ContactUsSection(props: ContactUsSectionProps) {
+  const { title, cta } = props;
   return (
     <Row>
       <Row
@@ -71,8 +77,7 @@ export function ContactUsSection() {
               }}
             >
               <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-                Ready to transform your space? Schedule a design consultation
-                and bring your vision to life.
+                {title}
               </Typography>
             </Row>
             <Row
@@ -87,7 +92,7 @@ export function ContactUsSection() {
                   variant: "h4",
                 }}
               >
-                book a call
+                {cta}
               </Typography>
               <ArrowRightAltIcon
                 sx={{

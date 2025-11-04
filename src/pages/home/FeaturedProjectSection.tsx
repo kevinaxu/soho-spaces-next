@@ -12,6 +12,12 @@ import {
 import { Row, Column } from "@/src/components/Layout";
 import StickyBox from "@/src/components/StickyBox";
 
+interface FeaturedProjectSectionProps {
+  title: string;
+  description: string;
+  images: ProjectImage[];
+}
+
 // TODO: update this to use consistent type throughout project
 interface ProjectImage {
   src: string;
@@ -19,23 +25,17 @@ interface ProjectImage {
   subtitle: string;
 }
 
-export function FeaturedProjectSection({ images }: { images: ProjectImage[] }) {
+export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
+  const { title, description, images } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
       <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        Dark Academia Living Room
+        {title}
       </Typography>
-      <Typography color="text.secondary">
-        When we asked Kevin to tell us about a place that brought back good
-        memories and made him feel at ease, he began describing the Sterling
-        Memorial Library at Yale University. Its where he used to spend many
-        late nights listening to music while studying or reading a book. He
-        loved the Gothic architecture and how the stained glass windows cast
-        colorful patterns across the floors.
-      </Typography>
+      <Typography color="text.secondary">{description}</Typography>
       <Row
         sx={{
           alignItems: "center",

@@ -65,7 +65,10 @@ export default function HomePage() {
           px: PADDING_X_SECTION,
         }}
       >
-        <DesignPhilosophySection />
+        <DesignPhilosophySection
+          title={mockData.designPhilosophy.title}
+          subtitle={mockData.designPhilosophy.subtitle}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -92,7 +95,11 @@ export default function HomePage() {
           },
         }}
       >
-        <FeaturedProjectSection images={mockData.featuredProject} />
+        <FeaturedProjectSection
+          title={mockData.featuredProject.title}
+          description={mockData.featuredProject.description}
+          images={mockData.featuredProject.images}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -104,7 +111,11 @@ export default function HomePage() {
           px: PADDING_X_SECTION,
         }}
       >
-        <TestimonialSection />
+        <TestimonialSection
+          quote={mockData.testimonial.quote}
+          author={mockData.testimonial.author}
+          title={mockData.testimonial.title}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -119,7 +130,11 @@ export default function HomePage() {
           },
         }}
       >
-        <ExploreSection images={mockData.explore} />
+        <ExploreSection
+          title={mockData.explore.title}
+          description={mockData.explore.description}
+          images={mockData.explore.images}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -134,7 +149,10 @@ export default function HomePage() {
           },
         }}
       >
-        <ContactUsSection />
+        <ContactUsSection
+          title={mockData.contact.title}
+          cta={mockData.contact.cta}
+        />
       </FullWidthSection>
 
       <Footer />
@@ -175,23 +193,12 @@ const mockData = {
   //     src: "/hero_video.mp4",
   //     type: "video" as const,
   //   },
-  featuredProject: [
-    {
-      src: "/IMG_0008.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "/IMG_0002_landscape.jpeg",
-      title: "Hand-painted umbrellas",
-      subtitle: "Chiang Mai, Thailand",
-    },
-    {
-      src: "/IMG_0017.jpeg",
-      title: "Watercolor scroll",
-      subtitle: "Guangzhou, China",
-    },
-  ],
+  designPhilosophy: {
+    title:
+      "Our approach is deep rooted in collaboration—an exercise designed to uncover the process, perspective, and nuances that define your work.",
+    subtitle:
+      "The wonder—and challenge—of designing digital spaces for interior designers is in understanding each ones deeply personal perspective. For us, that means tailoring our process to embrace the needs of every project.",
+  },
   services: [
     {
       numberText: "04 / 04",
@@ -222,48 +229,86 @@ const mockData = {
         "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
     },
   ],
-  explore: [
-    [
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        flex: 2,
-      },
-      {
-        src: "/IMG_0004.jpeg",
-        flex: 1,
-      },
+  featuredProject: {
+    title: "Dark Academia Living Room",
+    description:
+      "When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. Its where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors.",
+    images: [
       {
         src: "/IMG_0008.jpeg",
-        flex: 1,
+        title: "Brass towel bar",
+        subtitle: "Bangkok, Thailand",
       },
-    ],
-    [
       {
         src: "/IMG_0002_landscape.jpeg",
-        flex: 1,
+        title: "Hand-painted umbrellas",
+        subtitle: "Chiang Mai, Thailand",
       },
       {
-        src: "/IMG_0004.jpeg",
-        flex: 1,
-      },
-      {
-        src: "/IMG_0008.jpeg",
-        flex: 1,
+        src: "/IMG_0017.jpeg",
+        title: "Watercolor scroll",
+        subtitle: "Guangzhou, China",
       },
     ],
-    [
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        flex: 1,
-      },
-      {
-        src: "/IMG_0004.jpeg",
-        flex: 2,
-      },
-      {
-        src: "/IMG_0008.jpeg",
-        flex: 1,
-      },
+  },
+  testimonial: {
+    quote:
+      "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
+    author: "Korbinian Scheitzach",
+    title: "CEO ViscoTec America",
+  },
+  explore: {
+    title: "A Glimpse Into Our Projects",
+    description:
+      "Dive into our portfolio and see the details that make each project unique",
+    images: [
+      [
+        {
+          src: "/IMG_0002_landscape.jpeg",
+          flex: 2,
+        },
+        {
+          src: "/IMG_0004.jpeg",
+          flex: 1,
+        },
+        {
+          src: "/IMG_0008.jpeg",
+          flex: 1,
+        },
+      ],
+      [
+        {
+          src: "/IMG_0002_landscape.jpeg",
+          flex: 1,
+        },
+        {
+          src: "/IMG_0004.jpeg",
+          flex: 1,
+        },
+        {
+          src: "/IMG_0008.jpeg",
+          flex: 1,
+        },
+      ],
+      [
+        {
+          src: "/IMG_0002_landscape.jpeg",
+          flex: 1,
+        },
+        {
+          src: "/IMG_0004.jpeg",
+          flex: 2,
+        },
+        {
+          src: "/IMG_0008.jpeg",
+          flex: 1,
+        },
+      ],
     ],
-  ],
+  },
+  contact: {
+    title:
+      "Ready to transform your space? Schedule a design consultation and bring your vision to life.",
+    cta: "book a call",
+  },
 };

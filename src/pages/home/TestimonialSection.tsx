@@ -3,7 +3,14 @@ import { Typography } from "@mui/material";
 import { Column } from "@/src/components/Layout";
 import { MAX_WIDTH_TEXT_CONTAINER } from "@/src/constants";
 
-export function TestimonialSection() {
+interface TestimonialSectionProps {
+  quote: string;
+  author: string;
+  title: string;
+}
+
+export function TestimonialSection(props: TestimonialSectionProps) {
+  const { quote, author, title } = props;
   return (
     <Column
       sx={{
@@ -28,23 +35,16 @@ export function TestimonialSection() {
           fontStyle: "italic",
         }}
       >
-        “Gemma has been a wonderful help in the renovation of my central Bath
-        apartment. Gemma has been professionally trained which I specifically
-        wanted, as I had already interior design experience but needed some
-        extra expert guidance. There were several space planning issues and her
-        spatial planning was brilliant, so I had the confidence to buy furniture
-        items that I knew would fit. Gemma sourced some AMAZING PIECES that I
-        would never have found on my own."
+        {quote}
       </Typography>
       <Typography
         variant="body1"
         sx={{
           color: "#f5945c",
           textAlign: "center",
-          //   alignSelf: "flex-start",
         }}
       >
-        Korbinian Scheitzach, CEO ViscoTec America
+        {author}, {title}
       </Typography>
     </Column>
   );

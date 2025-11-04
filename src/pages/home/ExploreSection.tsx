@@ -10,6 +10,12 @@ import {
 import { Column } from "@/src/components/Layout";
 import StickyBox from "@/src/components/StickyBox";
 
+interface ExploreSectionProps {
+  title: string;
+  description: string;
+  images: ProjectImage[][];
+}
+
 // TODO: update this to use consistent type throughout project
 interface ProjectImage {
   src: string;
@@ -19,23 +25,17 @@ interface ProjectImage {
 const DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT = "800px";
 const DESKTOP_SPACING = 2;
 
-export default function ExploreSection({
-  images,
-}: {
-  images: ProjectImage[][];
-}) {
+export default function ExploreSection(props: ExploreSectionProps) {
+  const { title, description, images } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
       <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        A Glimpse Into Our Projects
+        {title}
       </Typography>
-      <Typography color="text.secondary">
-        Dive into our portfolio and see the details that make each project
-        unique
-      </Typography>
+      <Typography color="text.secondary">{description}</Typography>
     </Column>
   );
 
