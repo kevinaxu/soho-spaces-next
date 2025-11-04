@@ -13,14 +13,17 @@ import StickyBox from "@/src/components/StickyBox";
 // TODO: update this to use consistent type throughout project
 interface ProjectImage {
   src: string;
-  title: string;
-  subtitle: string;
+  flex: number;
 }
 
 const DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT = "800px";
 const DESKTOP_SPACING = 2;
 
-export default function ExploreSection({ images }: { images: ProjectImage[] }) {
+export default function ExploreSection({
+  images,
+}: {
+  images: ProjectImage[][];
+}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
@@ -71,151 +74,75 @@ export default function ExploreSection({ images }: { images: ProjectImage[] }) {
             height: DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT,
           }}
         >
-          {/* First column */}
-          <Grid
-            spacing={{
-              md: 2,
-            }}
-            size={{
-              xs: 6,
-              md: 4,
-            }}
-            sx={{
-              height: "100%",
-            }}
-          >
-            <Stack
-              direction="column"
-              spacing={DESKTOP_SPACING}
-              sx={{ height: "100%" }}
-            >
-              <Box
-                component="img"
-                src={images[0].src}
-                sx={{
-                  flex: 2,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[1].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[2].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-            </Stack>
-          </Grid>
-          <Grid
-            spacing={{
-              md: 6,
-            }}
-            size={{
-              xs: 6,
-              md: 4,
-            }}
-            sx={{
-              height: "100%",
-            }}
-          >
-            <Stack
-              direction="column"
-              spacing={DESKTOP_SPACING}
-              sx={{ height: "100%" }}
-            >
-              <Box
-                component="img"
-                src={images[0].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[1].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[2].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-            </Stack>
-          </Grid>
-          {/* Third column */}
-          <Grid
-            spacing={{
-              md: 6,
-            }}
-            size={{
-              md: 4,
-            }}
-            sx={{
-              display: {
-                md: "block",
-                xs: "none", // hide column 3 on mobile
-              },
-              height: "100%",
-            }}
-          >
-            <Stack
-              direction="column"
-              spacing={DESKTOP_SPACING}
-              sx={{ height: "100%" }}
-            >
-              <Box
-                component="img"
-                src={images[0].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[1].src}
-                sx={{
-                  flex: 2,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-              <Box
-                component="img"
-                src={images[2].src}
-                sx={{
-                  flex: 1,
-                  objectFit: "cover",
-                  minHeight: 0,
-                }}
-              />
-            </Stack>
-          </Grid>
+          <ExploreColumn images={images[0]} shouldDisplayOnMobile />
+          <ExploreColumn images={images[1]} shouldDisplayOnMobile />
+          <ExploreColumn images={images[2]} shouldDisplayOnMobile={false} />
         </Grid>
       </Box>
     </Box>
+  );
+}
+
+function ExploreColumn({
+  images,
+  shouldDisplayOnMobile = true,
+}: {
+  images: {
+    src: string;
+    flex: number;
+  }[];
+  shouldDisplayOnMobile: boolean;
+}) {
+  return (
+    <Grid
+      spacing={{
+        md: 6,
+      }}
+      size={{
+        xs: 6,
+        md: 4,
+      }}
+      sx={{
+        height: "100%",
+        display: {
+          md: "block",
+          xs: shouldDisplayOnMobile ? "block" : "none", // hide column 3 on mobile
+        },
+      }}
+    >
+      <Stack
+        direction="column"
+        spacing={DESKTOP_SPACING}
+        sx={{ height: "100%" }}
+      >
+        <Box
+          component="img"
+          src={images[0].src}
+          sx={{
+            flex: images[0].flex,
+            objectFit: "cover",
+            minHeight: 0,
+          }}
+        />
+        <Box
+          component="img"
+          src={images[1].src}
+          sx={{
+            flex: images[1].flex,
+            objectFit: "cover",
+            minHeight: 0,
+          }}
+        />
+        <Box
+          component="img"
+          src={images[2].src}
+          sx={{
+            flex: images[2].flex,
+            objectFit: "cover",
+            minHeight: 0,
+          }}
+        />
+      </Stack>
+    </Grid>
   );
 }

@@ -215,50 +215,47 @@ const mockData = {
     },
   ],
   explore: [
-    {
-      src: "/IMG_0002_landscape.jpeg",
-      title: "Hand-painted umbrellas",
-      subtitle: "Chiang Mai, Thailand",
-    },
-    {
-      src: "/IMG_0004.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "/IMG_0008.jpeg",
-      title: "Watercolor scroll",
-      subtitle: "Guangzhou, China",
-    },
-    {
-      src: "https://soho-spaces.com/assets/dark-academia/IMG_0021.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0013.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_0011.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "https://soho-spaces.com/assets/muted-mediterranean/IMG_3699.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "https://soho-spaces.com/assets/east-meets-west/IMG_9480.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
-    {
-      src: "https://soho-spaces.com/assets/east-meets-west/IMG_9474.jpeg",
-      title: "Brass towel bar",
-      subtitle: "Bangkok, Thailand",
-    },
+    [
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        flex: 2,
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        flex: 1,
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        flex: 1,
+      },
+    ],
+    [
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        flex: 1,
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        flex: 1,
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        flex: 1,
+      },
+    ],
+    [
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        flex: 1,
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        flex: 2,
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        flex: 1,
+      },
+    ],
   ],
 };
