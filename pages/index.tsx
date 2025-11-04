@@ -54,8 +54,8 @@ export default function HomePage() {
     <>
       {sticky && <Header sticky={sticky} />}
 
-      <HeroImageSection image="/IMG_0965.jpeg" ref={heroRef} />
-      {/* <HeroVideoSection ref={heroRef} /> */}
+      {/* <HeroImageSection media="/IMG_0965.jpeg" ref={heroRef} /> */}
+      <HeroVideoSection src="/hero_video.mp4" ref={heroRef} />
 
       <FullWidthSection
         sx={{
@@ -167,6 +167,14 @@ export async function getStaticProps() {
 */
 
 const mockData = {
+  //   hero: {
+  //     src: "/IMG_0965.jpeg",
+  //     type: "image",
+  //   },
+  hero: {
+    src: "/hero_video.mp4",
+    type: "video",
+  },
   featuredProject: [
     {
       src: "/IMG_0008.jpeg",
