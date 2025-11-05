@@ -8,14 +8,13 @@ import React, { useState, useEffect } from "react";
 
 import { urlFor } from "@/src/utils/sanityImage";
 
-interface GalleryItem {
-  _id: string;
+interface ProjectImage {
   url: string;
   title: string;
 }
 
 interface ImageCarouselProps {
-  images: GalleryItem[];
+  images: ProjectImage[];
   initialIndex?: number;
   onClose: () => void;
 }

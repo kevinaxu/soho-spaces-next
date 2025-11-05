@@ -69,6 +69,22 @@ export default function ProjectPage({ project }: { project: Project }) {
         />
       </FullWidthSection>
 
+      <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+            xs: 2,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: 8,
+          },
+        }}
+      >
+        <PhotoGallerySection images={mockData.gallery.images} />
+      </FullWidthSection>
+
       {/* 
       <FullWidthSection sx={{ py: 4, px: 4 }}>
         <Column gap={1}>
@@ -212,6 +228,58 @@ const mockData = {
       {
         src: "/IMG_0017.jpeg",
         title: "Watercolor scroll",
+      },
+    ],
+  },
+  gallery: {
+    images: [
+      {
+        src: "/IMG_0008.jpeg",
+        title: "Brass towel bar",
+      },
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0017.jpeg",
+        title: "Watercolor scroll",
+      },
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0004.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0008.jpeg",
+        title: "Hand-painted umbrellas",
       },
     ],
   },

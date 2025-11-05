@@ -18,7 +18,7 @@ export function OverviewSection(props: OverviewSectionProps) {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        gap: 4,
+        gap: 8,
         // TODO: move this to parent layout
         // same for TravelInspirationGallery component
         py: {
@@ -28,7 +28,7 @@ export function OverviewSection(props: OverviewSectionProps) {
       }}
     >
       {/* column left */}
-      <Box sx={{ flex: "0 0 70%" }}>
+      <Box sx={{ flex: "0 0 60%" }}>
         <Column sx={{ alignItems: "flex-start", gap: 2 }}>
           <Typography variant="h3" gutterBottom sx={{}}>
             {title}
