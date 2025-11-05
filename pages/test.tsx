@@ -29,7 +29,7 @@ export default function HomePage({}) {
     <>
       <Header sticky={false} />
 
-      <FullWidthSection
+      {/* <FullWidthSection
         sx={{
           alignItems: "center",
           backgroundColor: "#f1eeed",
@@ -44,7 +44,7 @@ export default function HomePage({}) {
         }}
       >
         <ExploreSection images={mockData.explore} />
-      </FullWidthSection>
+      </FullWidthSection> */}
 
       <Footer />
     </>
