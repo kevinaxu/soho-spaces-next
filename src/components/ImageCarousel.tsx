@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 import { urlFor } from "@/src/utils/sanityImage";
 
 interface ProjectImage {
-  url: string;
+  src: string;
   title: string;
 }
 
@@ -128,23 +128,23 @@ export default function ImageCarousel({
         >
           {images.map((image) => {
             // highest reasonable quality
-            const highResUrl = urlFor(image.url)
+            const highResUrl = urlFor(image.src)
               .width(2000)
               .auto("format")
               .url();
 
             // Optional srcSet for responsive images
             const srcSet = `
-                ${urlFor(image.url).width(480).auto("format").url()} 480w,
-                ${urlFor(image.url).width(768).auto("format").url()} 768w,
-                ${urlFor(image.url).width(1024).auto("format").url()} 1024w,
-                ${urlFor(image.url).width(1600).auto("format").url()} 1600w,
+                ${urlFor(image.src).width(480).auto("format").url()} 480w,
+                ${urlFor(image.src).width(768).auto("format").url()} 768w,
+                ${urlFor(image.src).width(1024).auto("format").url()} 1024w,
+                ${urlFor(image.src).width(1600).auto("format").url()} 1600w,
                 ${highResUrl} 2000w
             `;
 
             return (
               <Box
-                key={image.url}
+                key={image.src}
                 className="keen-slider__slide"
                 component="img"
                 src={highResUrl}
