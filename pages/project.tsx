@@ -2,6 +2,7 @@ import Typography from "@mui/material/Typography";
 import type { PortableTextBlock } from "@portabletext/types";
 import { useState } from "react";
 
+import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import ImageCarousel from "@/src/components/ImageCarousel";
@@ -13,6 +14,7 @@ import PhotoComparison from "@/src/pages/project/PhotoComparison";
 import PhotoGallerySection from "@/src/pages/project/PhotoGallerySection";
 import { client } from "@/src/sanity/client";
 import { parsePortableText } from "@/src/utils/portableTextParser";
+import { OverviewSection } from "@/src/pages/project/OverviewSection";
 
 interface Project {
   title: string;
@@ -37,38 +39,6 @@ interface Media {
   cols?: number;
 }
 
-const hotspots = [
-  {
-    title: "Cabinets",
-    description:
-      "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-    percent: {
-      x: 20,
-      y: 25,
-    },
-  },
-  {
-    title: "Counter",
-    description:
-      "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
-    percent: {
-      x: 90,
-      y: 80,
-    },
-  },
-  {
-    title: "Appliances",
-    description:
-      "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
-    percent: {
-      x: 40,
-      y: 60,
-    },
-  },
-];
-const hotspotImage =
-  "https://soho-spaces.com/assets/modern-gothic/IMG_0965.jpeg";
-
 export default function ProjectPage({ project }: { project: Project }) {
   // hero carousel
   const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
@@ -83,29 +53,41 @@ export default function ProjectPage({ project }: { project: Project }) {
     <>
       <Header sticky={true} />
 
-      {project.hero && (
-        <FullWidthSection sx={{ alignItems: "center", py: 0 }}>
-          <HeroGallery
-            hero={project.hero}
-            handleImageClick={handleHeroImageClick}
-          />
-        </FullWidthSection>
-      )}
+      {/* 
+      <FullWidthSection sx={{ alignItems: "center", py: 0 }}>
+        <HeroGallery
+          hero={project.hero}
+          handleImageClick={handleHeroImageClick}
+        />
+      </FullWidthSection>
+      )
+      */}
 
-      <Section sx={{ alignItems: "center" }}>
-        <Column gap={2}>
-          <Typography variant="h1">{project.title}</Typography>
-          {project.intro && parsePortableText(project.intro)}
-        </Column>
-      </Section>
+      <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: 8,
+          },
+        }}
+      >
+        <OverviewSection
+          title={mockData.overview.title}
+          description={mockData.overview.description}
+          details={mockData.overview.details}
+        />
+      </FullWidthSection>
 
+      {/* 
       <FullWidthSection sx={{ py: 4, px: 4 }}>
         <Column gap={1}>
-          {/* <Typography variant="h2">Gallery</Typography> */}
           {project.gallery && <PhotoGallerySection gallery={project.gallery} />}
         </Column>
       </FullWidthSection>
-
       <Column
         sx={{
           py: 6,
@@ -118,25 +100,21 @@ export default function ProjectPage({ project }: { project: Project }) {
           gap: 6,
         }}
       >
-        {/* Intro */}
         <Column gap={2}>
           <Typography variant="h1">{project.title}</Typography>
           {project.intro && parsePortableText(project.intro)}
         </Column>
 
-        {/* Quilted gallery */}
         <Column gap={1}>
           <Typography variant="h2">Gallery</Typography>
           {project.gallery && <PhotoGallerySection gallery={project.gallery} />}
         </Column>
 
-        {/* Story */}
         <Column gap={1}>
           <Typography variant="h2">The Story</Typography>
           {project.story && parsePortableText(project.story)}
         </Column>
 
-        {/* Before/After */}
         <Column gap={1}>
           <Typography variant="h2">Before & After</Typography>
           <Typography variant="body1">
@@ -150,16 +128,19 @@ export default function ProjectPage({ project }: { project: Project }) {
           )}
         </Column>
 
-        {/* Hotspot Image */}
         <Column gap={1}>
           <Typography variant="h2">Materials</Typography>
-          <HotspotImage image={hotspotImage} hotspots={hotspots} />
+          <HotspotImage
+            image={mockData.hotspotImage}
+            hotspots={mockData.hotspots}
+          />
         </Column>
       </Column>
+      */}
 
       <Footer />
 
-      {/* Carousels */}
+      {/* 
       {heroCarouselOpen && project.hero && (
         <ImageCarousel
           images={project.hero}
@@ -167,10 +148,12 @@ export default function ProjectPage({ project }: { project: Project }) {
           onClose={handleHeroCloseCarousel}
         />
       )}
+   */}
     </>
   );
 }
 
+/*
 export async function getStaticProps() {
   const query = `*[_type == "project"] | order(publishedAt desc)[0]{
     title,
@@ -209,3 +192,56 @@ export async function getStaticProps() {
   const project = await client.fetch(query);
   return { props: { project } };
 }
+  */
+
+const mockData = {
+  overview: {
+    title: "Dark Academia Living Room",
+    description:
+      "When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. Its where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors. When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. Its where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors.",
+    details: [
+      {
+        label: "Date",
+        value: "2025",
+      },
+      {
+        label: "Staging",
+        value: "Soho Spaces LLC",
+      },
+      {
+        label: "Photography",
+        value: "Travis Preston",
+      },
+    ],
+  },
+  hotspotImage: "/IMG_0965.jpeg",
+  hotspots: [
+    {
+      title: "Cabinets",
+      description:
+        "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+      percent: {
+        x: 20,
+        y: 25,
+      },
+    },
+    {
+      title: "Counter",
+      description:
+        "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
+      percent: {
+        x: 90,
+        y: 80,
+      },
+    },
+    {
+      title: "Appliances",
+      description:
+        "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
+      percent: {
+        x: 40,
+        y: 60,
+      },
+    },
+  ],
+};
