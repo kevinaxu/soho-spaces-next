@@ -23,6 +23,7 @@ export function OverviewSection(props: OverviewSectionProps) {
         // same for TravelInspirationGallery component
         py: {
           xs: 8,
+          md: 8,
         },
       }}
     >

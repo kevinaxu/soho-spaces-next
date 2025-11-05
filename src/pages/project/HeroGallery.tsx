@@ -1,72 +1,54 @@
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { keyframes } from "@mui/system";
-import { useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
-import { urlFor } from "@/src/utils/sanityImage";
-
-const nudge = keyframes`
-  0%, 100% { transform: translateX(0) scaleX(1.8); }
-  50% { transform: translateX(5px) scaleX(1.8); }
-`;
 
 interface HeroGalleryProps {
-  hero: { _id: string; url: string; title: string }[];
-  handleImageClick?: (index: number) => void;
+  images: {
+    title: string;
+    src: string;
+  }[];
 }
 
-export default function HeroGallery({
-  hero,
-  handleImageClick,
-}: HeroGalleryProps) {
-  const [animate, setAnimate] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimate(false), 6900);
-    return () => clearTimeout(timer);
-  }, []);
+const GALLERY_GAP = "16px";
 
-  const handleMouseEnter = () => setAnimate(true);
-  const handleMouseLeave = () => setAnimate(false);
-
+export default function HeroGallery({ images }: HeroGalleryProps) {
   return (
     <Box
       sx={{
         width: "100vw",
       }}
     >
-      {/* Scrollable Image Row */}
       <Row
         sx={{
-          overflowX: "auto",
+          overflow: "hidden",
           height: {
             xs: 350,
-            sm: 500,
+            sm: 450,
           },
-          gap: "16px",
+          gap: GALLERY_GAP,
         }}
       >
-        {hero.map((item, idx) => {
-          const srcSet = `
-          ${urlFor(item.url).width(320).url()} 320w,
-          ${urlFor(item.url).width(480).url()} 480w,
-          ${urlFor(item.url).width(768).url()} 768w,
-          ${urlFor(item.url).width(1024).url()} 1024w,
-          ${urlFor(item.url).width(1600).url()} 1600w
-        `;
+        {images.map((image) => {
+          // TODO: fix this
+          //   const srcSet = `
+          //   ${urlFor(item.src).width(320).url()} 320w,
+          //   ${urlFor(item.src).width(480).url()} 480w,
+          //   ${urlFor(item.src).width(768).url()} 768w,
+          //   ${urlFor(item.src).width(1024).url()} 1024w,
+          //   ${urlFor(item.src).width(1600).url()} 1600w
+          // `;
 
           return (
             <Box
-              key={item._id}
+              key={image.title}
               sx={{ flex: "0 0 auto", height: "100%", cursor: "pointer" }}
-              onClick={() => handleImageClick?.(idx)}
             >
               <img
-                src={urlFor(item.url).width(800).url()}
-                srcSet={srcSet}
-                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                alt={item.title}
+                // src={urlFor(item.src).width(800).url()}
+                // srcSet={srcSet}
+                // sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                src={image.src}
+                alt={image.title}
                 style={{
                   height: "100%",
                   width: "auto",
@@ -78,58 +60,6 @@ export default function HeroGallery({
             </Box>
           );
         })}
-      </Row>
-      <Row
-        sx={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          px: 2,
-          paddingTop: 1,
-          paddingX: {
-            xs: 2,
-            md: 4,
-          },
-        }}
-      >
-        <Typography
-          sx={{
-            variant: {
-              xs: "subtitle1",
-              md: "h6",
-            },
-          }}
-        >
-          back to interiors
-        </Typography>
-        <Row
-          sx={{
-            alignItems: "center",
-            gap: 1,
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Typography
-            sx={{
-              variant: {
-                xs: "subtitle1",
-                md: "h6",
-              },
-            }}
-          >
-            scroll
-          </Typography>
-          <ArrowRightAltIcon
-            sx={{
-              transform: {
-                xs: "scaleX(1.5)",
-                md: "scaleX(1.8)",
-              },
-              animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
-            }}
-          />
-        </Row>
       </Row>
     </Box>
   );

@@ -40,34 +40,21 @@ interface Media {
 }
 
 export default function ProjectPage({ project }: { project: Project }) {
-  // hero carousel
-  const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
-  const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
-  const handleHeroImageClick = (index: number) => {
-    heroSetCarouselIndex(index);
-    heroSetCarouselOpen(true);
-  };
-  const handleHeroCloseCarousel = () => heroSetCarouselOpen(false);
-
   return (
     <>
-      <Header sticky={true} />
+      <Header sticky={false} />
 
-      {/* 
-      <FullWidthSection sx={{ alignItems: "center", py: 0 }}>
-        <HeroGallery
-          hero={project.hero}
-          handleImageClick={handleHeroImageClick}
-        />
+      <FullWidthSection
+        sx={{ bgcolor: "#e3e2dc", alignItems: "center", py: 0 }}
+      >
+        <HeroGallery images={mockData.hero.images} />
       </FullWidthSection>
-      )
-      */}
 
       <FullWidthSection
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 4,
+            md: 0,
           },
           px: {
             xs: PADDING_X_MOBILE,
@@ -137,9 +124,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         </Column>
       </Column>
       */}
-
       <Footer />
-
       {/* 
       {heroCarouselOpen && project.hero && (
         <ImageCarousel
@@ -214,6 +199,23 @@ const mockData = {
       },
     ],
   },
+  hero: {
+    images: [
+      {
+        src: "/IMG_0008.jpeg",
+        title: "Brass towel bar",
+      },
+      {
+        src: "/IMG_0002_landscape.jpeg",
+        title: "Hand-painted umbrellas",
+      },
+      {
+        src: "/IMG_0017.jpeg",
+        title: "Watercolor scroll",
+      },
+    ],
+  },
+
   hotspotImage: "/IMG_0965.jpeg",
   hotspots: [
     {
