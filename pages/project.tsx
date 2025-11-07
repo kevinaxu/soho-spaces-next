@@ -10,11 +10,14 @@ import { Column } from "@/src/components/Layout";
 import { FullWidthSection, Section } from "@/src/components/Section";
 import HeroGallery from "@/src/pages/project/HeroGallery";
 import HotspotImage from "@/src/pages/project/HotspotImage";
+import HotspotSection from "@/src/pages/project/HotspotSection";
 import PhotoComparison from "@/src/pages/project/PhotoComparison";
 import PhotoGallerySection from "@/src/pages/project/PhotoGallerySection";
 import { client } from "@/src/sanity/client";
 import { parsePortableText } from "@/src/utils/portableTextParser";
+import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { OverviewSection } from "@/src/pages/project/OverviewSection";
+import { ComparisonSection } from "@/src/pages/project/ComparisonSection";
 
 interface Project {
   title: string;
@@ -58,7 +61,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 8,
+            md: 16,
           },
         }}
       >
@@ -78,19 +81,75 @@ export default function ProjectPage({ project }: { project: Project }) {
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 8,
+            md: 16,
           },
         }}
       >
         <PhotoGallerySection images={mockData.gallery.images} />
       </FullWidthSection>
 
-      {/* 
-      <FullWidthSection sx={{ py: 4, px: 4 }}>
-        <Column gap={1}>
-          {project.gallery && <PhotoGallerySection gallery={project.gallery} />}
+      <FullWidthSection
+        sx={{
+          height: "800px",
+          alignItems: "center",
+          bgcolor: "#073027",
+          py: 12,
+          px: PADDING_X_SECTION,
+        }}
+      >
+        <TestimonialSection
+          quote={mockData.testimonial.quote}
+          author={mockData.testimonial.author}
+          title={mockData.testimonial.title}
+        />
+      </FullWidthSection>
+
+      <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+            xs: 2,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: 16,
+          },
+        }}
+      >
+        <Column gap={2} sx={{ width: "100%" }}>
+          <Typography variant="h2">Materials</Typography>
+          <HotspotSection
+            image={mockData.hotspotImage}
+            hotspots={mockData.hotspots}
+          />
         </Column>
       </FullWidthSection>
+
+      <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            md: 4,
+            xs: 2,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: 16,
+          },
+        }}
+      >
+        <Column gap={2} sx={{ width: "100%" }}>
+          <ComparisonSection
+            title={mockData.comparison.title}
+            description={mockData.comparison.description}
+            before={mockData.comparison.before}
+            after={mockData.comparison.after}
+          />
+        </Column>
+      </FullWidthSection>
+
+      {/* 
       <Column
         sx={{
           py: 6,
@@ -314,4 +373,16 @@ const mockData = {
       },
     },
   ],
+  testimonial: {
+    quote:
+      "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
+    author: "Korbinian Scheitzach",
+    title: "CEO ViscoTec America",
+  },
+  comparison: {
+    title: "Ready to transform your dream space?",
+    description: "Schedule a free consultation",
+    before: "/modern_gothic_before.jpeg",
+    after: "/modern_gothic_after.jpeg",
+  },
 };
