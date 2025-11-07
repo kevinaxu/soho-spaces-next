@@ -13,7 +13,6 @@ import { HeroSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
-import { describe } from "node:test";
 
 interface HomePageProps {
   title: string;

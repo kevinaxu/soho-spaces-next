@@ -12,6 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useState } from "react";
+
 import { PADDING_X_MOBILE } from "../constants";
 
 const links = [
@@ -56,9 +57,23 @@ export default function Header({ sticky }: { sticky: boolean }) {
           display: "flex",
           justifyContent: "space-between",
           paddingX: 0,
+          minHeight: {
+            xs: 12,
+            md: 48,
+          }, // Adjust these values to shrink the height
         }}
       >
-        <Typography variant="h5" component="a" href="/" fontSize="1.5rem">
+        <Typography
+          variant="h5"
+          component="a"
+          href="/"
+          sx={{
+            fontSize: {
+              md: "1.5rem",
+              xs: "1.5rem",
+            },
+          }}
+        >
           soho spaces
         </Typography>
 
