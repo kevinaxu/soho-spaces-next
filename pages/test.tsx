@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Masonry } from "@mui/lab";
 import { Box, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
@@ -83,6 +83,20 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
   const handleClick = (idx: number) => {
     setActiveIdx(idx === activeIdx ? null : idx);
   };
+  const handleNext = () => {
+    if (activeIdx === null) {
+      setActiveIdx(0);
+    } else {
+      setActiveIdx((activeIdx + 1) % hotspots.length);
+    }
+  };
+  const handlePrev = () => {
+    if (activeIdx === null) {
+      setActiveIdx(hotspots.length - 1);
+    } else {
+      setActiveIdx((activeIdx - 1 + hotspots.length) % hotspots.length);
+    }
+  };
 
   // Measure image once after mount
   useEffect(() => {
@@ -138,20 +152,21 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
               </Box>
               {isActive && (
                 <>
-                  {renderVerticalLine({ hotspot, image: imageSize })}
-                  {renderHorizontalLine({ hotspot, image: imageSize })}
-                  {renderTooltipCard({ hotspot, image: imageSize })}
+                  <VerticalLine hotspot={hotspot} image={imageSize} />
+                  <HorizontalLine hotspot={hotspot} image={imageSize} />
+                  <TooltipCard hotspot={hotspot} image={imageSize} />
                 </>
               )}
             </>
           );
         })}
+        <Controls handleNext={handleNext} handlePrev={handlePrev} />
       </Box>
     </Row>
   );
 }
 
-function renderVerticalLine({ hotspot, image }: Props) {
+function VerticalLine({ hotspot, image }: Props) {
   // TOP TO BOTTOM
   if (isTop({ hotspot, image })) {
     const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
@@ -195,7 +210,7 @@ function renderVerticalLine({ hotspot, image }: Props) {
   }
 }
 
-function renderHorizontalLine({ hotspot, image }: Props) {
+function HorizontalLine({ hotspot, image }: Props) {
   // LEFT TO RIGHT
   if (isLeft({ hotspot, image })) {
     const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
@@ -223,7 +238,7 @@ function renderHorizontalLine({ hotspot, image }: Props) {
   }
 }
 
-function renderTooltipCard({ hotspot, image }: Props) {
+function TooltipCard({ hotspot, image }: Props) {
   if (isTop({ hotspot, image }) && isLeft({ hotspot, image })) {
     const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
     const horizontalLineLeft = verticalLineLeft;
@@ -257,6 +272,53 @@ function renderTooltipCard({ hotspot, image }: Props) {
       </Box>
     );
   }
+}
+
+function Controls({
+  handleNext,
+  handlePrev,
+}: {
+  handleNext: () => void;
+  handlePrev: () => void;
+}): React.JSX.Element {
+  return (
+    <Box
+      sx={{
+        position: "absolute",
+        bottom: 16,
+        right: 16,
+        display: "flex",
+        gap: 0,
+      }}
+    >
+      <IconButton
+        onClick={handlePrev}
+        sx={{
+          bgcolor: "transparent",
+          color: "white",
+          p: 0.5,
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.2)", // subtle hover
+          },
+        }}
+      >
+        <ChevronLeftIcon sx={{ fontSize: 32 }} />
+      </IconButton>
+      <IconButton
+        onClick={handleNext}
+        sx={{
+          bgcolor: "transparent",
+          color: "white",
+          p: 0.5,
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.2)",
+          },
+        }}
+      >
+        <ChevronRightIcon sx={{ fontSize: 32 }} />
+      </IconButton>
+    </Box>
+  );
 }
 
 const mockData = {
