@@ -58,8 +58,24 @@ interface HotspotImageProps {
   hotspots: Hotspot[];
 }
 
+const HOTSPOT_SIZE = 12;
+const LINE_THICKNESS = 3; // vertical line width & horizontal line height
+const VERTICAL_LINE_HEIGHT = 50;
+const HORIZONTAL_LINE_WIDTH = 150;
+
 function HotspotImage({ image, hotspots }: HotspotImageProps) {
   const [isActive, setIsActive] = useState(false);
+
+  // todo: make this dynmaic
+  const hotspotTop = 100;
+  const hotspotLeft = 100;
+
+  const verticalLineTop = hotspotTop + HOTSPOT_SIZE / 2;
+  const verticalLineLeft = hotspotLeft + HOTSPOT_SIZE / 2;
+  const horizontalLineTop = verticalLineTop + VERTICAL_LINE_HEIGHT;
+  const horizontalLineLeft = verticalLineLeft;
+  const tooltipTop = hotspotTop;
+  const tooltipLeft = horizontalLineLeft + HORIZONTAL_LINE_WIDTH;
 
   return (
     <Row sx={{ justifyContent: "center" }}>
@@ -80,59 +96,57 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
         <Box
           sx={{
             position: "absolute",
-            top: 100,
-            left: 100,
+            top: hotspotTop,
+            left: hotspotLeft,
             zIndex: 3,
           }}
         >
           <Box
             onClick={() => setIsActive(!isActive)}
             sx={{
-              width: 12,
-              height: 12,
+              width: HOTSPOT_SIZE,
+              height: HOTSPOT_SIZE,
               borderRadius: "50%",
               backgroundColor: "gray",
-              border: "2px solid white",
+              border: "2px solid white", // hardcoded
               cursor: "pointer",
               userSelect: "none",
             }}
           />
         </Box>
 
-        {/* lines + tooltip */}
         {isActive && (
           <>
             {/* Vertical line */}
             <Box
               sx={{
                 position: "absolute",
-                top: 105,
-                left: 105,
-                width: 3,
-                height: 0, // start collapsed
+                top: verticalLineTop,
+                left: verticalLineLeft,
+                width: LINE_THICKNESS,
+                height: 0,
                 backgroundColor: "#f1eeed",
                 zIndex: 1,
                 animation: "grow-vertical 0.2s ease-out forwards",
                 "@keyframes grow-vertical": {
-                  to: { height: 50 },
+                  to: { height: VERTICAL_LINE_HEIGHT },
                 },
               }}
             />
-
             {/* Horizontal line */}
             <Box
               sx={{
                 position: "absolute",
-                top: 105 + 50,
-                left: 105,
-                width: 0, // start collapsed
-                height: 3,
+                top: horizontalLineTop,
+                left: horizontalLineLeft,
+                width: 0,
+                height: LINE_THICKNESS,
                 backgroundColor: "#f1eeed",
                 zIndex: 1,
                 animation: "grow-horizontal 0.2s ease-out forwards",
                 animationDelay: "0.2s",
                 "@keyframes grow-horizontal": {
-                  to: { width: 150 },
+                  to: { width: HORIZONTAL_LINE_WIDTH },
                 },
               }}
             />
@@ -141,8 +155,8 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
             <Box
               sx={{
                 position: "absolute",
-                top: 100,
-                left: 250,
+                top: tooltipTop,
+                left: tooltipLeft,
                 borderRadius: "4px",
                 maxWidth: 500,
                 backgroundColor: "#f1eeed",
@@ -154,10 +168,7 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
                 animation: "fade-in-tooltip 0.2s ease-out forwards",
                 animationDelay: "0.4s",
                 "@keyframes fade-in-tooltip": {
-                  to: {
-                    opacity: 1,
-                    transform: "translateY(0)",
-                  },
+                  to: { opacity: 1, transform: "translateY(0)" },
                 },
               }}
             >
