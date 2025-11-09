@@ -76,17 +76,13 @@ interface Props {
 }
 
 function HotspotImage({ image, hotspots }: HotspotImageProps) {
-  const hotspot = {
-    title: "Cabinets",
-    description:
-      "For the opposite wall, we wanted it to be a softer style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller",
-    x: 100,
-    y: 100,
-  };
-
-  const [isActive, setIsActive] = useState(false);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+  const handleClick = (idx: number) => {
+    setActiveIdx(idx === activeIdx ? null : idx);
+  };
 
   // Measure image once after mount
   useEffect(() => {
@@ -114,37 +110,42 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
             boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
           }}
         />
-
-        {/* Hotspot */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: hotspot.y,
-            left: hotspot.x,
-            zIndex: 3,
-          }}
-        >
-          <Box
-            onClick={() => setIsActive(!isActive)}
-            sx={{
-              width: HOTSPOT_SIZE,
-              height: HOTSPOT_SIZE,
-              borderRadius: "50%",
-              backgroundColor: "gray",
-              border: "2px solid white", // hardcoded
-              cursor: "pointer",
-              userSelect: "none",
-            }}
-          />
-        </Box>
-
-        {isActive && (
-          <>
-            {renderVerticalLine({ hotspot, image: imageSize })}
-            {/* {renderHorizontalLine({ hotspot, image: imageSize })} */}
-            {/* {renderTooltipCard({ hotspot, image: imageSize })} */}
-          </>
-        )}
+        {hotspots.map((hotspot, idx) => {
+          const isActive = idx === activeIdx;
+          return (
+            <>
+              <Box
+                key={idx}
+                sx={{
+                  position: "absolute",
+                  top: hotspot.y,
+                  left: hotspot.x,
+                  zIndex: 3,
+                }}
+              >
+                <Box
+                  onClick={() => handleClick(idx)}
+                  sx={{
+                    width: HOTSPOT_SIZE,
+                    height: HOTSPOT_SIZE,
+                    borderRadius: "50%",
+                    backgroundColor: "gray",
+                    border: "2px solid white", // hardcoded
+                    cursor: "pointer",
+                    userSelect: "none",
+                  }}
+                />
+              </Box>
+              {isActive && (
+                <>
+                  {renderVerticalLine({ hotspot, image: imageSize })}
+                  {renderHorizontalLine({ hotspot, image: imageSize })}
+                  {renderTooltipCard({ hotspot, image: imageSize })}
+                </>
+              )}
+            </>
+          );
+        })}
       </Box>
     </Row>
   );
