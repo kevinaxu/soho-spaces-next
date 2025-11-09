@@ -62,104 +62,119 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <>
-      <Row sx={{ justifyContent: "center" }}>
+    <Row sx={{ justifyContent: "center" }}>
+      <Box sx={{ position: "relative", display: "inline-block" }}>
+        <Box
+          component="img"
+          src={image}
+          alt="Interactive"
+          sx={{
+            objectFit: "cover",
+            display: "block",
+            position: "relative",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+          }}
+        />
+
+        {/* hotspot */}
         <Box
           sx={{
-            position: "relative", // anchor hotspots to the image
-            display: "inline-block",
+            position: "absolute",
+            top: 100,
+            left: 100,
+            zIndex: 3,
           }}
         >
           <Box
-            component="img"
-            src={image}
-            alt="Interactive"
+            onClick={() => setIsActive(!isActive)}
             sx={{
-              objectFit: "cover",
-              display: "block",
-              zIndex: 0, // base layer
-              position: "relative", // ensures it participates in stacking
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              backgroundColor: "gray",
+              border: "2px solid white",
+              cursor: "pointer",
+              userSelect: "none",
             }}
           />
+        </Box>
 
-          {/* this is the hotspot */}
-          <Box
-            sx={{
-              position: "absolute",
-              top: "100px",
-              left: "100px",
-              zIndex: 3, // above lines + image
-            }}
-          >
+        {/* lines + tooltip */}
+        {isActive && (
+          <>
+            {/* Vertical line */}
             <Box
-              onClick={() => setIsActive(!isActive)}
               sx={{
-                width: 12,
-                height: 12,
-                borderRadius: "50%",
-                backgroundColor: "gray",
-                border: "2px solid white",
-                cursor: "pointer",
-                userSelect: "none",
+                position: "absolute",
+                top: 105,
+                left: 105,
+                width: 3,
+                height: 0, // start collapsed
+                backgroundColor: "#f1eeed",
+                zIndex: 1,
+                animation: "grow-vertical 0.2s ease-out forwards",
+                "@keyframes grow-vertical": {
+                  to: { height: 50 },
+                },
               }}
             />
-          </Box>
 
-          {/* this is the tooltip that gets displayed */}
-          {isActive && (
-            <>
-              {/* OPTION 1: vertical / horizonta lline */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 105,
-                  left: 105, // x position
-                  width: 3, // thin vertical line
-                  height: 50, // vertical length
-                  backgroundColor: "#f1eeed",
-                  zIndex: 1, // below hotspot + tooltip
-                }}
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 105 + 50,
-                  left: 105 + 0,
-                  width: 150,
-                  height: 3,
-                  backgroundColor: "#f1eeed",
-                  zIndex: 1, // below hotspot + tooltip
-                }}
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "100px",
-                  left: "250px",
-                  borderRadius: "2px",
-                  maxWidth: "500px",
-                  backgroundColor: "#f1eeed",
-                  padding: 2,
-                  // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // ✅ subtle shadow
-                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-                  zIndex: 2, // above lines
-                }}
-              >
-                <Column gap={1}>
-                  <Typography sx={{ fontStyle: "italic" }}>Cabinets</Typography>
-                  <Typography color="text.secondary">
-                    For the opposite wall, we wanted it to be a softer Gothic
-                    style while still being dramatic, so we chose the elegant
-                    floor-to-ceiling Escada cabinets and matched them to the
-                    greige walls to make the space look even taller
-                  </Typography>
-                </Column>
-              </Box>
-            </>
-          )}
-        </Box>
-      </Row>
-    </>
+            {/* Horizontal line */}
+            <Box
+              sx={{
+                position: "absolute",
+                top: 105 + 50,
+                left: 105,
+                width: 0, // start collapsed
+                height: 3,
+                backgroundColor: "#f1eeed",
+                zIndex: 1,
+                animation: "grow-horizontal 0.2s ease-out forwards",
+                animationDelay: "0.2s",
+                "@keyframes grow-horizontal": {
+                  to: { width: 150 },
+                },
+              }}
+            />
+
+            {/* Tooltip */}
+            <Box
+              sx={{
+                position: "absolute",
+                top: 100,
+                left: 250,
+                borderRadius: "4px",
+                maxWidth: 500,
+                backgroundColor: "#f1eeed",
+                padding: 2,
+                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+                zIndex: 2,
+                opacity: 0,
+                transform: "translateY(10px)",
+                animation: "fade-in-tooltip 0.2s ease-out forwards",
+                animationDelay: "0.4s",
+                "@keyframes fade-in-tooltip": {
+                  to: {
+                    opacity: 1,
+                    transform: "translateY(0)",
+                  },
+                },
+              }}
+            >
+              <Column gap={1}>
+                <Typography sx={{ fontStyle: "italic" }}>Cabinets</Typography>
+                <Typography color="text.secondary">
+                  For the opposite wall, we wanted it to be a softer Gothic
+                  style while still being dramatic, so we chose the elegant
+                  floor-to-ceiling Escada cabinets and matched them to the
+                  greige walls to make the space look even taller
+                </Typography>
+              </Column>
+            </Box>
+          </>
+        )}
+      </Box>
+    </Row>
   );
 }
 
