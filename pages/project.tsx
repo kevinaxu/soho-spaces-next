@@ -11,7 +11,7 @@ import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { ComparisonSection } from "@/src/pages/project/ComparisonSection";
 import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
-import HotspotSection from "@/src/pages/project/HotspotSection";
+import HotspotSection from "@/src/pages/project/Hotspot";
 import { OverviewSection } from "@/src/pages/project/OverviewSection";
 import PhotoComparison from "@/src/pages/project/PhotoComparison";
 import { client } from "@/src/sanity/client";
@@ -128,8 +128,8 @@ export default function ProjectPage({ project }: { project: Project }) {
         <Column gap={2} sx={{ width: "100%" }}>
           <Typography variant="h2">Materials</Typography>
           <HotspotSection
-            image={mockData.hotspotImage}
-            hotspots={mockData.hotspots}
+            image={mockData.hotspot.hotspotImage}
+            hotspots={mockData.hotspot.hotspots}
           />
         </Column>
       </FullWidthSection>
@@ -320,36 +320,39 @@ const mockData = {
     before: "/dark_academia/IMG_3265_2x.jpeg",
     after: "/dark_academia/IMG_1234.jpeg",
   },
-  hotspotImage: "/dark_academia/IMG_0020.jpeg",
-  hotspots: [
-    {
-      title: "Cabinets",
-      description:
-        "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-      percent: {
-        x: 20,
-        y: 25,
+  hotspot: {
+    hotspotImage: "/dark_academia/IMG_0020.jpeg",
+    hotspots: [
+      {
+        title: "Cabinets",
+        description:
+          "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+        x: 100,
+        y: 100,
       },
-    },
-    {
-      title: "Counter",
-      description:
-        "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
-      percent: {
-        x: 90,
-        y: 80,
+      {
+        title: "Counter",
+        description:
+          "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
+        x: 100,
+        y: 500,
       },
-    },
-    {
-      title: "Appliances",
-      description:
-        "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
-      percent: {
-        x: 40,
-        y: 60,
+      {
+        title: "Appliances",
+        description:
+          "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
+        x: 1000,
+        y: 100,
       },
-    },
-  ],
+      {
+        title: "Cabinets",
+        description:
+          "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+        x: 1000,
+        y: 500,
+      },
+    ],
+  },
   contact: {
     title: "Ready to transform your dream space?",
     cta: "Schedule a free consultation",
