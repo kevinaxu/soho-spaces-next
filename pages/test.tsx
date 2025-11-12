@@ -220,12 +220,16 @@ function VerticalLine({ hotspot, image }: Props) {
 }
 
 function HorizontalLine({ hotspot, image }: Props) {
-  // LEFT TO RIGHT
-  if (isLeft({ hotspot, image })) {
-    const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
-    const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
-    const horizontalLineTop = verticalLineTop + VERTICAL_LINE_HEIGHT;
-    const horizontalLineLeft = verticalLineLeft;
+  const isTopHalf = isTop({ hotspot, image });
+  const isLeftHalf = isLeft({ hotspot, image });
+  const centerY = hotspot.y + HOTSPOT_SIZE / 2;
+  const centerX = hotspot.x + HOTSPOT_SIZE / 2;
+
+  // TOP LEFT
+  if (isTopHalf && isLeftHalf) {
+    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineLeft = centerX;
     return (
       <Box
         sx={{
@@ -239,6 +243,85 @@ function HorizontalLine({ hotspot, image }: Props) {
           animation: "grow-horizontal 0.2s ease-out forwards",
           animationDelay: "0.2s",
           "@keyframes grow-horizontal": {
+            to: { width: HORIZONTAL_LINE_WIDTH },
+          },
+        }}
+      />
+    );
+  }
+
+  // BOTTOM LEFT
+  if (!isTopHalf && isLeftHalf) {
+    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // grows upward
+    const verticalTipX = centerX;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineLeft = verticalTipX; // start at the vertical line tip
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          top: horizontalLineTop,
+          left: horizontalLineLeft,
+          width: 0,
+          height: LINE_THICKNESS,
+          backgroundColor: "#f1eeed",
+          zIndex: 1,
+          transformOrigin: "left center",
+          animation: "grow-right 0.2s ease-out forwards",
+          animationDelay: "0.2s",
+          "@keyframes grow-right": {
+            to: { width: HORIZONTAL_LINE_WIDTH },
+          },
+        }}
+      />
+    );
+  }
+
+  // TOP RIGHT
+  if (isTopHalf && !isLeftHalf) {
+    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
+    const verticalTipX = centerX;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineRight = verticalTipX; // start at vertical line tip
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          top: horizontalLineTop,
+          right: image.width - horizontalLineRight,
+          width: 0,
+          height: LINE_THICKNESS,
+          backgroundColor: "#f1eeed",
+          zIndex: 1,
+          transformOrigin: "right center",
+          animation: "grow-left 0.2s ease-out forwards",
+          animationDelay: "0.2s",
+          "@keyframes grow-left": {
+            to: { width: HORIZONTAL_LINE_WIDTH },
+          },
+        }}
+      />
+    );
+  }
+  if (!isTopHalf && !isLeftHalf) {
+    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // vertical grows upward
+    const verticalTipX = centerX;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineRight = verticalTipX; // start at vertical line tip
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          top: horizontalLineTop,
+          right: image.width - horizontalLineRight,
+          width: 0,
+          height: LINE_THICKNESS,
+          backgroundColor: "#f1eeed",
+          zIndex: 1,
+          transformOrigin: "right center",
+          animation: "grow-left 0.2s ease-out forwards",
+          animationDelay: "0.2s",
+          "@keyframes grow-left": {
             to: { width: HORIZONTAL_LINE_WIDTH },
           },
         }}
@@ -354,7 +437,7 @@ const mockData = {
       title: "Cabinets",
       description:
         "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-      x: 1100,
+      x: 1000,
       y: 100,
     },
     // Bottom Right
@@ -362,7 +445,7 @@ const mockData = {
       title: "Cabinets",
       description:
         "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-      x: 1100,
+      x: 1000,
       y: 500,
     },
   ],
