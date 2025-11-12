@@ -177,7 +177,7 @@ function VerticalLine({ hotspot, image }: Props) {
         sx={{
           position: "absolute",
           top: verticalLineTop,
-          left: verticalLineLeft,
+          left: verticalLineLeft - 1,
           width: LINE_THICKNESS,
           height: 0,
           backgroundColor: "#f1eeed",
@@ -190,8 +190,6 @@ function VerticalLine({ hotspot, image }: Props) {
       />
     );
   } else {
-    // const verticalLineBottom = image.height - hotspot.y + HOTSPOT_SIZE / 2;
-    // const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 2;
     const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
     const verticalLineCenterY = hotspot.y + HOTSPOT_SIZE / 2;
 
@@ -200,7 +198,7 @@ function VerticalLine({ hotspot, image }: Props) {
         sx={{
           position: "absolute",
           top: verticalLineCenterY,
-          left: verticalLineLeft,
+          left: verticalLineLeft - 1,
           width: LINE_THICKNESS,
           height: 0,
           backgroundColor: "#f1eeed",
@@ -281,7 +279,7 @@ function HorizontalLine({ hotspot, image }: Props) {
   if (isTopHalf && !isLeftHalf) {
     const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
     return (
       <Box
@@ -303,10 +301,11 @@ function HorizontalLine({ hotspot, image }: Props) {
       />
     );
   }
+  // BOTTOM RIGHT
   if (!isTopHalf && !isLeftHalf) {
     const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // vertical grows upward
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const horizontalLineTop = verticalTipY;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
     return (
       <Box
