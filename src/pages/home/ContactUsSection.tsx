@@ -5,17 +5,18 @@ import { Row, Column } from "@/src/components/Layout";
 
 interface ContactUsSectionProps {
   title: string;
+  src: string;
   cta: string;
 }
 
 export function ContactUsSection(props: ContactUsSectionProps) {
-  const { title, cta } = props;
+  const { title, cta, src } = props;
   return (
     <Row>
       <Row
         sx={{
-          height: "100vh",
-          width: "100vw",
+          width: "100%",
+          aspectRatio: "16/9",
           position: "relative", // parent for absolute children
           justifyContent: "center",
           alignItems: "center",
@@ -29,8 +30,8 @@ export function ContactUsSection(props: ContactUsSectionProps) {
             top: 0,
             left: 0,
             width: "100%",
-            height: "100%",
-            backgroundImage: `url("/shady_glen_sketch.png")`,
+            aspectRatio: "16/9",
+            backgroundImage: `url(${src})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

@@ -2,22 +2,20 @@ import Typography from "@mui/material/Typography";
 import type { PortableTextBlock } from "@portabletext/types";
 import { useState } from "react";
 
-import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import ImageCarousel from "@/src/components/ImageCarousel";
 import { Column } from "@/src/components/Layout";
-import { FullWidthSection, Section } from "@/src/components/Section";
-import HeroGallery from "@/src/pages/project/HeroGallery";
-import HotspotImage from "@/src/pages/project/HotspotImage";
+import { FullWidthSection } from "@/src/components/Section";
+import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
+import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
+import { ComparisonSection } from "@/src/pages/project/ComparisonSection";
+import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
 import HotspotSection from "@/src/pages/project/HotspotSection";
+import { OverviewSection } from "@/src/pages/project/OverviewSection";
 import PhotoComparison from "@/src/pages/project/PhotoComparison";
-import PhotoGallerySection from "@/src/pages/project/PhotoGallerySection";
 import { client } from "@/src/sanity/client";
 import { parsePortableText } from "@/src/utils/portableTextParser";
-import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
-import { OverviewSection } from "@/src/pages/project/OverviewSection";
-import { ComparisonSection } from "@/src/pages/project/ComparisonSection";
 
 interface Project {
   title: string;
@@ -43,6 +41,14 @@ interface Media {
 }
 
 export default function ProjectPage({ project }: { project: Project }) {
+  const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
+  const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
+  const handleHeroImageClick = (index: number) => {
+    heroSetCarouselIndex(index);
+    heroSetCarouselOpen(true);
+  };
+  const handleHeroCloseCarousel = () => heroSetCarouselOpen(false);
+
   return (
     <>
       <Header sticky={false} />
@@ -50,18 +56,22 @@ export default function ProjectPage({ project }: { project: Project }) {
       <FullWidthSection
         sx={{ bgcolor: "#e3e2dc", alignItems: "center", py: 0 }}
       >
-        <HeroGallery images={mockData.hero.images} />
+        <HorizontalGallerySection
+          images={mockData.hero.images}
+          handleImageClick={handleHeroImageClick}
+        />
       </FullWidthSection>
 
       <FullWidthSection
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 0,
+            xs: 2,
+            md: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            md: 20,
           },
         }}
       >
@@ -76,44 +86,42 @@ export default function ProjectPage({ project }: { project: Project }) {
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 4,
             xs: 2,
+            md: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            md: 20,
           },
         }}
       >
-        <PhotoGallerySection images={mockData.gallery.images} />
-      </FullWidthSection>
-
-      <FullWidthSection
-        sx={{
-          height: "800px",
-          alignItems: "center",
-          bgcolor: "#073027",
-          py: 12,
-          px: PADDING_X_SECTION,
-        }}
-      >
-        <TestimonialSection
-          quote={mockData.testimonial.quote}
-          author={mockData.testimonial.author}
-          title={mockData.testimonial.title}
-        />
+        <Column gap={2} sx={{ width: "100%" }}>
+          <Typography variant="h2">Before and After</Typography>
+          <PhotoComparison
+            before={{
+              _id: "before-id",
+              title: "Before",
+              url: mockData.comparison.before,
+            }}
+            after={{
+              _id: "after-id",
+              title: "After",
+              url: mockData.comparison.after,
+            }}
+          />
+        </Column>
       </FullWidthSection>
 
       <FullWidthSection
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 4,
             xs: 2,
+            md: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            md: 20,
           },
         }}
       >
@@ -129,13 +137,33 @@ export default function ProjectPage({ project }: { project: Project }) {
       <FullWidthSection
         sx={{
           bgcolor: "#e3e2dc",
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: PADDING_X_SECTION,
+          },
           py: {
-            md: 4,
             xs: 2,
+            md: 2,
+          },
+        }}
+      >
+        <ContactUsSection
+          title={mockData.contact.title}
+          cta={mockData.contact.cta}
+          src={mockData.contact.src}
+        />
+      </FullWidthSection>
+
+      {/* <FullWidthSection
+        sx={{
+          bgcolor: "#e3e2dc",
+          py: {
+            xs: 2,
+            md: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            md: PADDING_X_SECTION,
           },
         }}
       >
@@ -147,7 +175,17 @@ export default function ProjectPage({ project }: { project: Project }) {
             after={mockData.comparison.after}
           />
         </Column>
-      </FullWidthSection>
+      </FullWidthSection> */}
+
+      {heroCarouselOpen && (
+        <ImageCarousel
+          images={mockData.hero.images}
+          initialIndex={heroCarouselIndex}
+          onClose={handleHeroCloseCarousel}
+        />
+      )}
+
+      <Footer />
 
       {/* 
       <Column
@@ -199,16 +237,6 @@ export default function ProjectPage({ project }: { project: Project }) {
         </Column>
       </Column>
       */}
-      <Footer />
-      {/* 
-      {heroCarouselOpen && project.hero && (
-        <ImageCarousel
-          images={project.hero}
-          initialIndex={heroCarouselIndex}
-          onClose={handleHeroCloseCarousel}
-        />
-      )}
-   */}
     </>
   );
 }
@@ -254,19 +282,20 @@ export async function getStaticProps() {
 }
   */
 
+// TODO: add anything for the page metadata (SEO, etc)
 const mockData = {
   overview: {
     title: "Dark Academia Living Room",
     description:
-      "When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. Its where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors. When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. Its where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors.",
+      "When we asked Kevin to tell us about a place that brought back good memories and made him feel at ease, he began describing the Sterling Memorial Library at Yale University. It's where he used to spend many late nights listening to music while studying or reading a book. He loved the Gothic architecture and how the stained glass windows cast colorful patterns across the floors. He missed the smell of old books mixed with the faint aroma of wood polish. With its rows of towering bookshelves and dimly-lit brass lamps, somehow the library felt both grand and cozy at the same time. With that inspiration in mind, we created this Dark Academia living room - a space where Kevin could gather his thoughts, put on a record, and relax with a good book. We chose modern yet timeless furniture, complemented it with some antique pieces, and balanced rich, dark hues with ornate gold detailing. Full story below.",
     details: [
       {
         label: "Date",
-        value: "2025",
+        value: "2024",
       },
       {
         label: "Staging",
-        value: "Soho Spaces LLC",
+        value: "Soho Spaces, LLC",
       },
       {
         label: "Photography",
@@ -276,74 +305,22 @@ const mockData = {
   },
   hero: {
     images: [
-      {
-        src: "/IMG_0008.jpeg",
-        title: "Brass towel bar",
-      },
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0017.jpeg",
-        title: "Watercolor scroll",
-      },
+      { title: "whatup", src: "/dark_academia/chair2.jpeg" },
+      { title: "whatup", src: "/dark_academia/IMG_0005.jpeg" },
+      { title: "whatup", src: "/dark_academia/sconce2.jpeg" },
+      { title: "whatup", src: "/dark_academia/IMG_0003.jpeg" },
+      { title: "whatup", src: "/dark_academia/IMG_0006.jpeg" },
+      { title: "whatup", src: "/dark_academia/sofa_close_up.jpeg" },
+      { title: "whatup", src: "/dark_academia/IMG_9150.jpeg" },
     ],
   },
-  gallery: {
-    images: [
-      {
-        src: "/IMG_0008.jpeg",
-        title: "Brass towel bar",
-      },
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0017.jpeg",
-        title: "Watercolor scroll",
-      },
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0004.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0008.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0004.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0008.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0002_landscape.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0004.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-      {
-        src: "/IMG_0008.jpeg",
-        title: "Hand-painted umbrellas",
-      },
-    ],
+  comparison: {
+    title: "Ready to transform your dream space?",
+    description: "Schedule a free consultation",
+    before: "/dark_academia/IMG_3265_2x.jpeg",
+    after: "/dark_academia/IMG_1234.jpeg",
   },
-
-  hotspotImage: "/IMG_0965.jpeg",
+  hotspotImage: "/dark_academia/IMG_0020.jpeg",
   hotspots: [
     {
       title: "Cabinets",
@@ -373,16 +350,9 @@ const mockData = {
       },
     },
   ],
-  testimonial: {
-    quote:
-      "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
-    author: "Korbinian Scheitzach",
-    title: "CEO ViscoTec America",
-  },
-  comparison: {
+  contact: {
     title: "Ready to transform your dream space?",
-    description: "Schedule a free consultation",
-    before: "/modern_gothic_before.jpeg",
-    after: "/modern_gothic_after.jpeg",
+    cta: "Schedule a free consultation",
+    src: "/dark_academia/shady_glen_sketch.png",
   },
 };

@@ -23,15 +23,12 @@ export default function PhotoComparison({
   return (
     <Box
       sx={{
-        display: "flex",
         width: "100%",
-        height: {
-          xs: 500,
-          sm: 600,
-        },
+        aspectRatio: "16/9",
       }}
     >
       <ReactCompareSlider
+        style={{ width: "100%", height: "100%" }}
         itemOne={<ReactCompareSliderImage src={before.url} alt="Before" />}
         itemTwo={<ReactCompareSliderImage src={after.url} alt="After" />}
         handle={<ReactCompareSliderHandle />}

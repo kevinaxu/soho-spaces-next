@@ -128,28 +128,28 @@ export default function ImageCarousel({
         >
           {images.map((image) => {
             // highest reasonable quality
-            const highResUrl = urlFor(image.src)
-              .width(2000)
-              .auto("format")
-              .url();
-
+            // const highResUrl = urlFor(image.src)
+            //   .width(2000)
+            //   .auto("format")
+            //   .url();
             // Optional srcSet for responsive images
-            const srcSet = `
-                ${urlFor(image.src).width(480).auto("format").url()} 480w,
-                ${urlFor(image.src).width(768).auto("format").url()} 768w,
-                ${urlFor(image.src).width(1024).auto("format").url()} 1024w,
-                ${urlFor(image.src).width(1600).auto("format").url()} 1600w,
-                ${highResUrl} 2000w
-            `;
+            // const srcSet = `
+            //     ${urlFor(image.src).width(480).auto("format").url()} 480w,
+            //     ${urlFor(image.src).width(768).auto("format").url()} 768w,
+            //     ${urlFor(image.src).width(1024).auto("format").url()} 1024w,
+            //     ${urlFor(image.src).width(1600).auto("format").url()} 1600w,
+            //     ${highResUrl} 2000w
+            // `;
 
             return (
               <Box
                 key={image.src}
                 className="keen-slider__slide"
                 component="img"
-                src={highResUrl}
-                srcSet={srcSet}
-                sizes="100vw"
+                src={image.src}
+                // src={highResUrl}
+                // srcSet={srcSet}
+                // sizes="100vw"
                 sx={{
                   width: "100%",
                   maxHeight: "80vh",

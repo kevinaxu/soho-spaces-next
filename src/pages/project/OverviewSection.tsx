@@ -19,12 +19,6 @@ export function OverviewSection(props: OverviewSectionProps) {
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         gap: 8,
-        // TODO: move this to parent layout
-        // same for TravelInspirationGallery component
-        py: {
-          xs: 8,
-          md: 8,
-        },
       }}
     >
       {/* column left */}
