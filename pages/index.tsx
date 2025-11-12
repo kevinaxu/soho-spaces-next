@@ -13,6 +13,7 @@ import { HeroSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
+import { mock } from "node:test";
 
 interface HomePageProps {
   title: string;
@@ -156,6 +157,7 @@ export default function HomePage() {
         <ContactUsSection
           title={mockData.contact.title}
           cta={mockData.contact.cta}
+          src={mockData.contact.src}
         />
       </FullWidthSection>
 
@@ -315,5 +317,6 @@ const mockData = {
     title:
       "Ready to transform your space? Schedule a design consultation and bring your vision to life.",
     cta: "book a call",
+    src: "/shady_glen_sketch.png",
   },
 };
