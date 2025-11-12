@@ -29,7 +29,7 @@ export function ComparisonSection(props: ComparisonSectionProps) {
       <Row
         sx={{
           width: "100vw",
-          height: "90vh",
+          height: "700px",
           position: "relative", // parent for absolute children
           justifyContent: "center",
           alignItems: "center",

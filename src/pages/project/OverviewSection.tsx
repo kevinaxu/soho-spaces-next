@@ -18,11 +18,11 @@ export function OverviewSection(props: OverviewSectionProps) {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        gap: 8,
+        gap: 4,
       }}
     >
       {/* column left */}
-      <Box sx={{ flex: "0 0 60%" }}>
+      <Box sx={{ flex: "0 0 70%" }}>
         <Column sx={{ alignItems: "flex-start", gap: 2 }}>
           <Typography variant="h3" gutterBottom sx={{}}>
             {title}
