@@ -62,7 +62,7 @@ export default function HorizontalGallerySection({
 
           return (
             <Box
-              key={image._id}
+              key={image.title}
               sx={{ flex: "0 0 auto", height: "100%", cursor: "pointer" }}
               onClick={() => handleImageClick?.(idx)}
             >
