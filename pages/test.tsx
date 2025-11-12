@@ -167,21 +167,24 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
 }
 
 function VerticalLine({ hotspot, image }: Props) {
+  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 1; // shift 1px to center on hotspot
   const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
-  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
+  const sharedProps = {
+    position: "absolute" as const,
+    left: verticalLineLeft,
+    width: LINE_THICKNESS,
+    height: 0,
+    backgroundColor: "#f1eeed",
+    zIndex: 1,
+  };
 
   // TOP TO BOTTOM
   if (isTop({ hotspot, image })) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: verticalLineTop,
-          left: verticalLineLeft - 1,
-          width: LINE_THICKNESS,
-          height: 0,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
           animation: "grow-vertical 0.2s ease-out forwards",
           "@keyframes grow-vertical": {
             to: { height: VERTICAL_LINE_HEIGHT },
@@ -190,20 +193,14 @@ function VerticalLine({ hotspot, image }: Props) {
       />
     );
   } else {
-    const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
-    const verticalLineCenterY = hotspot.y + HOTSPOT_SIZE / 2;
-
+    // BOTTOM HALF
     return (
       <Box
         sx={{
-          position: "absolute",
-          top: verticalLineCenterY,
-          left: verticalLineLeft - 1,
-          width: LINE_THICKNESS,
-          height: 0,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
+          ...sharedProps,
+          top: verticalLineTop,
           transformOrigin: "bottom",
+          transform: "scaleY(0)",
           animation: "grow-up 0.25s ease-out forwards",
           "@keyframes grow-up": {
             to: {
@@ -223,6 +220,14 @@ function HorizontalLine({ hotspot, image }: Props) {
   const centerY = hotspot.y + HOTSPOT_SIZE / 2;
   const centerX = hotspot.x + HOTSPOT_SIZE / 2;
 
+  const sharedProps = {
+    position: "absolute",
+    height: LINE_THICKNESS,
+    backgroundColor: "#f1eeed",
+    width: 0,
+    zIndex: 1,
+  };
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
     const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
@@ -231,13 +236,9 @@ function HorizontalLine({ hotspot, image }: Props) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
-          width: 0,
-          height: LINE_THICKNESS,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
           animation: "grow-horizontal 0.2s ease-out forwards",
           animationDelay: "0.2s",
           "@keyframes grow-horizontal": {
@@ -257,13 +258,9 @@ function HorizontalLine({ hotspot, image }: Props) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
-          width: 0,
-          height: LINE_THICKNESS,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
           transformOrigin: "left center",
           animation: "grow-right 0.2s ease-out forwards",
           animationDelay: "0.2s",
@@ -284,13 +281,9 @@ function HorizontalLine({ hotspot, image }: Props) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
-          width: 0,
-          height: LINE_THICKNESS,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
           transformOrigin: "right center",
           animation: "grow-left 0.2s ease-out forwards",
           animationDelay: "0.2s",
@@ -310,13 +303,9 @@ function HorizontalLine({ hotspot, image }: Props) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
-          width: 0,
-          height: LINE_THICKNESS,
-          backgroundColor: "#f1eeed",
-          zIndex: 1,
           transformOrigin: "right center",
           animation: "grow-left 0.2s ease-out forwards",
           animationDelay: "0.2s",
