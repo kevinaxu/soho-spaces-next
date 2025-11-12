@@ -9,7 +9,6 @@ import { Column } from "@/src/components/Layout";
 import { FullWidthSection } from "@/src/components/Section";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
-import { ComparisonSection } from "@/src/pages/project/ComparisonSection";
 import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
 import HotspotSection from "@/src/pages/project/Hotspot";
 import { OverviewSection } from "@/src/pages/project/OverviewSection";
@@ -67,7 +66,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 4,
+            md: 8,
           },
           px: {
             xs: PADDING_X_MOBILE,
@@ -87,7 +86,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 4,
+            md: 8,
           },
           px: {
             xs: PADDING_X_MOBILE,
@@ -117,7 +116,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 2,
+            md: 8,
           },
           px: {
             xs: PADDING_X_MOBILE,
