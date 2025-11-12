@@ -319,7 +319,11 @@ function HorizontalLine({ hotspot, image }: Props) {
 }
 
 function TooltipCard({ hotspot, image }: Props) {
-  if (isTop({ hotspot, image }) && isLeft({ hotspot, image })) {
+  const isTopHalf = isTop({ hotspot, image });
+  const isLeftHalf = isLeft({ hotspot, image });
+
+  // TOP LEFT
+  if (isTopHalf && isLeftHalf) {
     const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
     const horizontalLineLeft = verticalLineLeft;
     const tooltipTop = hotspot.y;
@@ -338,6 +342,109 @@ function TooltipCard({ hotspot, image }: Props) {
           zIndex: 2,
           opacity: 0,
           transform: "translateY(10px)",
+          animation: "fade-in-tooltip 0.2s ease-out forwards",
+          animationDelay: "0.4s",
+          "@keyframes fade-in-tooltip": {
+            to: { opacity: 1, transform: "translateY(0)" },
+          },
+        }}
+      >
+        <Column gap={1}>
+          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+          <Typography color="text.secondary">{hotspot.description}</Typography>
+        </Column>
+      </Box>
+    );
+  }
+
+  // TOP RIGHT
+  if (isTopHalf && !isLeftHalf) {
+    const tooltipTop = hotspot.y;
+    const tooltipRight =
+      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          top: tooltipTop,
+          right: tooltipRight,
+          borderRadius: "4px",
+          maxWidth: 500,
+          backgroundColor: "#f1eeed",
+          padding: 2,
+          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+          zIndex: 2,
+          opacity: 0,
+          transform: "translateY(10px)",
+          animation: "fade-in-tooltip 0.2s ease-out forwards",
+          animationDelay: "0.4s",
+          "@keyframes fade-in-tooltip": {
+            to: { opacity: 1, transform: "translateY(0)" },
+          },
+        }}
+      >
+        <Column gap={1}>
+          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+          <Typography color="text.secondary">{hotspot.description}</Typography>
+        </Column>
+      </Box>
+    );
+  }
+
+  // BOTTOM LEFT
+  if (!isTopHalf && isLeftHalf) {
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // CSS 'bottom' is from container bottom
+    const tooltipLeft = hotspot.x + HORIZONTAL_LINE_WIDTH - HOTSPOT_SIZE / 2;
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: tooltipBottom,
+          left: tooltipLeft,
+          borderRadius: "4px",
+          maxWidth: 500,
+          backgroundColor: "#f1eeed",
+          padding: 2,
+          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+          zIndex: 2,
+          opacity: 0,
+          transform: "translateY(-10px)", // start slightly above and slide up
+          animation: "fade-in-tooltip 0.2s ease-out forwards",
+          animationDelay: "0.4s",
+          "@keyframes fade-in-tooltip": {
+            to: { opacity: 1, transform: "translateY(0)" },
+          },
+        }}
+      >
+        <Column gap={1}>
+          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+          <Typography color="text.secondary">{hotspot.description}</Typography>
+        </Column>
+      </Box>
+    );
+  }
+
+  // BOTTOM RIGHT
+  if (!isTopHalf && !isLeftHalf) {
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // align bottom with hotspot
+    const tooltipRight =
+      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: tooltipBottom,
+          right: tooltipRight,
+          borderRadius: "4px",
+          maxWidth: 500,
+          backgroundColor: "#f1eeed",
+          padding: 2,
+          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+          zIndex: 2,
+          opacity: 0,
+          transform: "translateY(-10px)", // start slightly above and slide up
           animation: "fade-in-tooltip 0.2s ease-out forwards",
           animationDelay: "0.4s",
           "@keyframes fade-in-tooltip": {
