@@ -168,7 +168,7 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
                 <>
                   <VerticalLine hotspot={scaledHotspot} image={imageSize} />
                   <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
-                  {/*<TooltipCard hotspot={hotspot} image={imageSize} /> */}
+                  <TooltipCard hotspot={scaledHotspot} image={imageSize} />
                 </>
               )}
             </>
@@ -244,21 +244,32 @@ function HorizontalLine({ hotspot, image }: Props) {
     zIndex: 1,
   };
 
+  // compute scaled vertical line length (matches VerticalLine)
+  const verticalLineLength =
+    (VERTICAL_LINE_HEIGHT / IMAGE_HEIGHT) * image.height;
+  const horizontalLineLength =
+    (HORIZONTAL_LINE_WIDTH / IMAGE_WIDTH) * image.width;
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
-    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const verticalTipY = centerY + verticalLineLength;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 - 1;
     const horizontalLineLeft = centerX;
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
-          animation: "grow-horizontal 0.2s ease-out forwards",
+          width: horizontalLineLength,
+          transformOrigin: "left center",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-horizontal": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -267,21 +278,24 @@ function HorizontalLine({ hotspot, image }: Props) {
 
   // BOTTOM LEFT
   if (!isTopHalf && isLeftHalf) {
-    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // grows upward
-    const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
-    const horizontalLineLeft = verticalTipX; // start at the vertical line tip
+    const verticalTipY = centerY - verticalLineLength; // vertical grows upward for bottom-half
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 + 1;
+    const horizontalLineLeft = centerX; // start at the vertical line tip
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
+          width: horizontalLineLength,
           transformOrigin: "left center",
-          animation: "grow-right 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-right": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -290,31 +304,36 @@ function HorizontalLine({ hotspot, image }: Props) {
 
   // TOP RIGHT
   if (isTopHalf && !isLeftHalf) {
-    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
+    const verticalTipY = centerY + verticalLineLength; // use scaled vertical length
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 - 1;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
+          width: horizontalLineLength,
           transformOrigin: "right center",
-          animation: "grow-left 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal-right 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-left": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal-right": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
     );
   }
+
   // BOTTOM RIGHT
   if (!isTopHalf && !isLeftHalf) {
-    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // vertical grows upward
+    const verticalTipY = centerY - verticalLineLength; // vertical grows upward for bottom-half
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 + 1;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
     return (
       <Box
@@ -322,11 +341,14 @@ function HorizontalLine({ hotspot, image }: Props) {
           ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
+          width: horizontalLineLength,
           transformOrigin: "right center",
-          animation: "grow-left 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal-right 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-left": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal-right": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -345,7 +367,7 @@ function TooltipCard({ hotspot, image }: Props) {
     backgroundColor: "#f1eeed",
     padding: 2,
     boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-    zIndex: 2,
+    zIndex: 5,
     opacity: 0,
     animation: "fade-in-tooltip 0.2s ease-out forwards",
     animationDelay: "0.4s",
