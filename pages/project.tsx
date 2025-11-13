@@ -326,29 +326,29 @@ const mockData = {
         title: "Cabinets",
         description:
           "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-        x: 100,
-        y: 100,
+        percentX: 0.2,
+        percentY: 0.2,
       },
       {
         title: "Counter",
         description:
           "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
-        x: 100,
-        y: 500,
+        percentX: 0.2,
+        percentY: 0.8,
       },
       {
         title: "Appliances",
         description:
           "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
-        x: 1000,
-        y: 100,
+        percentX: 0.8,
+        percentY: 0.2,
       },
       {
         title: "Cabinets",
         description:
           "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
-        x: 1000,
-        y: 500,
+        percentX: 0.8,
+        percentY: 0.8,
       },
     ],
   },

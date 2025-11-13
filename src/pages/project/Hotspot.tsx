@@ -1,5 +1,6 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
 import { Box, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import React, { useState, useEffect, useRef } from "react";
@@ -9,8 +10,8 @@ import { Row, Column } from "@/src/components/Layout";
 interface Hotspot {
   title: string;
   description: string;
-  x: number;
-  y: number;
+  percentX: number;
+  percentY: number;
 }
 
 interface HotspotImageProps {
@@ -19,7 +20,12 @@ interface HotspotImageProps {
 }
 
 interface Props {
-  hotspot: Hotspot;
+  hotspot: {
+    title: string;
+    description: string;
+    x: number;
+    y: number;
+  };
   image: {
     width: number;
     height: number;
@@ -30,6 +36,10 @@ const HOTSPOT_SIZE = 12;
 const LINE_THICKNESS = 3; // vertical line width & horizontal line height
 const VERTICAL_LINE_HEIGHT = 50;
 const HORIZONTAL_LINE_WIDTH = 150;
+
+// TODO: make this dynamic
+const IMAGE_WIDTH = 1200;
+const IMAGE_HEIGHT = 675;
 
 export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
@@ -56,12 +66,16 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
 
   // Measure image once after mount
   useEffect(() => {
-    if (imgRef.current) {
-      const rect = imgRef.current.getBoundingClientRect();
-      setImageSize({ width: rect.width, height: rect.height });
-      console.log("image rect", rect);
-    }
-  }, []); // empty dependency → runs once
+    const updateSize = () => {
+      if (imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        setImageSize({ width: rect.width, height: rect.height });
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   return (
     <Row sx={{ justifyContent: "center" }}>
@@ -82,42 +96,51 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
             boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
           }}
         />
-        {hotspots.map((hotspot, idx) => {
-          const isActive = idx === activeIdx;
-          return (
-            <>
-              <Box
-                key={idx}
-                sx={{
-                  position: "absolute",
-                  top: hotspot.y,
-                  left: hotspot.x,
-                  zIndex: 3,
-                }}
-              >
+        {imageSize.width > 0 &&
+          hotspots.map((hotspot, idx) => {
+            const isActive = idx === activeIdx;
+            const x = hotspot.percentX * imageSize.width;
+            const y = hotspot.percentY * imageSize.height;
+            const scaledHotspot = { ...hotspot, x, y };
+
+            return (
+              <>
                 <Box
-                  onClick={() => handleClick(idx)}
+                  key={idx}
                   sx={{
-                    width: HOTSPOT_SIZE,
-                    height: HOTSPOT_SIZE,
-                    borderRadius: "50%",
-                    backgroundColor: "gray",
-                    border: "2px solid white", // hardcoded
-                    cursor: "pointer",
-                    userSelect: "none",
+                    position: "absolute",
+                    top: scaledHotspot.y,
+                    left: scaledHotspot.x,
+                    zIndex: 3,
                   }}
-                />
-              </Box>
-              {isActive && (
-                <>
-                  <VerticalLine hotspot={hotspot} image={imageSize} />
-                  <HorizontalLine hotspot={hotspot} image={imageSize} />
-                  <TooltipCard hotspot={hotspot} image={imageSize} />
-                </>
-              )}
-            </>
-          );
-        })}
+                >
+                  <Box
+                    onClick={() => handleClick(idx)}
+                    sx={{
+                      width: HOTSPOT_SIZE,
+                      height: HOTSPOT_SIZE,
+                      borderRadius: "50%",
+                      backgroundColor: "gray",
+                      border: "2px solid white", // hardcoded
+                      cursor: "pointer",
+                      userSelect: "none",
+                    }}
+                  />
+                </Box>
+                {isActive && (
+                  <>
+                    <VerticalLine hotspot={scaledHotspot} image={imageSize} />
+                    <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
+                    <TooltipCard
+                      hotspot={scaledHotspot}
+                      image={imageSize}
+                      close={() => setActiveIdx(null)}
+                    />
+                  </>
+                )}
+              </>
+            );
+          })}
         <Controls handleNext={handleNext} handlePrev={handlePrev} />
       </Box>
     </Row>
@@ -125,8 +148,11 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
 }
 
 function VerticalLine({ hotspot, image }: Props) {
-  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 1; // shift 1px to center on hotspot
+  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 1; // center align
   const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
+  const verticalLineLength =
+    (VERTICAL_LINE_HEIGHT / IMAGE_HEIGHT) * image.height;
+
   const sharedProps = {
     position: "absolute" as const,
     left: verticalLineLeft,
@@ -145,13 +171,12 @@ function VerticalLine({ hotspot, image }: Props) {
           top: verticalLineTop,
           animation: "grow-vertical 0.2s ease-out forwards",
           "@keyframes grow-vertical": {
-            to: { height: VERTICAL_LINE_HEIGHT },
+            to: { height: verticalLineLength },
           },
         }}
       />
     );
   } else {
-    // BOTTOM HALF
     return (
       <Box
         sx={{
@@ -162,7 +187,7 @@ function VerticalLine({ hotspot, image }: Props) {
           animation: "grow-up 0.25s ease-out forwards",
           "@keyframes grow-up": {
             to: {
-              height: VERTICAL_LINE_HEIGHT,
+              height: verticalLineLength,
               transform: "translateY(-100%)",
             },
           },
@@ -186,21 +211,32 @@ function HorizontalLine({ hotspot, image }: Props) {
     zIndex: 1,
   };
 
+  // compute scaled vertical line length (matches VerticalLine)
+  const verticalLineLength =
+    (VERTICAL_LINE_HEIGHT / IMAGE_HEIGHT) * image.height;
+  const horizontalLineLength =
+    (HORIZONTAL_LINE_WIDTH / IMAGE_WIDTH) * image.width;
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
-    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
+    const verticalTipY = centerY + verticalLineLength;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 - 1;
     const horizontalLineLeft = centerX;
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
-          animation: "grow-horizontal 0.2s ease-out forwards",
+          width: horizontalLineLength,
+          transformOrigin: "left center",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-horizontal": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -209,21 +245,24 @@ function HorizontalLine({ hotspot, image }: Props) {
 
   // BOTTOM LEFT
   if (!isTopHalf && isLeftHalf) {
-    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // grows upward
-    const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2;
-    const horizontalLineLeft = verticalTipX; // start at the vertical line tip
+    const verticalTipY = centerY - verticalLineLength; // vertical grows upward for bottom-half
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 + 1;
+    const horizontalLineLeft = centerX; // start at the vertical line tip
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           left: horizontalLineLeft,
+          width: horizontalLineLength,
           transformOrigin: "left center",
-          animation: "grow-right 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-right": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -232,31 +271,36 @@ function HorizontalLine({ hotspot, image }: Props) {
 
   // TOP RIGHT
   if (isTopHalf && !isLeftHalf) {
-    const verticalTipY = centerY + VERTICAL_LINE_HEIGHT;
+    const verticalTipY = centerY + verticalLineLength; // use scaled vertical length
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY - LINE_THICKNESS;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 - 1;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
+
     return (
       <Box
         sx={{
           ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
+          width: horizontalLineLength,
           transformOrigin: "right center",
-          animation: "grow-left 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal-right 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-left": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal-right": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
     );
   }
+
   // BOTTOM RIGHT
   if (!isTopHalf && !isLeftHalf) {
-    const verticalTipY = centerY - VERTICAL_LINE_HEIGHT; // vertical grows upward
+    const verticalTipY = centerY - verticalLineLength; // vertical grows upward for bottom-half
     const verticalTipX = centerX;
-    const horizontalLineTop = verticalTipY;
+    const horizontalLineTop = verticalTipY - LINE_THICKNESS / 2 + 1;
     const horizontalLineRight = verticalTipX; // start at vertical line tip
     return (
       <Box
@@ -264,11 +308,14 @@ function HorizontalLine({ hotspot, image }: Props) {
           ...sharedProps,
           top: horizontalLineTop,
           right: image.width - horizontalLineRight,
+          width: horizontalLineLength,
           transformOrigin: "right center",
-          animation: "grow-left 0.2s ease-out forwards",
+          transform: "scaleX(0)",
+          animation: "scale-horizontal-right 0.25s ease-out forwards",
           animationDelay: "0.2s",
-          "@keyframes grow-left": {
-            to: { width: HORIZONTAL_LINE_WIDTH },
+          "@keyframes scale-horizontal-right": {
+            from: { transform: "scaleX(0)" },
+            to: { transform: "scaleX(1)" },
           },
         }}
       />
@@ -276,7 +323,7 @@ function HorizontalLine({ hotspot, image }: Props) {
   }
 }
 
-function TooltipCard({ hotspot, image }: Props) {
+function TooltipCard({ hotspot, image, close }: Props & { close: () => void }) {
   const isTopHalf = isTop({ hotspot, image });
   const isLeftHalf = isLeft({ hotspot, image });
 
@@ -287,7 +334,7 @@ function TooltipCard({ hotspot, image }: Props) {
     backgroundColor: "#f1eeed",
     padding: 2,
     boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-    zIndex: 2,
+    zIndex: 5,
     opacity: 0,
     animation: "fade-in-tooltip 0.2s ease-out forwards",
     animationDelay: "0.4s",
@@ -298,15 +345,24 @@ function TooltipCard({ hotspot, image }: Props) {
 
   const tooltipCard = (
     <Column gap={1}>
-      <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+      <Row sx={{ justifyContent: "space-between", alignItems: "center" }}>
+        <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+        <IconButton onClick={close} size="small" sx={{ p: 0.5 }}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Row>
       <Typography color="text.secondary">{hotspot.description}</Typography>
     </Column>
   );
 
+  const centerX = hotspot.x + HOTSPOT_SIZE / 2;
+  const horizontalLineLength =
+    (HORIZONTAL_LINE_WIDTH / IMAGE_WIDTH) * image.width;
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
     const tooltipTop = hotspot.y;
-    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + HORIZONTAL_LINE_WIDTH;
+    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + horizontalLineLength;
     return (
       <Box
         sx={{
@@ -324,8 +380,7 @@ function TooltipCard({ hotspot, image }: Props) {
   // TOP RIGHT
   if (isTopHalf && !isLeftHalf) {
     const tooltipTop = hotspot.y;
-    const tooltipRight =
-      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+    const tooltipRight = image.width - centerX + horizontalLineLength;
     return (
       <Box
         sx={{
@@ -342,15 +397,15 @@ function TooltipCard({ hotspot, image }: Props) {
 
   // BOTTOM LEFT
   if (!isTopHalf && isLeftHalf) {
-    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // CSS 'bottom' is from container bottom
-    const tooltipLeft = hotspot.x + HORIZONTAL_LINE_WIDTH - HOTSPOT_SIZE / 2;
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE;
+    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + horizontalLineLength;
     return (
       <Box
         sx={{
           ...sharedProps,
           bottom: tooltipBottom,
           left: tooltipLeft,
-          transform: "translateY(-10px)", // start slightly above and slide up
+          transform: "translateY(-10px)",
         }}
       >
         {tooltipCard}
@@ -360,9 +415,8 @@ function TooltipCard({ hotspot, image }: Props) {
 
   // BOTTOM RIGHT
   if (!isTopHalf && !isLeftHalf) {
-    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // align bottom with hotspot
-    const tooltipRight =
-      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE;
+    const tooltipRight = image.width - centerX + horizontalLineLength;
     return (
       <Box
         sx={{
