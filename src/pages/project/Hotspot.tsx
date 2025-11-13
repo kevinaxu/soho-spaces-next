@@ -65,7 +65,9 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
 
   return (
     <Row sx={{ justifyContent: "center" }}>
-      <Box sx={{ position: "relative", display: "inline-block" }}>
+      <Box
+        sx={{ width: "100%", position: "relative", display: "inline-block" }}
+      >
         {/* Background Image */}
         <Box
           ref={imgRef}
