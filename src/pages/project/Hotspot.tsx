@@ -1,7 +1,7 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -45,6 +45,21 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
+  useEffect(() => {
+    const getBP = () => {
+      const width = window.innerWidth;
+      if (width < theme.breakpoints.values.sm) return "xs";
+      if (width < theme.breakpoints.values.md) return "sm";
+      if (width < theme.breakpoints.values.lg) return "md";
+      if (width < theme.breakpoints.values.xl) return "lg";
+      return "xl";
+    };
+    const bp = getBP();
+    console.log("Current breakpoint:", bp);
+  }, [theme]);
 
   const handleClick = (idx: number) => {
     setActiveIdx(idx === activeIdx ? null : idx);
@@ -78,72 +93,122 @@ export default function HotspotImage({ image, hotspots }: HotspotImageProps) {
   }, []);
 
   return (
-    <Row sx={{ justifyContent: "center" }}>
-      <Box
-        sx={{ width: "100%", position: "relative", display: "inline-block" }}
-      >
-        {/* Background Image */}
+    <Column gap={1}>
+      <Row sx={{ justifyContent: "center" }}>
         <Box
-          ref={imgRef}
-          component="img"
-          src={image}
-          alt="Interactive"
-          sx={{
-            zIndex: 0,
-            objectFit: "cover",
-            display: "block",
-            position: "relative",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
-          }}
-        />
-        {imageSize.width > 0 &&
-          hotspots.map((hotspot, idx) => {
-            const isActive = idx === activeIdx;
-            const x = hotspot.percentX * imageSize.width;
-            const y = hotspot.percentY * imageSize.height;
-            const scaledHotspot = { ...hotspot, x, y };
+          sx={{ width: "100%", position: "relative", display: "inline-block" }}
+        >
+          {/* Background Image */}
+          <Box
+            ref={imgRef}
+            component="img"
+            src={image}
+            alt="Interactive"
+            sx={{
+              zIndex: 0,
+              objectFit: "cover",
+              display: "block",
+              position: "relative",
+              boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+            }}
+          />
+          {imageSize.width > 0 &&
+            hotspots.map((hotspot, idx) => {
+              const isActive = idx === activeIdx;
+              const x = hotspot.percentX * imageSize.width;
+              const y = hotspot.percentY * imageSize.height;
+              const scaledHotspot = { ...hotspot, x, y };
 
-            return (
-              <>
-                <Box
-                  key={idx}
+              return (
+                <>
+                  <Box
+                    key={idx}
+                    sx={{
+                      position: "absolute",
+                      top: scaledHotspot.y,
+                      left: scaledHotspot.x,
+                      zIndex: 3,
+                    }}
+                  >
+                    <Box
+                      onClick={() => handleClick(idx)}
+                      sx={{
+                        width: isActive ? HOTSPOT_SIZE + 2 : HOTSPOT_SIZE,
+                        height: isActive ? HOTSPOT_SIZE + 2 : HOTSPOT_SIZE,
+                        borderRadius: "50%",
+                        backgroundColor: isActive ? "red" : "gray",
+                        border: "2px solid white", // hardcoded
+                        cursor: "pointer",
+                        userSelect: "none",
+                      }}
+                    />
+                  </Box>
+                  {isActive && !isMobile && (
+                    <>
+                      <VerticalLine hotspot={scaledHotspot} image={imageSize} />
+                      <HorizontalLine
+                        hotspot={scaledHotspot}
+                        image={imageSize}
+                      />
+                      <TooltipCard
+                        hotspot={scaledHotspot}
+                        image={imageSize}
+                        close={() => setActiveIdx(null)}
+                      />
+                    </>
+                  )}
+                </>
+              );
+            })}
+          {!isMobile && (
+            <Controls handleNext={handleNext} handlePrev={handlePrev} />
+          )}
+        </Box>
+      </Row>
+      {isMobile && (
+        <Row
+          sx={{
+            gap: 0,
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+          }}
+        >
+          {activeIdx !== null ? (
+            <>
+              <Box sx={{ flex: 1 }}>
+                <Typography variant="body1" fontWeight="bold">
+                  {hotspots[activeIdx].title}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {hotspots[activeIdx].description}
+                </Typography>
+              </Box>
+              <Box>
+                <IconButton
+                  size="small"
+                  onClick={() => setActiveIdx(null)}
                   sx={{
-                    position: "absolute",
-                    top: scaledHotspot.y,
-                    left: scaledHotspot.x,
-                    zIndex: 3,
+                    p: 0.5,
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                    "&:focus": {
+                      outline: "none",
+                    },
                   }}
                 >
-                  <Box
-                    onClick={() => handleClick(idx)}
-                    sx={{
-                      width: HOTSPOT_SIZE,
-                      height: HOTSPOT_SIZE,
-                      borderRadius: "50%",
-                      backgroundColor: "gray",
-                      border: "2px solid white", // hardcoded
-                      cursor: "pointer",
-                      userSelect: "none",
-                    }}
-                  />
-                </Box>
-                {isActive && (
-                  <>
-                    <VerticalLine hotspot={scaledHotspot} image={imageSize} />
-                    <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
-                    <TooltipCard
-                      hotspot={scaledHotspot}
-                      image={imageSize}
-                      close={() => setActiveIdx(null)}
-                    />
-                  </>
-                )}
-              </>
-            );
-          })}
-        <Controls handleNext={handleNext} handlePrev={handlePrev} />
-      </Box>
-    </Row>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            </>
+          ) : (
+            <Typography variant="body1" fontStyle="italic">
+              Select a design feature to learn more
+            </Typography>
+          )}
+        </Row>
+      )}
+    </Column>
   );
 }
 
