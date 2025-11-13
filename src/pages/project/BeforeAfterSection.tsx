@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -20,6 +20,9 @@ export default function BeforeAfterSection({
   before,
   after,
 }: BeforeAfterSectionProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       sx={{
@@ -31,7 +34,22 @@ export default function BeforeAfterSection({
         style={{ width: "100%", height: "100%" }}
         itemOne={<ReactCompareSliderImage src={before.url} alt="Before" />}
         itemTwo={<ReactCompareSliderImage src={after.url} alt="After" />}
-        handle={<ReactCompareSliderHandle />}
+        handle={
+          <ReactCompareSliderHandle
+            buttonStyle={
+              isMobile
+                ? {
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    border: "2px solid #fff",
+                    backdropFilter: "blur(4px)",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                  }
+                : undefined
+            }
+          />
+        }
       />
     </Box>
   );
