@@ -65,8 +65,8 @@ const LINE_THICKNESS = 3; // vertical line width & horizontal line height
 const VERTICAL_LINE_HEIGHT = 50;
 const HORIZONTAL_LINE_WIDTH = 150;
 
-const IMAGE_WIDTH = 1200; // or your design-time width
-const IMAGE_HEIGHT = 675; // or your design-time height
+const IMAGE_WIDTH = 1200;
+const IMAGE_HEIGHT = 675;
 
 // Determine quadrant
 interface Props {
@@ -132,46 +132,51 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
             boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
           }}
         />
-        {hotspots.map((hotspot, idx) => {
-          const isActive = idx === activeIdx;
-          const x = hotspot.percentX * imageSize.width;
-          const y = hotspot.percentY * imageSize.height;
-          const scaledHotspot = { ...hotspot, x, y };
+        {imageSize.width > 0 &&
+          hotspots.map((hotspot, idx) => {
+            const isActive = idx === activeIdx;
+            const x = hotspot.percentX * imageSize.width;
+            const y = hotspot.percentY * imageSize.height;
+            const scaledHotspot = { ...hotspot, x, y };
 
-          return (
-            <>
-              <Box
-                key={idx}
-                sx={{
-                  position: "absolute",
-                  top: scaledHotspot.y,
-                  left: scaledHotspot.x,
-                  zIndex: 3,
-                }}
-              >
+            return (
+              <>
                 <Box
-                  onClick={() => handleClick(idx)}
+                  key={idx}
                   sx={{
-                    width: HOTSPOT_SIZE,
-                    height: HOTSPOT_SIZE,
-                    borderRadius: "50%",
-                    backgroundColor: "gray",
-                    border: "2px solid white", // hardcoded
-                    cursor: "pointer",
-                    userSelect: "none",
+                    position: "absolute",
+                    top: scaledHotspot.y,
+                    left: scaledHotspot.x,
+                    zIndex: 3,
                   }}
-                />
-              </Box>
-              {isActive && (
-                <>
-                  <VerticalLine hotspot={scaledHotspot} image={imageSize} />
-                  <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
-                  <TooltipCard hotspot={scaledHotspot} image={imageSize} />
-                </>
-              )}
-            </>
-          );
-        })}
+                >
+                  <Box
+                    onClick={() => handleClick(idx)}
+                    sx={{
+                      width: HOTSPOT_SIZE,
+                      height: HOTSPOT_SIZE,
+                      borderRadius: "50%",
+                      backgroundColor: "gray",
+                      border: "2px solid white", // hardcoded
+                      cursor: "pointer",
+                      userSelect: "none",
+                    }}
+                  />
+                </Box>
+                {isActive && (
+                  <>
+                    <VerticalLine hotspot={scaledHotspot} image={imageSize} />
+                    <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
+                    <TooltipCard
+                      hotspot={scaledHotspot}
+                      image={imageSize}
+                      close={() => setActiveIdx(null)}
+                    />
+                  </>
+                )}
+              </>
+            );
+          })}
         <Controls handleNext={handleNext} handlePrev={handlePrev} />
       </Box>
     </Row>
@@ -354,7 +359,7 @@ function HorizontalLine({ hotspot, image }: Props) {
   }
 }
 
-function TooltipCard({ hotspot, image }: Props) {
+function TooltipCard({ hotspot, image, close }: Props & { close: () => void }) {
   const isTopHalf = isTop({ hotspot, image });
   const isLeftHalf = isLeft({ hotspot, image });
 
@@ -376,7 +381,12 @@ function TooltipCard({ hotspot, image }: Props) {
 
   const tooltipCard = (
     <Column gap={1}>
-      <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+      <Row sx={{ justifyContent: "space-between", alignItems: "center" }}>
+        <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+        <IconButton onClick={close} size="small" sx={{ p: 0.5 }}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Row>
       <Typography color="text.secondary">{hotspot.description}</Typography>
     </Column>
   );
