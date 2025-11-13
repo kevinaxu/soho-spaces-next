@@ -11,15 +11,15 @@ interface GalleryItem {
   title: string;
 }
 
-interface PhotoComparisonProps {
+interface BeforeAfterSectionProps {
   before: GalleryItem;
   after: GalleryItem;
 }
 
-export default function PhotoComparison({
+export default function BeforeAfterSection({
   before,
   after,
-}: PhotoComparisonProps) {
+}: BeforeAfterSectionProps) {
   return (
     <Box
       sx={{

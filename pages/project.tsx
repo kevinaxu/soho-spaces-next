@@ -9,10 +9,10 @@ import { Column } from "@/src/components/Layout";
 import { FullWidthSection } from "@/src/components/Section";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
+import BeforeAfterSection from "@/src/pages/project/BeforeAfterSection";
 import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
-import HotspotSection from "@/src/pages/project/Hotspot";
+import HotspotSection from "@/src/pages/project/HotspotSection";
 import { OverviewSection } from "@/src/pages/project/OverviewSection";
-import PhotoComparison from "@/src/pages/project/PhotoComparison";
 import { client } from "@/src/sanity/client";
 import { parsePortableText } from "@/src/utils/portableTextParser";
 
@@ -96,7 +96,7 @@ export default function ProjectPage({ project }: { project: Project }) {
       >
         <Column gap={2} sx={{ width: "100%" }}>
           <Typography variant="h2">Before and After</Typography>
-          <PhotoComparison
+          <BeforeAfterSection
             before={{
               _id: "before-id",
               title: "Before",
