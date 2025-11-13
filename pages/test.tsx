@@ -15,6 +15,7 @@ import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import ExploreSection from "@/src/pages/home/ExploreSection";
 
 import { Row, Column } from "../src/components/Layout";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 export default function HomePage({}) {
   return (
@@ -23,13 +24,14 @@ export default function HomePage({}) {
 
       <FullWidthSection
         sx={{
-          px: {
-            xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
-          },
+          bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: PADDING_X_SECTION,
+            md: 8,
+          },
+          px: {
+            xs: PADDING_X_MOBILE,
+            md: 20,
           },
         }}
       >
@@ -49,6 +51,8 @@ interface Hotspot {
   description: string;
   x: number;
   y: number;
+  percentX: number;
+  percentY: number;
 }
 
 interface HotspotImageProps {
@@ -61,14 +65,12 @@ const LINE_THICKNESS = 3; // vertical line width & horizontal line height
 const VERTICAL_LINE_HEIGHT = 50;
 const HORIZONTAL_LINE_WIDTH = 150;
 
+const IMAGE_WIDTH = 1200; // or your design-time width
+const IMAGE_HEIGHT = 675; // or your design-time height
+
 // Determine quadrant
 interface Props {
-  hotspot: {
-    title: string;
-    description: string;
-    x: number; // pixels
-    y: number; // pixels
-  };
+  hotspot: Hotspot;
   image: {
     width: number;
     height: number;
@@ -100,16 +102,22 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
 
   // Measure image once after mount
   useEffect(() => {
-    if (imgRef.current) {
-      const rect = imgRef.current.getBoundingClientRect();
-      setImageSize({ width: rect.width, height: rect.height });
-      console.log("image rect", rect);
-    }
-  }, []); // empty dependency → runs once
+    const updateSize = () => {
+      if (imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        setImageSize({ width: rect.width, height: rect.height });
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   return (
     <Row sx={{ justifyContent: "center" }}>
-      <Box sx={{ position: "relative", display: "inline-block" }}>
+      <Box
+        sx={{ width: "100%", position: "relative", display: "inline-block" }}
+      >
         {/* Background Image */}
         <Box
           ref={imgRef}
@@ -126,14 +134,20 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
         />
         {hotspots.map((hotspot, idx) => {
           const isActive = idx === activeIdx;
+          const x = hotspot.percentX * imageSize.width;
+          const y = hotspot.percentY * imageSize.height;
+          console.log("absolute hotspot location:", x, y);
+          const scaledHotspot = { ...hotspot, x, y }; // derived values
+          console.log("derived hotspot location:", scaledHotspot);
+
           return (
             <>
               <Box
                 key={idx}
                 sx={{
                   position: "absolute",
-                  top: hotspot.y,
-                  left: hotspot.x,
+                  top: scaledHotspot.y,
+                  left: scaledHotspot.x,
                   zIndex: 3,
                 }}
               >
@@ -152,9 +166,9 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
               </Box>
               {isActive && (
                 <>
-                  <VerticalLine hotspot={hotspot} image={imageSize} />
-                  <HorizontalLine hotspot={hotspot} image={imageSize} />
-                  <TooltipCard hotspot={hotspot} image={imageSize} />
+                  <VerticalLine hotspot={scaledHotspot} image={imageSize} />
+                  <HorizontalLine hotspot={scaledHotspot} image={imageSize} />
+                  {/*<TooltipCard hotspot={hotspot} image={imageSize} /> */}
                 </>
               )}
             </>
@@ -167,8 +181,11 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
 }
 
 function VerticalLine({ hotspot, image }: Props) {
-  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 1; // shift 1px to center on hotspot
+  const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2 - 1; // center align
   const verticalLineTop = hotspot.y + HOTSPOT_SIZE / 2;
+  const verticalLineLength =
+    (VERTICAL_LINE_HEIGHT / IMAGE_HEIGHT) * image.height;
+
   const sharedProps = {
     position: "absolute" as const,
     left: verticalLineLeft,
@@ -187,13 +204,12 @@ function VerticalLine({ hotspot, image }: Props) {
           top: verticalLineTop,
           animation: "grow-vertical 0.2s ease-out forwards",
           "@keyframes grow-vertical": {
-            to: { height: VERTICAL_LINE_HEIGHT },
+            to: { height: verticalLineLength },
           },
         }}
       />
     );
   } else {
-    // BOTTOM HALF
     return (
       <Box
         sx={{
@@ -204,7 +220,7 @@ function VerticalLine({ hotspot, image }: Props) {
           animation: "grow-up 0.25s ease-out forwards",
           "@keyframes grow-up": {
             to: {
-              height: VERTICAL_LINE_HEIGHT,
+              height: verticalLineLength,
               transform: "translateY(-100%)",
             },
           },
@@ -322,37 +338,43 @@ function TooltipCard({ hotspot, image }: Props) {
   const isTopHalf = isTop({ hotspot, image });
   const isLeftHalf = isLeft({ hotspot, image });
 
+  const sharedProps = {
+    position: "absolute" as const,
+    borderRadius: "4px",
+    maxWidth: 500,
+    backgroundColor: "#f1eeed",
+    padding: 2,
+    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+    zIndex: 2,
+    opacity: 0,
+    animation: "fade-in-tooltip 0.2s ease-out forwards",
+    animationDelay: "0.4s",
+    "@keyframes fade-in-tooltip": {
+      to: { opacity: 1, transform: "translateY(0)" },
+    },
+  };
+
+  const tooltipCard = (
+    <Column gap={1}>
+      <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
+      <Typography color="text.secondary">{hotspot.description}</Typography>
+    </Column>
+  );
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
-    const verticalLineLeft = hotspot.x + HOTSPOT_SIZE / 2;
-    const horizontalLineLeft = verticalLineLeft;
     const tooltipTop = hotspot.y;
-    const tooltipLeft = horizontalLineLeft + HORIZONTAL_LINE_WIDTH;
+    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + HORIZONTAL_LINE_WIDTH;
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: tooltipTop,
           left: tooltipLeft,
-          borderRadius: "4px",
-          maxWidth: 500,
-          backgroundColor: "#f1eeed",
-          padding: 2,
-          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-          zIndex: 2,
-          opacity: 0,
           transform: "translateY(10px)",
-          animation: "fade-in-tooltip 0.2s ease-out forwards",
-          animationDelay: "0.4s",
-          "@keyframes fade-in-tooltip": {
-            to: { opacity: 1, transform: "translateY(0)" },
-          },
         }}
       >
-        <Column gap={1}>
-          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
-          <Typography color="text.secondary">{hotspot.description}</Typography>
-        </Column>
+        {tooltipCard}
       </Box>
     );
   }
@@ -362,32 +384,16 @@ function TooltipCard({ hotspot, image }: Props) {
     const tooltipTop = hotspot.y;
     const tooltipRight =
       image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
-
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           top: tooltipTop,
           right: tooltipRight,
-          borderRadius: "4px",
-          maxWidth: 500,
-          backgroundColor: "#f1eeed",
-          padding: 2,
-          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-          zIndex: 2,
-          opacity: 0,
           transform: "translateY(10px)",
-          animation: "fade-in-tooltip 0.2s ease-out forwards",
-          animationDelay: "0.4s",
-          "@keyframes fade-in-tooltip": {
-            to: { opacity: 1, transform: "translateY(0)" },
-          },
         }}
       >
-        <Column gap={1}>
-          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
-          <Typography color="text.secondary">{hotspot.description}</Typography>
-        </Column>
+        {tooltipCard}
       </Box>
     );
   }
@@ -399,28 +405,13 @@ function TooltipCard({ hotspot, image }: Props) {
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           bottom: tooltipBottom,
           left: tooltipLeft,
-          borderRadius: "4px",
-          maxWidth: 500,
-          backgroundColor: "#f1eeed",
-          padding: 2,
-          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-          zIndex: 2,
-          opacity: 0,
           transform: "translateY(-10px)", // start slightly above and slide up
-          animation: "fade-in-tooltip 0.2s ease-out forwards",
-          animationDelay: "0.4s",
-          "@keyframes fade-in-tooltip": {
-            to: { opacity: 1, transform: "translateY(0)" },
-          },
         }}
       >
-        <Column gap={1}>
-          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
-          <Typography color="text.secondary">{hotspot.description}</Typography>
-        </Column>
+        {tooltipCard}
       </Box>
     );
   }
@@ -430,32 +421,16 @@ function TooltipCard({ hotspot, image }: Props) {
     const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // align bottom with hotspot
     const tooltipRight =
       image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
-
     return (
       <Box
         sx={{
-          position: "absolute",
+          ...sharedProps,
           bottom: tooltipBottom,
           right: tooltipRight,
-          borderRadius: "4px",
-          maxWidth: 500,
-          backgroundColor: "#f1eeed",
-          padding: 2,
-          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-          zIndex: 2,
-          opacity: 0,
           transform: "translateY(-10px)", // start slightly above and slide up
-          animation: "fade-in-tooltip 0.2s ease-out forwards",
-          animationDelay: "0.4s",
-          "@keyframes fade-in-tooltip": {
-            to: { opacity: 1, transform: "translateY(0)" },
-          },
         }}
       >
-        <Column gap={1}>
-          <Typography sx={{ fontStyle: "italic" }}>{hotspot.title}</Typography>
-          <Typography color="text.secondary">{hotspot.description}</Typography>
-        </Column>
+        {tooltipCard}
       </Box>
     );
   }
@@ -509,37 +484,41 @@ function Controls({
 }
 
 const mockData = {
-  hotspotImage: "/IMG_0965.jpeg",
+  hotspotImage: "/dark_academia/IMG_0020.jpeg",
   hotspots: [
-    // Top Left
     {
       title: "Cabinets",
       description:
         "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+      percentX: 0.2,
+      percentY: 0.2,
       x: 100,
       y: 100,
     },
-    // Bottom Left
     {
-      title: "Cabinets",
+      title: "Counter",
       description:
-        "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+        "To balance the dark base and incorporate the surrounding color palette, we chose a stunning Calacatta Miraggio quartz countertop with subtle gold and grey veining.",
+      percentX: 0.2,
+      percentY: 0.8,
       x: 100,
       y: 500,
     },
-    // Top Right
     {
-      title: "Cabinets",
+      title: "Appliances",
       description:
-        "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+        "We chose the six-burner black and gold gas range with convection oven from Zline, and coupled it with the same Calacatta Miraggio quartz backsplash and brass pulls from the island to make the whole space look cohesive.",
+      percentX: 0.8,
+      percentY: 0.2,
       x: 1000,
       y: 100,
     },
-    // Bottom Right
     {
       title: "Cabinets",
       description:
         "For the opposite wall, we wanted it to be a softer Gothic style while still being dramatic, so we chose the elegant floor-to-ceiling Escada cabinets and matched them to the greige walls to make the space look even taller. ",
+      percentX: 0.8,
+      percentY: 0.8,
       x: 1000,
       y: 500,
     },
@@ -551,10 +530,4 @@ function isTop({ hotspot, image }: Props) {
 }
 function isLeft({ hotspot, image }: Props) {
   return hotspot.x < image.width / 2;
-}
-function isRight(props: Props) {
-  return !isLeft(props);
-}
-function isBottom(props: Props) {
-  return !isTop(props);
 }
