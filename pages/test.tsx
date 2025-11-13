@@ -136,9 +136,7 @@ function HotspotImage({ image, hotspots }: HotspotImageProps) {
           const isActive = idx === activeIdx;
           const x = hotspot.percentX * imageSize.width;
           const y = hotspot.percentY * imageSize.height;
-          console.log("absolute hotspot location:", x, y);
-          const scaledHotspot = { ...hotspot, x, y }; // derived values
-          console.log("derived hotspot location:", scaledHotspot);
+          const scaledHotspot = { ...hotspot, x, y };
 
           return (
             <>
@@ -383,10 +381,14 @@ function TooltipCard({ hotspot, image }: Props) {
     </Column>
   );
 
+  const centerX = hotspot.x + HOTSPOT_SIZE / 2;
+  const horizontalLineLength =
+    (HORIZONTAL_LINE_WIDTH / IMAGE_WIDTH) * image.width;
+
   // TOP LEFT
   if (isTopHalf && isLeftHalf) {
     const tooltipTop = hotspot.y;
-    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + HORIZONTAL_LINE_WIDTH;
+    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + horizontalLineLength;
     return (
       <Box
         sx={{
@@ -404,8 +406,7 @@ function TooltipCard({ hotspot, image }: Props) {
   // TOP RIGHT
   if (isTopHalf && !isLeftHalf) {
     const tooltipTop = hotspot.y;
-    const tooltipRight =
-      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+    const tooltipRight = image.width - centerX + horizontalLineLength;
     return (
       <Box
         sx={{
@@ -422,15 +423,15 @@ function TooltipCard({ hotspot, image }: Props) {
 
   // BOTTOM LEFT
   if (!isTopHalf && isLeftHalf) {
-    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // CSS 'bottom' is from container bottom
-    const tooltipLeft = hotspot.x + HORIZONTAL_LINE_WIDTH - HOTSPOT_SIZE / 2;
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE;
+    const tooltipLeft = hotspot.x + HOTSPOT_SIZE / 2 + horizontalLineLength;
     return (
       <Box
         sx={{
           ...sharedProps,
           bottom: tooltipBottom,
           left: tooltipLeft,
-          transform: "translateY(-10px)", // start slightly above and slide up
+          transform: "translateY(-10px)",
         }}
       >
         {tooltipCard}
@@ -440,9 +441,8 @@ function TooltipCard({ hotspot, image }: Props) {
 
   // BOTTOM RIGHT
   if (!isTopHalf && !isLeftHalf) {
-    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE; // align bottom with hotspot
-    const tooltipRight =
-      image.width - (hotspot.x - HORIZONTAL_LINE_WIDTH) - HOTSPOT_SIZE / 2;
+    const tooltipBottom = image.height - hotspot.y - HOTSPOT_SIZE;
+    const tooltipRight = image.width - centerX + horizontalLineLength;
     return (
       <Box
         sx={{
