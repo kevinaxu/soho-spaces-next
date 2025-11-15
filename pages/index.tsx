@@ -117,9 +117,8 @@ export default function HomePage() {
         }}
       >
         <TestimonialSection
-          quote={mockData.testimonial.quote}
-          author={mockData.testimonial.author}
-          title={mockData.testimonial.title}
+          testimonials={mockData.testimonials}
+          autoScroll={true}
         />
       </FullWidthSection>
 
@@ -252,12 +251,20 @@ const mockData = {
       },
     ],
   },
-  testimonial: {
-    quote:
-      "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
-    author: "Korbinian Scheitzach",
-    title: "CEO ViscoTec America",
-  },
+  testimonials: [
+    {
+      quote:
+        "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
+      author: "Korbinian Scheitzach",
+      title: "CEO ViscoTec America",
+    },
+    {
+      quote:
+        "Gemma has been a wonderful help in the renovation of my central Bath apartment. Gemma has been professionally trained which I specifically wanted, as I had already interior design experience but needed some extra expert guidance. There were several space planning issues and her spatial planning was brilliant, so I had the confidence to buy furniture items that I knew would fit. Gemma sourced some AMAZING PIECES that I would never have found on my own.",
+      author: "Korbinian Scheitzach",
+      title: "CEO ViscoTec America",
+    },
+  ],
   explore: {
     title: "A Glimpse Into Our Projects",
     description:
