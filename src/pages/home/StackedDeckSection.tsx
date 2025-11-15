@@ -2,7 +2,7 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 
 import { Row, Column } from "@/src/components/Layout";
-import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
+import { PADDING_X_MOBILE } from "@/src/constants";
 
 const DESKTOP_OFFSET_BASE = 200;
 const DESKTOP_OFFSET = 100;
@@ -202,36 +202,3 @@ function ServicesColumn({
 function getNumberText(length: number, index: number): string {
   return `${String(length - index).padStart(2, "0")} / ${String(length).padStart(2, "0")}`;
 }
-
-/*
-const cards = [
-  {
-    numberText: "04 / 04",
-    title: "Content Creation",
-    bg: "#bab2a3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "03 / 04",
-    title: "Brand Strategy",
-    bg: "#c8c0b3",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "02 / 04",
-    title: "Video Strategy",
-    bg: "#d9d3ca",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-  {
-    numberText: "01 / 04",
-    title: "Video Production",
-    bg: "#f1eeed",
-    description:
-      "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-  },
-];
-*/

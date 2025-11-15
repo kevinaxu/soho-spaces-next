@@ -209,13 +209,7 @@ const mockData = {
     title: "Our Services",
     description: "Story and strategy cultivated in every touchpoint.",
     cards: [
-      // Cards are ordered where first one is last shown
-      {
-        title: "Content Creation",
-        bg: "#bab2a3",
-        description:
-          "Our team produces personalized content and original materials that share your work with clarity and authenticity across social platforms and via email marketing. Designed to engage, inform, and convert, every communication is crafted to resonate with your audience.",
-      },
+      // Cards are ordered in reverse (first element is the last card shown)
       {
         title: "Brand Strategy",
         bg: "#c8c0b3",
