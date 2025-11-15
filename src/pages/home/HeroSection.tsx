@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { forwardRef } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import { Row } from "@/src/components/Layout";
 
@@ -8,6 +8,8 @@ interface HeroSectionProps {
   src?: string;
   type: "image" | "video";
 }
+
+const VIDEO_PLAYBACK_RATE = 0.5;
 
 export const HeroSection = forwardRef<HTMLDivElement, HeroSectionProps>(
   (props, ref) => {
@@ -51,19 +53,7 @@ const HeroVideoSection = forwardRef<
   Omit<HeroSectionProps, "type">
 >((props, ref) => {
   const { src: video } = props;
-  const [videoLoaded, setVideoLoaded] = useState(false);
-
-  //   const videoRef = useRef<HTMLVideoElement | null>(null);
-  //   useEffect(() => {
-  //     // force reload the <video> element on mount / when src changes
-  //     if (videoRef.current) {
-  //       try {
-  //         videoRef.current.load();
-  //       } catch (e) {
-  //         // ignore
-  //       }
-  //     }
-  //   }, [video]);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   return (
     <Box
@@ -76,20 +66,19 @@ const HeroVideoSection = forwardRef<
       }}
     >
       <video
-        controls
+        // key={video}  // this causes flash on reload
+        ref={videoRef}
         preload="auto"
         autoPlay
         muted
         loop
         playsInline
+        controls={false}
+        onError={(e) => console.error("Video failed", e)}
         onLoadedData={() => {
-          console.log("video loaded", video);
-          setVideoLoaded(true);
-        }}
-        onError={(e) => {
-          console.error("video error", e);
-          // show a visible fallback for debugging
-          setVideoLoaded(false);
+          if (videoRef.current) {
+            videoRef.current.playbackRate = VIDEO_PLAYBACK_RATE;
+          }
         }}
         style={{
           position: "absolute",
@@ -98,15 +87,9 @@ const HeroVideoSection = forwardRef<
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          opacity: videoLoaded ? 1 : 0,
-          transition: "opacity 1s ease-in-out",
         }}
-        // using src on the <video> tag can simplify some servers/browsers
         src={video}
-      >
-        <source src={video} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      />
 
       <Row
         sx={{

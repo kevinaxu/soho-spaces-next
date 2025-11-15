@@ -192,12 +192,12 @@ export async function getStaticProps() {
 
 const mockData = {
   hero: {
-    src: "/IMG_0965.jpeg",
-    type: "image" as const,
+    src: "/hero_video.mp4",
+    type: "video" as const,
   },
   //   hero: {
-  //     src: "/hero_video.mp4",
-  //     type: "video" as const,
+  //     src: "/IMG_0965.jpeg",
+  //     type: "image" as const,
   //   },
   designPhilosophy: {
     title:
