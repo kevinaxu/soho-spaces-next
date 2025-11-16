@@ -14,6 +14,8 @@ interface TeamSectionProps {
   team: TeamMember[];
 }
 
+const IMAGE_MAX_HEIGHT = 650;
+
 export default function TeamSection({ team }: TeamSectionProps) {
   return (
     <Grid
@@ -40,10 +42,10 @@ export default function TeamSection({ team }: TeamSectionProps) {
               className={styles.containerBlock}
               sx={{
                 width: "100%",
-                height: {
-                  md: 600,
-                },
+                aspectRatio: "9 / 16",
+                maxHeight: IMAGE_MAX_HEIGHT,
                 position: "relative",
+                overflow: "hidden",
               }}
             >
               <Box
