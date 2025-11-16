@@ -16,9 +16,9 @@ import { useState } from "react";
 import { PADDING_X_MOBILE } from "../constants";
 
 const links = [
-  { label: "About", href: "/about" },
+  { label: "about", href: "/about" },
   {
-    label: "Portfolio",
+    label: "portfolio",
     href: "/portfolio",
     children: [
       { label: "Modern Gothic", href: "/portfolio/modern-gothic" },
@@ -26,8 +26,7 @@ const links = [
       { label: "Moody Romantic", href: "/portfolio/moody-romantic" },
     ],
   },
-  { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
+  { label: "contact", href: "/contact" },
 ];
 
 export default function Header({ sticky }: { sticky: boolean }) {
