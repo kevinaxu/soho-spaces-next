@@ -15,22 +15,16 @@ enum ProjectStatus {
 
 interface Project {
   title: string;
-  heroImage: string;
+  src: string;
   slug: string;
   tags: string[];
   status?: ProjectStatus;
 }
 
-const allTags = [
-  "Kitchen",
-  "Living Room",
-  "Powder Room",
-  "Commercial",
-  "Residential",
-];
-
-export default function PortfolioPage({ projects }: { projects: Project[] }) {
+export default function PortfolioPage() {
   const [isActiveTag, setIsActiveTag] = useState<string | null>(null);
+
+  const projects = mockData.projects as Project[];
 
   // Filter projects by selected tag
   const filteredProjects = isActiveTag
@@ -66,7 +60,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             },
           }}
         >
-          {allTags.map((tag) => (
+          {mockData.visibleTags.map((tag) => (
             <Chip
               key={tag}
               label={tag}
@@ -106,17 +100,15 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
                       className={styles.containerBlock}
                       sx={{
                         width: "100%",
-                        height: 500,
+                        aspectRatio: "9/16",
+                        maxHeight: 550, // full height is slightly too tall, cap it
                         position: "relative",
-                        //   filter:
-                        //     project.status === "COMING_SOON"
-                        //       ? "grayscale(50%) brightness(80%)"
-                        //       : "none",
+                        overflow: "hidden",
                       }}
                     >
                       <Box
                         component="img"
-                        src={project.heroImage}
+                        src={project.src}
                         alt={project.title}
                         sx={{
                           width: "100%",
@@ -161,6 +153,47 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
   );
 }
 
+const mockData = {
+  visibleTags: [
+    "Kitchen",
+    "Living Room",
+    "Powder Room",
+    "Commercial",
+    "Residential",
+  ],
+  projects: [
+    {
+      src: "/dark_academia/IMG_0020.jpeg",
+      title: "Dark Academia",
+      slug: "/",
+      tags: ["Residential", "Living Room"],
+      status: ProjectStatus.ACTIVE,
+    },
+    {
+      src: "/modern_gothic_after.jpeg",
+      title: "Modern Gothic",
+      slug: "/",
+      tags: ["Living Room"],
+      status: ProjectStatus.COMING_SOON,
+    },
+    {
+      src: "/dark_academia/IMG_0020.jpeg",
+      title: "Dark Academia",
+      slug: "/",
+      tags: ["Residential", "Living Room"],
+      status: ProjectStatus.ACTIVE,
+    },
+    {
+      src: "/dark_academia/IMG_0020.jpeg",
+      title: "Dark Academia",
+      slug: "/",
+      tags: ["Residential", "Living Room"],
+      status: ProjectStatus.ACTIVE,
+    },
+  ],
+};
+
+/*
 export async function getStaticProps() {
   const projects = [
     {
@@ -223,3 +256,4 @@ export async function getStaticProps() {
 
   return { props: { projects } };
 }
+*/
