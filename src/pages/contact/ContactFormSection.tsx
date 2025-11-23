@@ -184,6 +184,11 @@ export default function ContactFormSection() {
         onClose={() => setOpenSnackbar(false)}
         message="Thanks for getting in touch — we'll get back to you shortly!"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{
+          mb: {
+            md: 4,
+          },
+        }}
       />
     </>
   );
