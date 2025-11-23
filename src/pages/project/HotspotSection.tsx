@@ -108,6 +108,7 @@ export default function HotspotSection({
             src={image}
             alt="Interactive"
             sx={{
+              width: "100%",
               zIndex: 0,
               objectFit: "cover",
               display: "block",

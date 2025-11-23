@@ -96,18 +96,7 @@ export default function ProjectPage({ project }: { project: Project }) {
       >
         <Column gap={2} sx={{ width: "100%" }}>
           <Typography variant="h2">Before and After</Typography>
-          <BeforeAfterSection
-            before={{
-              _id: "before-id",
-              title: "Before",
-              url: mockData.comparison.before,
-            }}
-            after={{
-              _id: "after-id",
-              title: "After",
-              url: mockData.comparison.after,
-            }}
-          />
+          <BeforeAfterSection items={mockData.comparison.images} />
         </Column>
       </FullWidthSection>
 
@@ -314,11 +303,21 @@ const mockData = {
     ],
   },
   comparison: {
-    title: "Ready to transform your dream space?",
-    description: "Schedule a free consultation",
-    before: "/dark_academia/IMG_3265_2x.jpeg",
-    after: "/dark_academia/IMG_1234.jpeg",
+    images: [
+      {
+        before: { src: "/dark_academia/IMG_3265_2x.jpeg" },
+        after: { src: "/dark_academia/IMG_1234.jpeg" },
+      },
+      {
+        before: { src: "/dark_academia/IMG_3265_2x.jpeg" },
+        after: { src: "/dark_academia/IMG_1234.jpeg" },
+      },
+    ],
   },
+  //   cta: {
+  //     title: "Ready to transform your dream space?",
+  //     description: "Schedule a free consultation",
+  //   },
   hotspot: {
     hotspotImage: "/dark_academia/IMG_0020.jpeg",
     hotspots: [
