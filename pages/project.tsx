@@ -142,29 +142,6 @@ export default function ProjectPage({ project }: { project: Project }) {
         />
       </FullWidthSection>
 
-      {/* <FullWidthSection
-        sx={{
-          bgcolor: "#e3e2dc",
-          py: {
-            xs: 2,
-            md: 2,
-          },
-          px: {
-            xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
-          },
-        }}
-      >
-        <Column gap={2} sx={{ width: "100%" }}>
-          <ComparisonSection
-            title={mockData.comparison.title}
-            description={mockData.comparison.description}
-            before={mockData.comparison.before}
-            after={mockData.comparison.after}
-          />
-        </Column>
-      </FullWidthSection> */}
-
       {heroCarouselOpen && (
         <ImageCarousel
           images={mockData.hero.images}
@@ -314,10 +291,6 @@ const mockData = {
       },
     ],
   },
-  //   cta: {
-  //     title: "Ready to transform your dream space?",
-  //     description: "Schedule a free consultation",
-  //   },
   hotspot: {
     hotspotImage: "/dark_academia/IMG_0020.jpeg",
     hotspots: [
