@@ -3,6 +3,9 @@ import { createTheme } from "@mui/material/styles";
 
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import Script from "next/script";
+import { useEffect } from "react";
 
 const lightTheme = createTheme({
   palette: {
@@ -100,10 +103,35 @@ const darkTheme = createTheme({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+      if (typeof (window as any).umami !== "undefined") {
+        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+        (window as any).umami.trackView(url);
+      }
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
   return (
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline /> {/* resets global styles and applies theme background */}
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <>
+      <Script
+        src="https://us.umami.is/script.js"
+        data-website-id="9e4640cc-5938-4496-9b31-3888b4507c2b"
+        strategy="afterInteractive"
+      />
+
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />{" "}
+        {/* resets global styles and applies theme background */}
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
   );
 }
