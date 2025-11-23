@@ -147,25 +147,13 @@ function FooterMainLinks() {
           color="inherit"
           variant="subtitle1"
           underline="hover"
-          href="mailto:hello@soho-spaces.com"
+          href="mailto:designdesk@soho-spaces.com"
           display="flex"
           alignItems="center"
           gap={0.5}
         >
           <EmailIcon fontSize="small" />
-          hello@soho-spaces.com
-        </Link>
-        <Link
-          color="inherit"
-          variant="subtitle1"
-          underline="hover"
-          href="#"
-          display="flex"
-          alignItems="center"
-          gap={0.5}
-        >
-          <PhoneIcon fontSize="small" />
-          404.566.5796
+          designdesk@soho-spaces.com
         </Link>
         <Link
           color="inherit"

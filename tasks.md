@@ -1,37 +1,59 @@
 ## Task List
 
-- Home page
-  - Explore section
-    - [] Instead of using quilted, use separate ImageList option which will allow top / bottom images to align instead of custom calculation
-  - Hero
-    - Hook up hero video dynamically when video is passed
-- About page
-  - CrossFade
-    - [] Update this so that it fades on scroll (nice to have)
-  - Timeline
-    - [] Add icon highlighting when container is centered (nice to have)
-    - [x] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
-- Project page
-  - Materials component
-    - [] Update this so that details show up as tooltip
-- Contact page
-  - [] Hook up React Hook form backend to Netlify
 - Shared Components
   - Header
-    - [] Desktop - make this thinner
     - [] Mobile - lots of real-estate in Drawer right now. Add in some additional
+    - [x] Desktop - make this thinner. Update padding on desktop
   - Footer
     - [] Logo should be transparent and slightly overflow on the top of the footer, creating a watermark effect
-  - [] Extract Image with Trim into separate component (Portfolio page, Team section)
+- Production readiness
+  - [] Create a 404 page
+  - [] Update Umamimk to point to production site
+  - [] Update Netlify form to forward email to soho spaces email
+  - [] Update Nav links
+  - [] Verify all the page titles, favicons, metadata (preview image), SEO
+  - [] Verify image responsiveness works correctly on different devices
+
+## CUT LINE
+
+- About page
+  - CrossFade
+    - [] Update this so that it fades on scroll
+  - Timeline
+    - [] Add icon highlighting when container is centered
 - Explore page
   - [] Implement this using Mosaic
 - Refactor
+  - [] Extract Image with Trim into separate component (Portfolio page, Team section)
   - [] Extract all the Layout constants and move them into the FullWidthSection, if possible
+  - [] Extract all the 2-column layout with StickyBox into a separate component
   - [] "See the project" CTA links should be extracted into shared component
   - [] Extract Image responsiveness into a shared component which handles viewport checks, `srcset`, etc
   - [] Move all mockData into a separate /data directory (/data/mockData/about.json). This can be the output of `sanity dataset export production`
     - Does this need to be pushed? Really only needs to be used for local development
+  - [] Create an adapter that converts Sanity API into minimal mockData format
+
+## Done
+
+- About page
+  - Timeline
+    - [x] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
+- Project page
+  - Hero
+    - [x] Make this horizontally scrollable on mobile
+  - Materials component
+    - [x] Update this so that details show up as tooltip
+- Home page
+  - Explore section
+    - [x] Instead of using quilted, use separate ImageList option which will allow top / bottom images to align instead of custom calculation
+  - Hero
+    - [x] Hook up hero video dynamically when video is passed.
+    - [x] Fix bug where page reload does not load the video again
+  - Services
+    - [x] Make mobile responsive
+  - [x] Stacked deck - change this to 3
+  - [x] Testimonial section - make this scrollable with multiple testimonials
+- Contact page
+  - [x] Hook up Netlify form to forward email to soho spaces email
 - Production readiness
-  - [] Add analytics (https://umami.is/)
-  - [] Verify all the page titles, favicons, metadata (preview image)
-  - [] Verify image responsiveness works correctly on different devices
+  - [x] Add analytics (https://umami.is/)
