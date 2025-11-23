@@ -43,4 +43,11 @@ export default function HomePage({}) {
   );
 }
 
+// Treat the page as a 404 during build, so no HTML file is emitted.
+export async function getStaticProps() {
+  return {
+    notFound: true,
+  };
+}
+
 const mockData = {};
