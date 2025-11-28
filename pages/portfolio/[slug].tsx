@@ -185,7 +185,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params as { slug: string };
 
   const project = await client.fetch(
-    `*[_type == "project" && slug.current == $slug][0]{
+    `*[_type == "project" && slug.current == $slug && projectStatus == "ACTIVE"][0]{
       "overview": {
         title,
         description,
