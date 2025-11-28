@@ -3,9 +3,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import React, { useState, useEffect, useRef } from "react";
 
 import { Row, Column } from "@/src/components/Layout";
+import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 
 interface Hotspot {
   title: string;
@@ -15,7 +17,7 @@ interface Hotspot {
 }
 
 interface HotspotSectionProps {
-  image: string;
+  image: SanityImageSource;
   hotspots: Hotspot[];
 }
 
@@ -102,7 +104,20 @@ export default function HotspotSection({
           sx={{ width: "100%", position: "relative", display: "inline-block" }}
         >
           {/* Background Image */}
-          <Box
+          <ResponsiveSanityImage
+            src={image}
+            alt="Hotspot Image"
+            ref={imgRef}
+            style={{
+              width: "100%",
+              zIndex: 0,
+              objectFit: "cover",
+              display: "block",
+              position: "relative",
+              boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+            }}
+          />
+          {/* <Box
             ref={imgRef}
             component="img"
             src={image}
@@ -115,7 +130,7 @@ export default function HotspotSection({
               position: "relative",
               boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
             }}
-          />
+          />*/}
           {imageSize.width > 0 &&
             hotspots.map((hotspot, idx) => {
               const isActive = idx === activeIdx;

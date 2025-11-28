@@ -3,14 +3,15 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useKeenSlider } from "keen-slider/react";
 import React, { useState, useEffect } from "react";
 
-import { urlFor } from "@/src/utils/sanityImage";
+import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 
 interface ProjectImage {
-  src: string;
   title: string;
+  src: SanityImageSource;
 }
 
 interface ImageCarouselProps {
@@ -127,29 +128,13 @@ export default function ImageCarousel({
           }}
         >
           {images.map((image) => {
-            // highest reasonable quality
-            // const highResUrl = urlFor(image.src)
-            //   .width(2000)
-            //   .auto("format")
-            //   .url();
-            // Optional srcSet for responsive images
-            // const srcSet = `
-            //     ${urlFor(image.src).width(480).auto("format").url()} 480w,
-            //     ${urlFor(image.src).width(768).auto("format").url()} 768w,
-            //     ${urlFor(image.src).width(1024).auto("format").url()} 1024w,
-            //     ${urlFor(image.src).width(1600).auto("format").url()} 1600w,
-            //     ${highResUrl} 2000w
-            // `;
-
             return (
-              <Box
-                key={image.src}
+              <ResponsiveSanityBox
                 className="keen-slider__slide"
-                component="img"
+                key={image.src}
                 src={image.src}
-                // src={highResUrl}
-                // srcSet={srcSet}
-                // sizes="100vw"
+                alt={image.title}
+                lazy={true}
                 sx={{
                   width: "100%",
                   maxHeight: "80vh",

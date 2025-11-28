@@ -2,10 +2,11 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
-import { urlFor } from "@/src/utils/sanityImage";
+import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 
 const nudge = keyframes`
   0%, 100% { transform: translateX(0) scaleX(1.8); }
@@ -15,7 +16,7 @@ const nudge = keyframes`
 interface HorizontalGallerySectionProps {
   images: {
     title: string;
-    src: string;
+    src: SanityImageSource;
   }[];
   handleImageClick?: (index: number) => void;
 }
@@ -51,34 +52,22 @@ export default function HorizontalGallerySection({
         }}
       >
         {images.map((image, idx) => {
-          // TODO: fix this
-          //   const srcSet = `
-          //   ${urlFor(image.url).width(320).url()} 320w,
-          //   ${urlFor(image.url).width(480).url()} 480w,
-          //   ${urlFor(image.url).width(768).url()} 768w,
-          //   ${urlFor(image.url).width(1024).url()} 1024w,
-          //   ${urlFor(image.url).width(1600).url()} 1600w
-          // `;
-
           return (
             <Box
               key={image.title}
               sx={{ flex: "0 0 auto", height: "100%", cursor: "pointer" }}
               onClick={() => handleImageClick?.(idx)}
             >
-              <img
-                // src={urlFor(item.url).width(800).url()}
-                // srcSet={srcSet}
-                // sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              <ResponsiveSanityImage
                 src={image.src}
                 alt={image.title}
+                lazy={false} // eager load since these are above the fold
                 style={{
                   height: "100%",
                   width: "auto",
                   objectFit: "cover",
                   display: "block",
                 }}
-                loading="lazy"
               />
             </Box>
           );

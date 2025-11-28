@@ -1,11 +1,13 @@
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Row, Column } from "@/src/components/Layout";
+import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 
 interface ContactUsSectionProps {
   title: string;
-  src: string;
+  src: SanityImageSource;
   cta: string;
 }
 
@@ -31,7 +33,7 @@ export function ContactUsSection(props: ContactUsSectionProps) {
             left: 0,
             width: "100%",
             aspectRatio: "16/9",
-            backgroundImage: `url(${src})`,
+            backgroundImage: `url(${buildSanitySrc(src)})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

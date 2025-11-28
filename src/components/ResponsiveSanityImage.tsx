@@ -12,6 +12,7 @@ interface BaseImageProps {
 }
 interface ResponsiveSanityImageProps extends BaseImageProps {
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLImageElement>;
 }
 interface ResponsiveSanityBoxProps extends BaseImageProps {
   sx?: object;
@@ -40,14 +41,16 @@ export function ResponsiveSanityImage({
   alt,
   lazy = true,
   style,
+  ref,
   className,
 }: ResponsiveSanityImageProps) {
   return (
     <img
       src={buildSanitySrc(src)}
+      ref={ref}
+      alt={alt}
       srcSet={buildSanitySrcSet(src)}
       sizes="100vw"
-      alt={alt}
       loading={lazy ? "lazy" : "eager"}
       style={{
         // width: "100%",

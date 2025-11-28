@@ -1,4 +1,5 @@
 import { Box, useTheme, useMediaQuery } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useKeenSlider } from "keen-slider/react";
 import { useState } from "react";
 import {
@@ -8,9 +9,14 @@ import {
 } from "react-compare-slider";
 import "keen-slider/keen-slider.min.css";
 
+import {
+  buildSanitySrc,
+  buildSanitySrcSet,
+} from "@/src/components/ResponsiveSanityImage";
+
 interface BeforeAfterItem {
-  before: { src: string };
-  after: { src: string };
+  before: { src: SanityImageSource };
+  after: { src: SanityImageSource };
 }
 
 interface BeforeAfterSectionProps {
@@ -46,10 +52,18 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
                 position={20}
                 style={{ width: "100%", height: "100%" }}
                 itemOne={
-                  <ReactCompareSliderImage src={item.before.src} alt="Before" />
+                  <ReactCompareSliderImage
+                    src={buildSanitySrc(item.before.src)}
+                    srcSet={buildSanitySrcSet(item.before.src)}
+                    alt="Before"
+                  />
                 }
                 itemTwo={
-                  <ReactCompareSliderImage src={item.after.src} alt="After" />
+                  <ReactCompareSliderImage
+                    src={buildSanitySrc(item.after.src)}
+                    srcSet={buildSanitySrcSet(item.after.src)}
+                    alt="After"
+                  />
                 }
                 handle={
                   <ReactCompareSliderHandle
