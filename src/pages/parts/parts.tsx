@@ -6,6 +6,8 @@ import { ComparisonSection } from "@/src/pages/parts/ComparisonSection";
 import HeroGallery from "@/src/pages/parts/HeroGallery";
 import PhotoGallerySection from "@/src/pages/parts/PhotoGallerySection";
 
+// Move this back into /pages to test
+
 export default function PartsPage() {
   return (
     <>
