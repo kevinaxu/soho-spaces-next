@@ -1,7 +1,6 @@
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import PhoneIcon from "@mui/icons-material/Phone";
 import { Box, Typography, Divider } from "@mui/material";
 import Link from "@mui/material/Link";
 import { lighten } from "@mui/material/styles";
@@ -94,7 +93,7 @@ function FooterMainLogo() {
     <Box
       component="img"
       src="https://soho-spaces.com/assets/soho_logo_white.svg"
-      alt="sohoh spaces logo"
+      alt="soho spaces logo"
       sx={{
         opacity: 0.2,
         width: 180,
@@ -124,17 +123,29 @@ function FooterMainLinks() {
             explore
           </Typography>
         </Row>
-        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
+        <Link
+          color="inherit"
+          variant="subtitle1"
+          underline="hover"
+          href="/portfolio/moody-romantic-bedroom"
+        >
           moody romantic
         </Link>
-        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
+        <Link
+          color="inherit"
+          variant="subtitle1"
+          underline="hover"
+          href="/portfolio/dark-academia-living-room"
+        >
           dark academia
         </Link>
-        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
+        <Link
+          color="inherit"
+          variant="subtitle1"
+          underline="hover"
+          href="/portfolio/modern-gothic-kitchen"
+        >
           modern gothic
-        </Link>
-        <Link color="inherit" variant="subtitle1" underline="hover" href="#">
-          east meets west
         </Link>
       </Column>
       <Column gap={1}>
