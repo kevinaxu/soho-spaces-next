@@ -1,6 +1,7 @@
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
 import { Row, Column } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
@@ -57,57 +58,62 @@ export function ContactUsSection(props: ContactUsSectionProps) {
         />
 
         {/* Text content */}
-        <Box
-          sx={{
-            position: "relative",
-            textAlign: "center",
-            maxWidth: "600px",
-            color: "#fff",
-            zIndex: 3,
-          }}
-        >
-          <Column
+        <Link href="/contact" passHref>
+          <Box
             sx={{
-              width: "100%",
-              alignItems: "center",
-              mx: "auto",
-              gap: 4,
+              position: "relative",
+              textAlign: "center",
+              maxWidth: "600px",
+              color: "#fff",
+              zIndex: 3,
+              textDecoration: "none",
+              cursor: "pointer", // makes it clear it's clickable
+              "&:hover": { opacity: 0.85 }, // optional hover effect
             }}
           >
-            <Row
+            <Column
               sx={{
-                textAlign: "center",
-              }}
-            >
-              <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-                {title}
-              </Typography>
-            </Row>
-            <Row
-              sx={{
+                width: "100%",
                 alignItems: "center",
-                gap: 2,
+                mx: "auto",
+                gap: 4,
               }}
             >
-              <Typography
+              <Row
                 sx={{
-                  color: "footer.contrastText",
-                  variant: "h4",
+                  textAlign: "center",
                 }}
               >
-                {cta}
-              </Typography>
-              <ArrowRightAltIcon
+                <Typography variant="h2" sx={{ fontStyle: "italic" }}>
+                  {title}
+                </Typography>
+              </Row>
+              <Row
                 sx={{
-                  transform: {
-                    xs: "scaleX(1.5)",
-                    md: "scaleX(1.8)",
-                  },
+                  alignItems: "center",
+                  gap: 2,
                 }}
-              />
-            </Row>
-          </Column>
-        </Box>
+              >
+                <Typography
+                  sx={{
+                    color: "footer.contrastText",
+                    variant: "h4",
+                  }}
+                >
+                  {cta}
+                </Typography>
+                <ArrowRightAltIcon
+                  sx={{
+                    transform: {
+                      xs: "scaleX(1.5)",
+                      md: "scaleX(1.8)",
+                    },
+                  }}
+                />
+              </Row>
+            </Column>
+          </Box>
+        </Link>
       </Row>
     </Row>
   );
