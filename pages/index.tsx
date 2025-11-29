@@ -1,4 +1,4 @@
-import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useState, useRef, useEffect } from "react";
 
 import Footer from "@/src/components/Footer";
@@ -13,24 +13,55 @@ import { HeroSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
-import { mock } from "node:test";
 
 interface HomePageProps {
-  title: string;
-  about: PortableTextBlock[];
-  aboutImage: Media;
-  gallery: Media[];
+  hero: {
+    videoUrl: string;
+  };
+  designPhilosophy: {
+    title: string;
+    subtitle: string;
+  };
+  services: {
+    title: string;
+    description: string;
+    cards: {
+      title: string;
+      bg: string;
+      description: string;
+    }[];
+  };
+  featuredProject: {
+    title: string;
+    description: string;
+    images: {
+      src: SanityImageSource;
+      title: string;
+      subtitle: string;
+    }[];
+  };
+  testimonials: {
+    quote: string;
+    author: string;
+    title: string;
+  }[];
+  explore: {
+    title: string;
+    description: string;
+    images: {
+      src: SanityImageSource;
+    }[];
+  };
+  contact: {
+    title: string;
+    cta: string;
+    src: SanityImageSource;
+  };
 }
 
-interface Media {
-  _id: string;
-  title: string;
-  url: string;
-  rows?: number;
-  cols?: number;
-}
+export default function HomePage({ home }: { home: HomePageProps }) {
+  console.log("dumping home data", JSON.stringify(home.services, null, 2));
 
-export default function HomePage() {
   const [sticky, setSticky] = useState<boolean | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
 
@@ -48,15 +79,25 @@ export default function HomePage() {
     return () => observer.disconnect();
   }, []);
 
+  // TODO: move this into a validation fn later
+  if (
+    !home ||
+    !home.hero ||
+    !home.designPhilosophy ||
+    !home.services ||
+    !home.featuredProject ||
+    !home.testimonials ||
+    !home.explore ||
+    !home.contact
+  ) {
+    return null;
+  }
+
   return (
     <>
       {sticky && <Header sticky={sticky} />}
 
-      <HeroSection
-        src={mockData.hero.src}
-        type={mockData.hero.type}
-        ref={heroRef}
-      />
+      <HeroSection src={home.hero.videoUrl} type="video" ref={heroRef} />
 
       <FullWidthSection
         sx={{
@@ -67,8 +108,8 @@ export default function HomePage() {
         }}
       >
         <DesignPhilosophySection
-          title={mockData.designPhilosophy.title}
-          subtitle={mockData.designPhilosophy.subtitle}
+          title={home.designPhilosophy.title}
+          subtitle={home.designPhilosophy.subtitle}
         />
       </FullWidthSection>
 
@@ -82,9 +123,9 @@ export default function HomePage() {
         }}
       >
         <StackedDeck
-          title={mockData.services.title}
-          description={mockData.services.description}
-          cards={mockData.services.cards}
+          title={home.services.title}
+          description={home.services.description}
+          cards={home.services.cards}
         />
       </FullWidthSection>
 
@@ -101,9 +142,9 @@ export default function HomePage() {
         }}
       >
         <FeaturedProjectSection
-          title={mockData.featuredProject.title}
-          description={mockData.featuredProject.description}
-          images={mockData.featuredProject.images}
+          title={home.featuredProject.title}
+          description={home.featuredProject.description}
+          images={home.featuredProject.images}
         />
       </FullWidthSection>
 
@@ -117,7 +158,7 @@ export default function HomePage() {
         }}
       >
         <TestimonialSection
-          testimonials={mockData.testimonials}
+          testimonials={home.testimonials}
           autoScroll={true}
         />
       </FullWidthSection>
@@ -135,9 +176,9 @@ export default function HomePage() {
         }}
       >
         <ExploreSection
-          title={mockData.explore.title}
-          description={mockData.explore.description}
-          images={mockData.explore.images}
+          title={home.explore.title}
+          description={home.explore.description}
+          images={home.explore.images}
         />
       </FullWidthSection>
 
@@ -154,9 +195,9 @@ export default function HomePage() {
         }}
       >
         <ContactUsSection
-          title={mockData.contact.title}
-          cta={mockData.contact.cta}
-          src={mockData.contact.src}
+          title={home.contact.title}
+          cta={home.contact.cta}
+          src={home.contact.src}
         />
       </FullWidthSection>
 
@@ -165,39 +206,78 @@ export default function HomePage() {
   );
 }
 
-/*
-export async function getStaticProps() {
-  const query = `*[_type == "home"] | order(publishedAt desc)[0]{
-    title,
-    publishedAt,
-    about,
-    "aboutImage": aboutImage->{
-      _id,
-      title,
-      "url": image.asset->url
-    },
-    "gallery": gallery[]->{
-      _id,
-      title,
-      "url": image.asset->url,
-      rows,
-      cols
-    },
-  }`;
-  const page = await client.fetch(query);
-  return { props: { page } };
-}
-*/
+const HOMEPAGE_SANITY_ID = "2b096586-d457-4156-bb1b-17e5d9e08973";
+
+export const getStaticProps = async () => {
+  const home = await client.fetch(
+    `*[_type == "home" && _id == $id][0]{
+        hero {
+        "videoUrl": src.asset->url
+        },
+        designPhilosophy {
+            title,
+            subtitle
+        },
+        services {
+        title,
+        description,
+        cards[] {
+            title,
+            bg,
+            description
+            }
+        },
+        featuredProject {
+          title,
+          description,
+          images[] {
+            "src": src->image{
+              ...,
+              asset->
+            },
+            title,
+            subtitle
+            }
+        },
+        testimonials[] {
+            quote,
+            author,
+            title
+        },
+        explore {
+            title,
+            description,
+            images[] {
+                "src": photo->image{
+                ...,
+                asset->
+                }
+            }
+        },
+        "contact": { 
+            "title": contact.title,
+            "cta": contact.cta,
+            "src": contact.src->image { ..., asset-> }
+        }
+   }
+`,
+    { id: HOMEPAGE_SANITY_ID }
+  );
+
+  if (!home) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { home },
+  };
+};
 
 const mockData = {
   hero: {
     src: "/hero_video.mp4",
     type: "video" as const,
   },
-  //   hero: {
-  //     src: "/IMG_0965.jpeg",
-  //     type: "image" as const,
-  //   },
   designPhilosophy: {
     title:
       "Our approach is deep rooted in collaboration—an exercise designed to uncover the process, perspective, and nuances that define your work.",

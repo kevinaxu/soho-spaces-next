@@ -8,21 +8,20 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Row, Column } from "@/src/components/Layout";
+import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import StickyBox from "@/src/components/StickyBox";
 
 interface FeaturedProjectSectionProps {
   title: string;
   description: string;
-  images: ProjectImage[];
-}
-
-// TODO: update this to use consistent type throughout project
-interface ProjectImage {
-  src: string;
-  title: string;
-  subtitle: string;
+  images: {
+    src: SanityImageSource;
+    title: string;
+    subtitle: string;
+  }[];
 }
 
 export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
@@ -84,10 +83,10 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
                 "&:hover .MuiImageListItemBar-root": { opacity: 1 },
               }}
             >
-              <img
+              <ResponsiveSanityImage
                 src={item.src}
                 alt={item.title}
-                loading="lazy"
+                lazy={true}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -95,16 +94,18 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
                   display: "block",
                 }}
               />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={item.subtitle}
-                sx={{
-                  opacity: 0,
-                  transition: "opacity 0.3s ease",
-                  background:
-                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
-                }}
-              />
+              {item.title && item.subtitle && (
+                <ImageListItemBar
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  sx={{
+                    opacity: 0,
+                    transition: "opacity 0.3s ease",
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
+                  }}
+                />
+              )}
             </ImageListItem>
           ))}
         </ImageList>

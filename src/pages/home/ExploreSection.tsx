@@ -6,29 +6,53 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Column } from "@/src/components/Layout";
+import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import StickyBox from "@/src/components/StickyBox";
 
 interface ExploreSectionProps {
   title: string;
   description: string;
-  images: ProjectImage[][];
-}
-
-// TODO: update this to use consistent type throughout project
-interface ProjectImage {
-  src: string;
-  flex: number;
+  images: {
+    src: SanityImageSource;
+  }[];
 }
 
 const DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT = "800px";
 const DESKTOP_SPACING = 2;
 
+const DESKTOP_LAYOUT = [
+  [2, 1, 1],
+  [1, 2, 1],
+  [1, 1, 1],
+];
+const MOBILE_LAYOUT = [
+  [1, 2, 1, 2],
+  [2, 1, 1, 2],
+];
+
 export default function ExploreSection(props: ExploreSectionProps) {
   const { title, description, images } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
+  let columns;
+  if (isMobile) {
+    const chunkSize = 4;
+    columns = [
+      images.slice(0, chunkSize), // images[0..3]
+      images.slice(chunkSize, 8), // images[4..7]
+    ];
+  } else {
+    const chunkSize = 3;
+    columns = [
+      images.slice(0, chunkSize), // images[0..2]
+      images.slice(chunkSize, 6), // images[3..5]
+      images.slice(6, 9), // images[6..8]
+    ];
+  }
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
@@ -74,9 +98,17 @@ export default function ExploreSection(props: ExploreSectionProps) {
             height: DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT,
           }}
         >
-          <ExploreColumn images={images[0]} shouldDisplayOnMobile />
-          <ExploreColumn images={images[1]} shouldDisplayOnMobile />
-          <ExploreColumn images={images[2]} shouldDisplayOnMobile={false} />
+          {columns.map((columnImages, columnIndex) => (
+            <ExploreColumn
+              key={columnIndex}
+              images={columnImages}
+              layout={
+                isMobile
+                  ? MOBILE_LAYOUT[columnIndex]
+                  : DESKTOP_LAYOUT[columnIndex]
+              }
+            />
+          ))}
         </Grid>
       </Box>
     </Box>
@@ -85,13 +117,12 @@ export default function ExploreSection(props: ExploreSectionProps) {
 
 function ExploreColumn({
   images,
-  shouldDisplayOnMobile = true,
+  layout,
 }: {
   images: {
-    src: string;
-    flex: number;
+    src: SanityImageSource;
   }[];
-  shouldDisplayOnMobile: boolean;
+  layout: number[];
 }) {
   return (
     <Grid
@@ -104,10 +135,7 @@ function ExploreColumn({
       }}
       sx={{
         height: "100%",
-        display: {
-          md: "block",
-          xs: shouldDisplayOnMobile ? "block" : "none", // hide column 3 on mobile
-        },
+        display: "block",
       }}
     >
       <Stack
@@ -115,33 +143,18 @@ function ExploreColumn({
         spacing={DESKTOP_SPACING}
         sx={{ height: "100%" }}
       >
-        <Box
-          component="img"
-          src={images[0].src}
-          sx={{
-            flex: images[0].flex,
-            objectFit: "cover",
-            minHeight: 0,
-          }}
-        />
-        <Box
-          component="img"
-          src={images[1].src}
-          sx={{
-            flex: images[1].flex,
-            objectFit: "cover",
-            minHeight: 0,
-          }}
-        />
-        <Box
-          component="img"
-          src={images[2].src}
-          sx={{
-            flex: images[2].flex,
-            objectFit: "cover",
-            minHeight: 0,
-          }}
-        />
+        {images.map((image, idx) => (
+          <ResponsiveSanityBox
+            key={idx}
+            src={image.src}
+            alt="Explore image"
+            sx={{
+              objectFit: "cover",
+              flex: layout[idx],
+              minHeight: 0,
+            }}
+          />
+        ))}
       </Stack>
     </Grid>
   );
