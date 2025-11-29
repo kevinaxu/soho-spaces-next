@@ -21,9 +21,9 @@ const links = [
     label: "portfolio",
     href: "/portfolio",
     children: [
-      { label: "Modern Gothic", href: "/portfolio/modern-gothic" },
-      { label: "Dark Academia", href: "/portfolio/dark-academia" },
-      { label: "Moody Romantic", href: "/portfolio/moody-romantic" },
+      { label: "Dark Academia", href: "/portfolio/dark-academia-living-room" },
+      { label: "Modern Gothic", href: "/" },
+      { label: "Moody Romantic", href: "/" },
     ],
   },
   { label: "contact", href: "/contact" },

@@ -53,19 +53,6 @@ export default function HotspotSection({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
-  useEffect(() => {
-    const getBP = () => {
-      const width = window.innerWidth;
-      if (width < theme.breakpoints.values.sm) return "xs";
-      if (width < theme.breakpoints.values.md) return "sm";
-      if (width < theme.breakpoints.values.lg) return "md";
-      if (width < theme.breakpoints.values.xl) return "lg";
-      return "xl";
-    };
-    const bp = getBP();
-    console.log("Current breakpoint:", bp);
-  }, [theme]);
-
   const handleClick = (idx: number) => {
     setActiveIdx(idx === activeIdx ? null : idx);
   };

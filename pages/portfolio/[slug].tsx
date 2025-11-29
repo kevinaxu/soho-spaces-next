@@ -52,8 +52,6 @@ interface Project {
 }
 
 export default function ProjectPage({ project }: { project: Project }) {
-  console.log("dumping project", JSON.stringify(project.contact, null, 2));
-
   const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
   const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
   const handleHeroImageClick = (index: number) => {

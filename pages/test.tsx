@@ -66,7 +66,5 @@ export async function getStaticProps() {
 }`;
 
   const project = await client.fetch(query);
-  console.log("dumping project", JSON.stringify(project, null, 2));
-
   return { props: { project } };
 }
