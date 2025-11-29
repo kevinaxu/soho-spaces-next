@@ -39,7 +39,7 @@ interface Media {
   cols?: number;
 }
 
-export default function ProjectPage({ project }: { project: Project }) {
+export default function ProjectPage() {
   const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
   const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
   const handleHeroImageClick = (index: number) => {
