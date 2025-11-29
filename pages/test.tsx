@@ -17,6 +17,12 @@ import {
 } from "@mui/material";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
+import {
+  buildSanitySrc,
+  buildSanitySrcSet,
+  ResponsiveSanityBox,
+  ResponsiveSanityImage,
+} from "@/src/components/ResponsiveSanityImage";
 import { FullWidthSection } from "@/src/components/Section";
 import StickyBox from "@/src/components/StickyBox";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
@@ -34,39 +40,21 @@ import {
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const builder = imageUrlBuilder(client);
-
-const urlFor = (source: any) => builder.image(source);
+const urlFor = (source: SanityImageSource) => builder.image(source);
 
 export default function HomePage({ project }) {
   const item = project.hero.images[0];
-  //   const item = "/dark_academia/IMG_0006.jpeg";
-  //   console.log("type of", typeof item.src, JSON.stringify(item.src, null, 2));
+  const item2 = project.hero.images[1];
+  console.log("dumping item", JSON.stringify(item, null, 2));
 
-  const isSanityImage =
-    typeof item.src === "object" && item.src._type === "reference";
-  console.log("isSanityImage", isSanityImage);
-
-  const imageTag = isSanityImage ? (
-    <img
-      src={urlFor(item.src).width(1920).quality(90).auto("format").url()}
-      srcSet={`
-    ${urlFor(item.src).width(480).quality(80).auto("format").url()} 480w,
-    ${urlFor(item.src).width(768).quality(85).auto("format").url()} 768w,
-    ${urlFor(item.src).width(1024).quality(90).auto("format").url()} 1024w,
-    ${urlFor(item.src).width(1440).quality(90).auto("format").url()} 1440w,
-    ${urlFor(item.src).width(1920).quality(90).auto("format").url()} 1920w,
-    ${urlFor(item.src).width(3840).quality(90).auto("format").url()} 3840w
-  `}
-      sizes="100vw"
-      alt={item.title}
-      style={{ width: "100%", height: "auto" }}
-      loading="lazy"
-    />
-  ) : (
-    <img src={item} alt={item} loading="lazy" />
-  );
+  // this is for use with static logic image
+  //   const isSanityImage =
+  //     typeof item.src === "object" && item.src._type === "reference";
+  //   console.log("isSanityImage", isSanityImage);
+  // <img src={item} alt={item} loading="lazy" >
 
   return (
     <>
@@ -87,12 +75,11 @@ export default function HomePage({ project }) {
         <Column gap={8}>
           <Column>
             <Typography variant="h5">Using img tag</Typography>
-            {imageTag}
-            {/* <img
-              src={urlFor(project.hero.images[0].src).quality(80).url()}
-              alt={project.hero.images[0].title}
-              loading="lazy"
-            /> */}
+            <ResponsiveSanityImage
+              src={item.src}
+              alt={item.title}
+              style={{ width: "100%", height: "auto" }}
+            />
           </Column>
 
           <Column>
@@ -103,6 +90,7 @@ export default function HomePage({ project }) {
               loading="lazy"
             />
           </Column>
+
           <Column>
             <Typography variant="h5">Using ImageList component</Typography>
             <ImageList cols={2} gap={12} rowHeight={500}>
@@ -113,7 +101,19 @@ export default function HomePage({ project }) {
                     "&:hover .MuiImageListItemBar-root": { opacity: 1 },
                   }}
                 >
-                  <img
+                  <ResponsiveSanityImage
+                    src={item.src}
+                    alt={item.title}
+                    lazy={true}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+
+                  {/* <img
                     src={urlFor(item.src).quality(80).url()}
                     alt={item.title}
                     loading="lazy"
@@ -132,7 +132,7 @@ export default function HomePage({ project }) {
                       objectFit: "cover",
                       display: "block",
                     }}
-                  />
+                  /> */}
                 </ImageListItem>
               ))}
             </ImageList>
@@ -140,7 +140,20 @@ export default function HomePage({ project }) {
 
           <Column>
             <Typography variant="h5">Using Box with src</Typography>
-            <Box
+            <ResponsiveSanityBox
+              src={item.src}
+              alt={item.title}
+              sx={{
+                width: "100%",
+                zIndex: 0,
+                objectFit: "cover",
+                display: "block",
+                position: "relative",
+                boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+              }}
+            />
+
+            {/* <Box
               component="img"
               src={urlFor(project.hero.images[0].src).quality(80).url()}
               srcSet={`
@@ -161,13 +174,28 @@ export default function HomePage({ project }) {
                 position: "relative",
                 boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
               }}
-            />
+            /> */}
           </Column>
 
-          {/*
           <Column>
             <Typography variant="h5">Using Box with backgroundImage</Typography>
             <Box
+              sx={{
+                width: "100%",
+                // THIS IS REQUIRED WITH BACKGROUND IMAGE
+                // backgroundImage does not have an intrinsic size
+                // need to define this otherwise it won't work correctly
+                height: 400,
+                backgroundImage: `url("${buildSanitySrc(item.src)}")`,
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+              }}
+              role="img"
+              aria-label="Hero image"
+            />
+
+            {/* <Box
               sx={{
                 width: "100%",
                 // THIS IS REQUIRED WITH BACKGROUND IMAGE
@@ -181,7 +209,7 @@ export default function HomePage({ project }) {
               }}
               role="img"
               aria-label="Hero image"
-            />
+            /> */}
           </Column>
 
           <Column>
@@ -198,21 +226,60 @@ export default function HomePage({ project }) {
                 style={{ width: "100%", height: "100%" }}
                 itemOne={
                   <ReactCompareSliderImage
-                    src={urlFor(project.hero.images[0].src).quality(80).url()}
+                    src={buildSanitySrc(item.src)}
+                    srcSet={buildSanitySrcSet(item.src)}
+                    sizes="100vw"
                     alt="Before"
                   />
                 }
                 itemTwo={
                   <ReactCompareSliderImage
-                    src={urlFor(project.hero.images[1].src).quality(80).url()}
+                    src={buildSanitySrc(item2.src)}
+                    srcSet={buildSanitySrcSet(item2.src)}
+                    sizes="100vw"
                     alt="After"
                   />
                 }
                 handle={<ReactCompareSliderHandle />}
               />
+
+              {/* <ReactCompareSlider
+                position={20}
+                style={{ width: "100%", height: "100%" }}
+                itemOne={
+                  <ReactCompareSliderImage
+                    src={urlFor(project.hero.images[0].src).quality(80).url()}
+                    srcSet={`
+    ${urlFor(item.src).width(480).quality(80).auto("format").url()} 480w,
+    ${urlFor(item.src).width(768).quality(85).auto("format").url()} 768w,
+    ${urlFor(item.src).width(1024).quality(90).auto("format").url()} 1024w,
+    ${urlFor(item.src).width(1440).quality(90).auto("format").url()} 1440w,
+    ${urlFor(item.src).width(1920).quality(90).auto("format").url()} 1920w,
+    ${urlFor(item.src).width(3840).quality(90).auto("format").url()} 3840w
+  `}
+                    sizes="100vw"
+                    alt="Before"
+                  />
+                }
+                itemTwo={
+                  <ReactCompareSliderImage
+                    src={urlFor(item2.src).quality(80).url()}
+                    srcSet={`
+    ${urlFor(item2.src).width(480).quality(80).auto("format").url()} 480w,
+    ${urlFor(item2.src).width(768).quality(85).auto("format").url()} 768w,
+    ${urlFor(item2.src).width(1024).quality(90).auto("format").url()} 1024w,
+    ${urlFor(item2.src).width(1440).quality(90).auto("format").url()} 1440w,
+    ${urlFor(item2.src).width(1920).quality(90).auto("format").url()} 1920w,
+    ${urlFor(item2.src).width(3840).quality(90).auto("format").url()} 3840w
+  `}
+                    sizes="100vw"
+                    alt="After"
+                  />
+                }
+                handle={<ReactCompareSliderHandle />}
+              /> */}
             </Box>
           </Column>
-          */}
         </Column>
       </FullWidthSection>
 
@@ -226,10 +293,12 @@ export async function getStaticProps() {
   "hero": {
     "images": hero.images[]{
       title,
-      // this returns a reference
-      "src": photo->image.asset
+      "src": photo->image{
+        ...,
+        asset->
+      }
     }
-  },
+  }
 }`;
 
   const project = await client.fetch(query);
