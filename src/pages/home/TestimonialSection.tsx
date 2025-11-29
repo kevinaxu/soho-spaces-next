@@ -49,9 +49,11 @@ export function TestimonialSection({
   }, []);
 
   useEffect(() => {
-    if (autoScroll) startAutoScroll();
+    if (autoScroll && testimonials.length > 1) {
+      startAutoScroll();
+    }
     return () => stopAutoScroll();
-  }, [autoScroll, startAutoScroll, stopAutoScroll]);
+  }, [autoScroll, startAutoScroll, stopAutoScroll, testimonials.length]);
 
   const showControls = testimonials.length > 1;
 
