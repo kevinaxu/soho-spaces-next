@@ -212,7 +212,7 @@ export const getStaticProps = async () => {
   const home = await client.fetch(
     `*[_type == "home" && _id == $id][0]{
         hero {
-        "videoUrl": src.asset->url
+        "videoUrl": video.asset->url
         },
         designPhilosophy {
             title,
@@ -231,7 +231,7 @@ export const getStaticProps = async () => {
           title,
           description,
           images[] {
-            "src": src->image{
+            "src": image->image{
               ...,
               asset->
             },
@@ -248,7 +248,7 @@ export const getStaticProps = async () => {
             title,
             description,
             images[] {
-                "src": photo->image{
+                "src": image->image{
                 ...,
                 asset->
                 }
@@ -257,7 +257,7 @@ export const getStaticProps = async () => {
         "contact": { 
             "title": contact.title,
             "cta": contact.cta,
-            "src": contact.src->image { ..., asset-> }
+            "src": contact.image->image { ..., asset-> }
         }
    }
 `,
