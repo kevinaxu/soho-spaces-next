@@ -1,6 +1,6 @@
 import { Box, Fade } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 
 import { Row } from "@/src/components/Layout";
 import {
@@ -16,6 +16,7 @@ interface ImageCrossFadeProps {
 
 export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
   const [current, setCurrent] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,13 +43,18 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
           },
         }}
       >
-        {images.map((src, index) => (
-          <Fade key={index} in={index === current} timeout={2000}>
+        {images.map((src, idx) => {
+          const isFirst = idx === 0;
+
+          // For all images
+          const imgElement = (
             <Box
               component="img"
-              src={buildSanitySrc(src.image)}
+              src={buildSanitySrc(src.image, isFirst ? 1024 : undefined)} // fallback use default 1440
               srcSet={buildSanitySrcSet(src.image)}
-              alt={`Image ${index}`}
+              loading={isFirst ? "eager" : "lazy"}
+              alt={`Image ${idx}`}
+              onLoad={() => isFirst && setLoaded(true)}
               sx={{
                 position: "absolute",
                 width: "100%",
@@ -56,10 +62,23 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
                 objectFit: "cover",
                 top: 0,
                 left: 0,
+                // Only fade opacity for first image if not loaded
+                opacity: isFirst ? 1 : undefined,
+                // Hint to browser to optimize opacity transitions → smoother animations.
+                willChange: "opacity",
               }}
             />
-          </Fade>
-        ))}
+          );
+
+          // Render first image directly, others with Fade
+          return isFirst ? (
+            <Fragment key={idx}>{imgElement}</Fragment>
+          ) : (
+            <Fade key={idx} in={idx === current} timeout={2000}>
+              {imgElement}
+            </Fade>
+          );
+        })}
       </Box>
     </Row>
   );

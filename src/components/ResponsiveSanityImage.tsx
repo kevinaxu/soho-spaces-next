@@ -21,8 +21,8 @@ interface ResponsiveSanityBoxProps extends BaseImageProps {
 const builder = imageUrlBuilder(client);
 const urlFor = (source: SanityImageSource) => builder.image(source);
 
-export function buildSanitySrc(src: SanityImageSource) {
-  return urlFor(src).width(1920).quality(90).auto("format").url();
+export function buildSanitySrc(src: SanityImageSource, width: number = 1440) {
+  return urlFor(src).width(width).quality(90).auto("format").url();
 }
 
 export function buildSanitySrcSet(src: SanityImageSource) {
