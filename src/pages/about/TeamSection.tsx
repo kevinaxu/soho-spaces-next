@@ -1,17 +1,17 @@
 import { Box, Grid, Typography } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Column } from "@/src/components/Layout";
+import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import styles from "@/styles/projectImage.module.css";
 
-interface TeamMember {
-  heroImage: string;
-  name: string;
-  title: string;
-  content: string;
-}
-
 interface TeamSectionProps {
-  team: TeamMember[];
+  team: {
+    name: string;
+    title: string;
+    content: string;
+    image: SanityImageSource;
+  }[];
 }
 
 const IMAGE_MAX_HEIGHT = 650;
@@ -48,9 +48,10 @@ export default function TeamSection({ team }: TeamSectionProps) {
                 overflow: "hidden",
               }}
             >
-              <Box
-                component="img"
-                src={member.heroImage}
+              <ResponsiveSanityBox
+                src={member.image}
+                alt={member.name}
+                lazy={true}
                 sx={{
                   width: "100%",
                   height: "100%",

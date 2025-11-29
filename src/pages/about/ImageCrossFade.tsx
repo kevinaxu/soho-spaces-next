@@ -1,10 +1,17 @@
 import { Box, Fade } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
+import {
+  buildSanitySrc,
+  buildSanitySrcSet,
+} from "@/src/components/ResponsiveSanityImage";
 
 interface ImageCrossFadeProps {
-  images: string[];
+  images: {
+    image: SanityImageSource;
+  }[];
 }
 
 export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
@@ -39,7 +46,8 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
           <Fade key={index} in={index === current} timeout={2000}>
             <Box
               component="img"
-              src={src}
+              src={buildSanitySrc(src.image)}
+              srcSet={buildSanitySrcSet(src.image)}
               alt={`Image ${index}`}
               sx={{
                 position: "absolute",

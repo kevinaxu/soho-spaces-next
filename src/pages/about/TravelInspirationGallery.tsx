@@ -7,22 +7,27 @@ import {
   ImageListItemBar,
   useMediaQuery,
 } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Column } from "@/src/components/Layout";
+import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import StickyBox from "@/src/components/StickyBox";
 
-// TODO: update this to use consistent type throughout project
-interface ProjectImage {
-  src: string;
+interface TravelInspirationGalleryProps {
   title: string;
-  subtitle: string;
+  description: string;
+  images: {
+    title: string;
+    subtitle: string;
+    image: SanityImageSource;
+  }[];
 }
 
 export default function TravelInspirationGallery({
+  title,
+  description,
   images,
-}: {
-  images: ProjectImage[];
-}) {
+}: TravelInspirationGalleryProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
   const imagesToDisplay = isMobile ? images.slice(0, 8) : images;
@@ -30,15 +35,9 @@ export default function TravelInspirationGallery({
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
       <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        Design inspired by the world
+        {title}
       </Typography>
-      <Typography color="text.secondary">
-        Through our travels, we discover inspiration in every corner of the
-        world — from the textures of local markets to the architecture of
-        distant cities. Each journey allows us to source unique, handcrafted
-        pieces and uncover emerging design styles that bring depth and
-        authenticity to our interiors.
-      </Typography>
+      <Typography color="text.secondary">{description}</Typography>
     </Column>
   );
 
@@ -81,10 +80,10 @@ export default function TravelInspirationGallery({
                 "&:hover .MuiImageListItemBar-root": { opacity: 1 },
               }}
             >
-              <img
-                src={item.src}
+              <ResponsiveSanityImage
+                src={item.image}
                 alt={item.title}
-                loading="lazy"
+                lazy={true}
                 style={{
                   width: "100%",
                   height: "100%",

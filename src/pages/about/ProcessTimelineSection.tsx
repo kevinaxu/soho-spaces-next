@@ -1,4 +1,5 @@
 import { SvgIconComponent } from "@mui/icons-material";
+import * as MuiIcons from "@mui/icons-material";
 import {
   Timeline,
   TimelineConnector,
@@ -7,18 +8,17 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@mui/lab";
-import TimelineOppositeContent, {
-  timelineOppositeContentClasses,
-} from "@mui/lab/TimelineOppositeContent";
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Typography, useTheme, useMediaQuery } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Row, Column } from "@/src/components/Layout";
+import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 
 interface ProcessStepContent {
   title: string;
   description: string;
-  image?: string;
-  icon?: SvgIconComponent;
+  image?: SanityImageSource;
+  icon?: string; // To be converted to SvgIconComponent;
 }
 
 const TIMELINE_MAX_WIDTH = "1400px";
@@ -52,36 +52,36 @@ export default function ProcessTimeline({
             },
           }}
         >
-          {timelineData.map((item, index) => (
-            <TimelineItem
-              key={index}
-              sx={{
-                // Hide the unnecessary timeline left-padding on opposite content
-                "&::before": {
-                  display: {
-                    xs: "none",
-                    md: "flex",
+          {timelineData.map((item, index) => {
+            const IconComponent = item.icon ? getMuiIcon(item.icon) : null;
+
+            return (
+              <TimelineItem
+                key={index}
+                sx={{
+                  // Hide the unnecessary timeline left-padding on opposite content
+                  "&::before": {
+                    display: {
+                      xs: "none",
+                      md: "flex",
+                    },
                   },
-                },
-              }}
-            >
-              <TimelineSeparator>
-                {item.icon ? (
-                  <TimelineDot>
-                    <item.icon fontSize="small" />
+                }}
+              >
+                <TimelineSeparator>
+                  <TimelineDot variant={item.icon ? undefined : "outlined"}>
+                    {IconComponent && <IconComponent fontSize="small" />}
                   </TimelineDot>
-                ) : (
-                  <TimelineDot variant="outlined" />
-                )}
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContentCard
-                title={item.title}
-                description={item.description}
-                image={item.image}
-              />
-            </TimelineItem>
-          ))}
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContentCard
+                  title={item.title}
+                  description={item.description}
+                  image={item.image}
+                />
+              </TimelineItem>
+            );
+          })}
         </Timeline>
       </Row>
     </Column>
@@ -95,7 +95,7 @@ function TimelineContentCard({
 }: {
   title: string;
   description: string;
-  image?: string;
+  image?: SanityImageSource;
 }) {
   return (
     <TimelineContent
@@ -136,21 +136,39 @@ function TimelineContentCard({
             {description}
           </Typography>
         </Column>
-        <Box
-          component="img"
-          src={image}
-          sx={{
-            width: {
-              md: "100%",
-            },
-            height: {
-              md: "300px",
-            },
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
+        {image && (
+          <ResponsiveSanityBox
+            src={image}
+            alt="Process Step Image"
+            lazy={true}
+            sx={{
+              width: {
+                md: "100%",
+              },
+              height: {
+                md: "300px",
+              },
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        )}
       </Column>
     </TimelineContent>
   );
+}
+
+/**
+ * Convert a string name of a Material UI icon into the corresponding SvgIconComponent.
+ * Returns HelpOutline as fallback if the icon is not found.
+ */
+export function getMuiIcon(iconName: string): SvgIconComponent {
+  const Icon = (MuiIcons as Record<string, SvgIconComponent>)[iconName];
+  if (!Icon) {
+    console.warn(
+      `Icon "${iconName}" not found. Using HelpOutline as fallback.`
+    );
+    return MuiIcons.HelpOutline;
+  }
+  return Icon;
 }

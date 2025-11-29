@@ -4,11 +4,12 @@ import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutli
 import GroupsIcon from "@mui/icons-material/Groups";
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import { Typography } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
-import { FullWidthSection, Section } from "@/src/components/Section";
+import { FullWidthSection } from "@/src/components/Section";
 import {
   MAX_WIDTH_TEXT_CONTAINER,
   PADDING_X_SECTION,
@@ -18,8 +19,57 @@ import ImageCrossFade from "@/src/pages/about/ImageCrossFade";
 import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
 import TeamSection from "@/src/pages/about/TeamSection";
 import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery";
+import { client } from "@/src/sanity/client";
 
-export default function AboutPage({}) {
+interface AboutPageProps {
+  progression: {
+    image: SanityImageSource;
+  }[];
+  timeline: {
+    title: string;
+    description: string;
+    steps: {
+      title: string;
+      icon: string; // Icon component name as string
+      image: SanityImageSource;
+      description: string;
+    }[];
+  };
+  travel: {
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      subtitle: string;
+      image: SanityImageSource;
+    }[];
+  };
+  team: {
+    title: string;
+    description: string;
+    members: {
+      name: string;
+      title: string;
+      content: string;
+      image: SanityImageSource;
+    }[];
+  };
+}
+
+export default function AboutPage({ about }: { about: AboutPageProps }) {
+  console.log("dumping about data", JSON.stringify(about, null, 2));
+
+  // TODO: move this into a validation fn later
+  if (
+    !about ||
+    !about.progression ||
+    !about.timeline ||
+    !about.travel ||
+    !about.team
+  ) {
+    return null;
+  }
+
   return (
     <>
       <Header sticky={false} />
@@ -36,7 +86,7 @@ export default function AboutPage({}) {
           },
         }}
       >
-        <ImageCrossFade images={mockData.progression} />
+        <ImageCrossFade images={about.progression} />
       </FullWidthSection>
 
       <FullWidthSection
@@ -69,18 +119,13 @@ export default function AboutPage({}) {
             }}
           >
             <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              Our Process
+              {about.timeline.title}
             </Typography>
             <Typography color="text.secondary">
-              Our clients range from large companies to individual homeowners
-              looking to refresh their homes (in some cases even our own
-              neighbors). Throughout this process, our goal as designers is to
-              understand your vision and provide a plan that works for you. Our
-              goal as designers is to understand your vision and provide a plan
-              that
+              {about.timeline.description}
             </Typography>
           </Column>
-          <ProcessTimeline timelineData={mockData.timeline} />
+          <ProcessTimeline timelineData={about.timeline.steps} />
         </Column>
       </FullWidthSection>
 
@@ -96,7 +141,11 @@ export default function AboutPage({}) {
           },
         }}
       >
-        <TravelInspirationGallery images={mockData.travel} />
+        <TravelInspirationGallery
+          title={about.travel.title}
+          description={about.travel.description}
+          images={about.travel.items}
+        />
       </FullWidthSection>
 
       <FullWidthSection
@@ -124,16 +173,13 @@ export default function AboutPage({}) {
             }}
           >
             <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              Meet the Team
+              {about.team.title}
             </Typography>
             <Typography color="text.secondary">
-              Soho Spaces was a dream for Maisa and Tahaiya. They always loved
-              experimenting with design, a passion which started from a young
-              age decorating their rooms. It wasnt until Maisa met Kevin that
-              Soho Spaces became a reality.
+              {about.team.description}
             </Typography>
           </Column>
-          <TeamSection team={mockData.team} />
+          <TeamSection team={about.team.members} />
         </Column>
       </FullWidthSection>
 
@@ -141,6 +187,68 @@ export default function AboutPage({}) {
     </>
   );
 }
+
+const ABOUTPAGE_SANITY_ID = "0d8bb2fe-24cb-4145-a0e9-58a3b197f1e4";
+
+export const getStaticProps = async () => {
+  const about = await client.fetch(
+    `*[_type == "about" && _id == $id][0]{
+    progression[] {
+      "image": image->image{
+        ...,
+        asset->
+      }
+    },
+    timeline {
+      title,
+      description,
+      steps[] {
+        title,
+        icon,
+        "image": image->image{
+          ...,
+          asset->
+        },
+        description
+      }
+    },
+    travel {
+      title,
+      description,
+      items[] {
+        title,
+        subtitle,
+        "image": image->image{
+          ...,
+          asset->
+        }
+      }
+    },
+    team {
+      title,
+      description,
+      members[] {
+        name,
+        title,
+        content,
+        "image": image->image{
+          ...,
+          asset->
+        }
+      }
+    }
+  }`,
+    { id: ABOUTPAGE_SANITY_ID }
+  );
+
+  if (!about) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { about },
+  };
+};
 
 const mockData = {
   progression: ["/emily_bedroom.png", "/IMG_0017.jpeg"],
