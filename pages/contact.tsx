@@ -1,11 +1,28 @@
 import { Box, Typography } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
+import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 import ContactFormSection from "@/src/pages/contact/ContactFormSection";
+import { client } from "@/src/sanity/client";
 
-export default function ContactPage() {
+interface ContactPageProps {
+  title: string;
+  description: string;
+  image: SanityImageSource;
+}
+
+export default function ContactPage({
+  contact,
+}: {
+  contact: ContactPageProps;
+}) {
+  if (!contact) {
+    return null;
+  }
+
   return (
     <>
       <Header sticky={true} />
@@ -26,7 +43,7 @@ export default function ContactPage() {
           sx={{
             flex: 1,
             maxWidth: "33%",
-            backgroundImage: `url(${mockData.sidebarImage})`,
+            backgroundImage: `url(${buildSanitySrc(contact.image)})`,
             backgroundSize: "cover",
             backgroundPosition: "center bottom",
             display: {
@@ -58,10 +75,10 @@ export default function ContactPage() {
             }}
           >
             <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              {mockData.title}
+              {contact.title}
             </Typography>
             <Typography color="text.secondary">
-              {mockData.description}
+              {contact.description}
             </Typography>
           </Column>
           <ContactFormSection />
@@ -71,6 +88,30 @@ export default function ContactPage() {
     </>
   );
 }
+
+const CONTACT_PAGE_SANITY_ID = "3247358a-6337-402f-87e5-1638f9a34f21";
+
+export const getStaticProps = async () => {
+  const contact = await client.fetch(
+    `*[_type == "contact" && _id == $id][0]{
+      title,
+      description,
+        "image": image->image{
+          ...,
+          asset->
+        },
+  }`,
+    { id: CONTACT_PAGE_SANITY_ID }
+  );
+
+  if (!contact) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { contact },
+  };
+};
 
 const mockData = {
   sidebarImage: "/IMG_0008.jpeg",

@@ -1,8 +1,7 @@
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Box, Grid, Typography, Chip } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
-import { useState } from "react";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
