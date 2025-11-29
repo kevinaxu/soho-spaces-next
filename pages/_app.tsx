@@ -110,7 +110,7 @@ export default function App({ Component, pageProps }: AppProps) {
       /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       if (typeof (window as any).umami !== "undefined") {
         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-        (window as any).umami.trackView(url);
+        (window as any).umami.track(url);
       }
     };
 
