@@ -60,8 +60,6 @@ interface HomePageProps {
 }
 
 export default function HomePage({ home }: { home: HomePageProps }) {
-  console.log("dumping home data", JSON.stringify(home.services, null, 2));
-
   const [sticky, setSticky] = useState<boolean | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
 

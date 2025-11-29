@@ -57,8 +57,6 @@ interface AboutPageProps {
 }
 
 export default function AboutPage({ about }: { about: AboutPageProps }) {
-  console.log("dumping about data", JSON.stringify(about, null, 2));
-
   // TODO: move this into a validation fn later
   if (
     !about ||
