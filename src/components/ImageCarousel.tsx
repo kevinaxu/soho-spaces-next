@@ -127,11 +127,11 @@ export default function ImageCarousel({
             overflow: "hidden",
           }}
         >
-          {images.map((image) => {
+          {images.map((image, idx) => {
             return (
               <ResponsiveSanityBox
                 className="keen-slider__slide"
-                key={image.src}
+                key={idx}
                 src={image.src}
                 alt={image.title}
                 lazy={true}
