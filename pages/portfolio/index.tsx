@@ -29,18 +29,9 @@ export default function PortfolioPage({
 }: {
   portfolio: PortfolioPageProps;
 }) {
-  console.log("dumping portfolio data", JSON.stringify(portfolio, null, 2));
-
-  const [isActiveTag, setIsActiveTag] = useState<string | null>(null);
-
   if (!portfolio || !portfolio.projects) {
     return null;
   }
-
-  //   // Filter projects by selected tag
-  //   const filteredProjects = isActiveTag
-  //     ? portfolio.projects.filter((p) => p.tags.includes(isActiveTag))
-  //     : portfolio.projects;
 
   return (
     <>
@@ -59,32 +50,6 @@ export default function PortfolioPage({
         }}
       >
         <Column gap={2}>
-          {/*
-          <Row
-            flexWrap="wrap"
-            sx={{
-              gap: 1,
-              width: "100%",
-              justifyContent: {
-                xs: "center",
-                md: "flex-start",
-              },
-            }}
-          >
-            {mockData.visibleTags.map((tag) => (
-              <Chip
-                key={tag}
-                label={tag}
-                color={isActiveTag === tag ? "primary" : "default"}
-                onClick={() => setIsActiveTag(tag)}
-                onDelete={
-                  isActiveTag === tag ? () => setIsActiveTag(null) : undefined
-                }
-                clickable
-              />
-            ))}
-          </Row> */}
-
           <Box sx={{ flexGrow: 1, py: 2 }}>
             <Grid
               container
