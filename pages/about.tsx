@@ -57,17 +57,6 @@ interface AboutPageProps {
 }
 
 export default function AboutPage({ about }: { about: AboutPageProps }) {
-  // TODO: move this into a validation fn later
-  if (
-    !about ||
-    !about.progression ||
-    !about.timeline ||
-    !about.travel ||
-    !about.team
-  ) {
-    return null;
-  }
-
   return (
     <>
       <Header sticky={false} />
@@ -239,7 +228,9 @@ export const getStaticProps = async () => {
     { id: ABOUTPAGE_SANITY_ID }
   );
 
-  if (!about) {
+  // Validate all required sections are present
+  const requiredKeys = ["progression", "timeline", "travel", "team"];
+  if (!about || !requiredKeys.every((key) => about[key])) {
     return { notFound: true };
   }
 

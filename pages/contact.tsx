@@ -19,10 +19,6 @@ export default function ContactPage({
 }: {
   contact: ContactPageProps;
 }) {
-  if (!contact) {
-    return null;
-  }
-
   return (
     <>
       <Header sticky={true} />
@@ -104,6 +100,7 @@ export const getStaticProps = async () => {
     { id: CONTACT_PAGE_SANITY_ID }
   );
 
+  // Validate all required sections are present
   if (!contact) {
     return { notFound: true };
   }

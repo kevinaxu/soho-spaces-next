@@ -28,10 +28,6 @@ export default function PortfolioPage({
 }: {
   portfolio: PortfolioPageProps;
 }) {
-  if (!portfolio || !portfolio.projects) {
-    return null;
-  }
-
   return (
     <>
       <Header sticky={true} />
@@ -145,7 +141,8 @@ export const getStaticProps = async () => {
     { id: PORTFOLIO_PAGE_SANITY_ID }
   );
 
-  if (!portfolio) {
+  // Validate all required sections are present
+  if (!portfolio || !portfolio.projects) {
     return { notFound: true };
   }
 

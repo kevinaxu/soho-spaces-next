@@ -60,18 +60,6 @@ export default function ProjectPage({ project }: { project: Project }) {
   };
   const handleHeroCloseCarousel = () => heroSetCarouselOpen(false);
 
-  // TODO: move this into a validation fn later
-  if (
-    !project ||
-    !project.hero ||
-    !project.overview ||
-    !project.comparison ||
-    !project.hotspot ||
-    !project.contact
-  ) {
-    return null;
-  }
-
   return (
     <>
       <Header sticky={false} />
@@ -223,7 +211,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     { slug }
   );
 
-  if (!project) {
+  // Validate all required sections are present
+  const requiredKeys = ["overview", "hero", "comparison", "hotspot", "contact"];
+  if (!project || !requiredKeys.every((key) => project[key])) {
     return { notFound: true };
   }
 

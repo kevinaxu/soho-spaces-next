@@ -77,20 +77,6 @@ export default function HomePage({ home }: { home: HomePageProps }) {
     return () => observer.disconnect();
   }, []);
 
-  // TODO: move this into a validation fn later
-  if (
-    !home ||
-    !home.hero ||
-    !home.designPhilosophy ||
-    !home.services ||
-    !home.featuredProject ||
-    !home.testimonials ||
-    !home.explore ||
-    !home.contact
-  ) {
-    return null;
-  }
-
   return (
     <>
       {sticky && <Header sticky={sticky} />}
@@ -262,7 +248,17 @@ export const getStaticProps = async () => {
     { id: HOMEPAGE_SANITY_ID }
   );
 
-  if (!home) {
+  // Validate all required sections are present
+  const requiredKeys = [
+    "hero",
+    "designPhilosophy",
+    "services",
+    "featuredProject",
+    "testimonials",
+    "explore",
+    "contact",
+  ];
+  if (!home || !requiredKeys.every((key) => home[key])) {
     return { notFound: true };
   }
 
