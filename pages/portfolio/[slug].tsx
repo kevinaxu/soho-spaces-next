@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
-import ImageCarousel from "@/src/components/ImageCarousel";
 import { Column } from "@/src/components/Layout";
+import ModalLightbox from "@/src/components/ModalLightbox";
 import { FullWidthSection } from "@/src/components/Section";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
@@ -155,13 +155,13 @@ export default function ProjectPage({ project }: { project: Project }) {
       </FullWidthSection>
 
       {heroCarouselOpen && (
-        <ImageCarousel
+        <ModalLightbox
           images={project.hero.images}
-          initialIndex={heroCarouselIndex}
-          onClose={handleHeroCloseCarousel}
+          index={heroCarouselIndex}
+          open={heroCarouselOpen}
+          close={handleHeroCloseCarousel}
         />
       )}
-
       <Footer />
     </>
   );
