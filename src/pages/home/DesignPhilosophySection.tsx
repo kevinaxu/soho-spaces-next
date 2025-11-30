@@ -30,7 +30,7 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         <Typography
           variant={isMobile ? "h5" : "h2"}
           sx={{
-            fontStyle: "italic",
+            // fontStyle: "italic",
             lineHeight: 1.5,
             fontFamily: "Nanum Myeongjo, serif",
             fontWeight: 700,
@@ -48,7 +48,7 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         <Typography
           variant={isMobile ? "h5" : "h2"}
           sx={{
-            fontStyle: "italic",
+            // fontStyle: "italic",
             lineHeight: 1.5,
             fontFamily: "Cormorant Garamond, serif",
             fontWeight: 700,
@@ -66,7 +66,7 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         <Typography
           variant={isMobile ? "h5" : "h2"}
           sx={{
-            fontStyle: "italic",
+            // fontStyle: "italic",
             lineHeight: 1.5,
             fontFamily: "Quattrocento, serif",
             fontWeight: 700,
