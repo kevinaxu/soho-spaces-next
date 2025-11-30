@@ -1,17 +1,10 @@
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { keyframes } from "@mui/system";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { useState, useEffect } from "react";
 
+import { Arrow } from "@/src/components/Arrow";
 import { Row } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
-
-const nudge = keyframes`
-  0%, 100% { transform: translateX(0) scaleX(1.8); }
-  50% { transform: translateX(5px) scaleX(1.8); }
-`;
 
 interface HorizontalGallerySectionProps {
   images: {
@@ -25,15 +18,6 @@ export default function HorizontalGallerySection({
   images,
   handleImageClick,
 }: HorizontalGallerySectionProps) {
-  const [animate, setAnimate] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimate(false), 6900);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleMouseEnter = () => setAnimate(true);
-  const handleMouseLeave = () => setAnimate(false);
-
   return (
     <Box
       sx={{
@@ -96,34 +80,13 @@ export default function HorizontalGallerySection({
         >
           back to interiors
         </Typography>
-        <Row
-          sx={{
-            alignItems: "center",
-            gap: 1,
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Typography
-            sx={{
-              variant: {
-                xs: "subtitle1",
-                md: "h6",
-              },
-            }}
-          >
-            scroll
-          </Typography>
-          <ArrowRightAltIcon
-            sx={{
-              transform: {
-                xs: "scaleX(1.5)",
-                md: "scaleX(1.8)",
-              },
-              animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
-            }}
-          />
-        </Row>
+        <Arrow
+          direction="right"
+          title="scroll"
+          animate={false}
+          size="md"
+          //   onClick={() => console.log("scroll arrow clicked")}
+        />
       </Row>
     </Box>
   );
