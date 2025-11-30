@@ -1,4 +1,3 @@
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   Box,
   Typography,
@@ -10,6 +9,7 @@ import {
 } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
+import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import StickyBox from "@/src/components/StickyBox";
@@ -49,14 +49,8 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
         >
           see the project
         </Typography>
-        <ArrowRightAltIcon
-          sx={{
-            transform: {
-              xs: "scaleX(1.5)",
-              md: "scaleX(1.8)",
-            },
-          }}
-        />
+
+        <Arrow direction="right" size="md" />
       </Row>
     </Column>
   );

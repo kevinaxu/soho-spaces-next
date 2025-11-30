@@ -1,7 +1,7 @@
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Typography, Fade } from "@mui/material";
 import { useState, useEffect } from "react";
 
+import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
 
 interface ComparisonSectionProps {
@@ -121,14 +121,7 @@ export function ComparisonSection(props: ComparisonSectionProps) {
               >
                 {description}
               </Typography>
-              <ArrowRightAltIcon
-                sx={{
-                  transform: {
-                    xs: "scaleX(1.5)",
-                    md: "scaleX(1.8)",
-                  },
-                }}
-              />
+              <Arrow direction="right" size="md" />
             </Row>
           </Column>
         </Box>

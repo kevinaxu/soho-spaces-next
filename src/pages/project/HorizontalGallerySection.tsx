@@ -83,7 +83,6 @@ export default function HorizontalGallerySection({
         <Arrow
           direction="right"
           title="scroll"
-          animate={false}
           size="md"
           //   onClick={() => console.log("scroll arrow clicked")}
         />

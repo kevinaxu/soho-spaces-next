@@ -1,8 +1,8 @@
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Box, Grid, Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 
+import { Arrow } from "@/src/components/Arrow";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Row, Column } from "@/src/components/Layout";
@@ -113,7 +113,7 @@ export default function PortfolioPage({
                           coming soon
                         </Typography>
                       ) : (
-                        <ArrowRightAltIcon />
+                        <Arrow direction="right" size="md" />
                       )}
                     </Row>
                   </Column>
