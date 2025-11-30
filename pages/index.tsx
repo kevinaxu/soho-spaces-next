@@ -20,7 +20,7 @@ interface HomePageProps {
   };
   designPhilosophy: {
     title: string;
-    subtitle: string;
+    subtitle?: string;
   };
   services: {
     title: string;
@@ -87,7 +87,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           height: "800px",
           alignItems: "center",
-          py: 12,
+          py: 2,
           px: PADDING_X_SECTION,
         }}
       >
@@ -102,7 +102,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
           alignItems: "center",
           backgroundColor: "#f1eeed",
           py: {
-            md: 8,
+            md: 0,
           },
         }}
       >
@@ -117,7 +117,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 4,
+            md: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
@@ -139,6 +139,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
           bgcolor: "#073027",
           py: 12,
           px: PADDING_X_SECTION,
+          margin: 2,
         }}
       >
         <TestimonialSection
@@ -151,11 +152,12 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           alignItems: "center",
           py: {
-            md: 4,
+            // md: 4,
+            md: 0,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            md: 2,
           },
         }}
       >

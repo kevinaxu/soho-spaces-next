@@ -71,11 +71,12 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
         // same for TravelInspirationGallery component
         py: {
           xs: 8,
+          md: 0,
         },
       }}
     >
       <Box sx={{ flex: 1 }}>
-        <ImageList cols={1} gap={28} rowHeight={500}>
+        <ImageList cols={1} gap={16} rowHeight={500}>
           {images.map((item, i) => (
             <ImageListItem
               key={i}
@@ -117,8 +118,9 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
           leftWidth={"50%"}
           top={theme.spacing(8)}
           sx={{
-            paddingX: {
-              md: 0,
+            // Padding on the text column
+            paddingLeft: {
+              md: 4,
             },
           }}
         >

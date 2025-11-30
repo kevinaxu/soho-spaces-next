@@ -4,7 +4,7 @@ import { Row, Column } from "@/src/components/Layout";
 
 interface DesignPhilosophySectionProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
@@ -28,17 +28,19 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
           {title}
         </Typography>
       </Row>
-      <Row
-        sx={{
-          paddingX: {
-            xs: 4,
-            md: 12,
-          },
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="body1">{subtitle}</Typography>
-      </Row>
+      {subtitle && (
+        <Row
+          sx={{
+            paddingX: {
+              xs: 4,
+              md: 12,
+            },
+            textAlign: "center",
+          }}
+        >
+          <Typography variant="body1">{subtitle}</Typography>
+        </Row>
+      )}
     </Column>
   );
 }

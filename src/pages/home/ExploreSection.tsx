@@ -20,13 +20,13 @@ interface ExploreSectionProps {
   }[];
 }
 
-const DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT = "800px";
+const DESKTOP_EXPLORE_PROJECTS_SECTION_HEIGHT = "1200px";
 const DESKTOP_SPACING = 2;
 
 const DESKTOP_LAYOUT = [
-  [2, 1, 1],
-  [1, 2, 1],
-  [1, 1, 1],
+  [2, 2, 3],
+  [2, 3, 2],
+  [3, 2, 2],
 ];
 const MOBILE_LAYOUT = [
   [1, 2, 1, 2],
@@ -71,6 +71,7 @@ export default function ExploreSection(props: ExploreSectionProps) {
         gap: 4,
         py: {
           xs: 8,
+          md: 0,
         },
       }}
     >
@@ -79,8 +80,10 @@ export default function ExploreSection(props: ExploreSectionProps) {
         titleSection
       ) : (
         <StickyBox
+          leftWidth={"40%"}
           top={theme.spacing(8)}
           sx={{
+            // Padding on the text column
             paddingX: {
               md: 0,
             },

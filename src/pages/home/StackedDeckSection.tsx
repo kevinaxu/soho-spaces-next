@@ -104,12 +104,15 @@ function StackedDeckDesktop(props: StackedDeckProps): React.JSX.Element {
           position: "absolute",
           py: 2,
           px: 4,
-          backgroundColor: "#f1eeed",
+          backgroundColor: cards[cards.length - 1].bg,
           zIndex: cards.length + 1,
         }}
       >
-        <Box sx={{ maxWidth: 200, gap: 12 }}>
-          <Typography variant="h6">{title}</Typography>
+        {/* Our Services */}
+        <Box sx={{ maxWidth: 500 }}>
+          <Typography variant="h3" gutterBottom>
+            {title}
+          </Typography>
           <Typography variant="body1">{description}</Typography>
         </Box>
       </Row>
@@ -124,7 +127,7 @@ function StackedDeckMobile(props: StackedDeckProps) {
       <Row
         sx={{
           width: "100%",
-          backgroundColor: "#f1eeed",
+          backgroundColor: cards[cards.length - 1].bg,
           paddingY: 4,
         }}
       >
@@ -182,7 +185,10 @@ function ServicesColumn({
           md: "100%",
         },
         maxWidth: {
-          md: 300,
+          md: 250,
+        },
+        paddingY: {
+          md: 0,
         },
       }}
     >

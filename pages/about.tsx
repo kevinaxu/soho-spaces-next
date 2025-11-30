@@ -59,7 +59,7 @@ interface AboutPageProps {
 export default function AboutPage({ about }: { about: AboutPageProps }) {
   return (
     <>
-      <Header sticky={false} />
+      <Header sticky={true} />
 
       <FullWidthSection
         sx={{

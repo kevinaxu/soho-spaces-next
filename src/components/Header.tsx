@@ -58,7 +58,7 @@ export default function Header({ sticky }: { sticky: boolean }) {
           paddingX: 0,
           minHeight: {
             xs: 12,
-            md: 48,
+            md: 40,
           }, // Adjust these values to shrink the height
         }}
       >

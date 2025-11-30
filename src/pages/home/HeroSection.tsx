@@ -113,18 +113,19 @@ HeroVideoSection.displayName = "HeroSectionVideo";
 function HeroLogo() {
   return (
     <Typography
-      variant="h1"
-      component="h1"
+      variant="h3"
+      component="h3"
       sx={{
         color: "#fff",
         fontWeight: "bold",
+        fontFamily: ["Montserrat", "sans-serif"].join(","),
         fontSize: {
           xs: "4rem",
-          md: "8rem",
+          md: "6rem",
         },
         letterSpacing: {
           xs: "1rem",
-          md: "2rem",
+          md: "1.5rem",
         },
         lineHeight: {
           xs: "6rem",
