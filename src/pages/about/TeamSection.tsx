@@ -4,6 +4,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import styles from "@/styles/projectImage.module.css";
+import { SectionSubtitle } from "@/src/components/SectionTitle";
 
 interface TeamSectionProps {
   team: {
@@ -71,9 +72,7 @@ export default function TeamSection({ team }: TeamSectionProps) {
                 paddingTop: 2,
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
-                {member.name}
-              </Typography>
+              <SectionSubtitle gutterBottom={false} title={member.name} />
               <Typography
                 variant="subtitle1"
                 color="text.secondary"

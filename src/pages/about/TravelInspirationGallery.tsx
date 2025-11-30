@@ -11,6 +11,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
 
 interface TravelInspirationGalleryProps {
@@ -34,9 +35,7 @@ export default function TravelInspirationGallery({
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
-      <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        {title}
-      </Typography>
+      <SectionTitle title={title} />
       <Typography color="text.secondary">{description}</Typography>
     </Column>
   );

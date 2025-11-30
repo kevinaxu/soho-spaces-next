@@ -3,16 +3,18 @@ import { Typography, SxProps, Theme } from "@mui/material";
 export function SectionTitle({
   title,
   italicize = false,
+  gutterBottom = true,
   sx,
 }: {
   title: string;
   italicize?: boolean;
+  gutterBottom?: boolean;
   sx?: SxProps<Theme>;
 }) {
   return (
     <Typography
       variant="h3"
-      gutterBottom
+      gutterBottom={gutterBottom}
       sx={{
         fontStyle: italicize ? "italic" : "normal",
         ...sx,
@@ -25,13 +27,15 @@ export function SectionTitle({
 
 export function SectionSubtitle({
   title,
+  gutterBottom = true,
   sx,
 }: {
   title: string;
+  gutterBottom?: boolean;
   sx?: SxProps<Theme>;
 }) {
   return (
-    <Typography variant="h6" gutterBottom sx={sx}>
+    <Typography variant="h6" gutterBottom={gutterBottom} sx={sx}>
       {title.toUpperCase()}
     </Typography>
   );

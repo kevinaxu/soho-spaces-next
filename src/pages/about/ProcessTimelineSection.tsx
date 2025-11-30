@@ -13,6 +13,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 
 interface ProcessStepContent {
   title: string;
@@ -122,16 +123,14 @@ function TimelineContentCard({
             gap: 1,
           }}
         >
-          <Typography
-            variant="h6"
+          <SectionSubtitle
+            title={title}
             sx={{
               textAlign: {
                 md: "center",
               },
             }}
-          >
-            {title}
-          </Typography>
+          />
           <Typography color="text.secondary" sx={{ textAlign: "justify" }}>
             {description}
           </Typography>

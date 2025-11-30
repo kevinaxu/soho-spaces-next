@@ -20,6 +20,7 @@ import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
 import TeamSection from "@/src/pages/about/TeamSection";
 import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery";
 import { client } from "@/src/sanity/client";
+import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 
 interface AboutPageProps {
   progression: {
@@ -111,9 +112,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
               mx: "auto",
             }}
           >
-            <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              {about.timeline.title}
-            </Typography>
+            <SectionTitle title={about.timeline.title} />
             <Typography color="text.secondary">
               {about.timeline.description}
             </Typography>
@@ -168,9 +167,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
               mx: "auto",
             }}
           >
-            <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              {about.team.title}
-            </Typography>
+            <SectionTitle title={about.team.title} />
             <Typography color="text.secondary">
               {about.team.description}
             </Typography>
