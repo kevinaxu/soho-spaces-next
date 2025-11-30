@@ -42,7 +42,7 @@ export default function Header({ sticky }: { sticky: boolean }) {
         color: (theme) => theme.palette.text.primary,
         paddingX: {
           xs: PADDING_X_MOBILE,
-          md: 1,
+          md: 0.5,
         },
         paddingY: {
           xs: 1,

@@ -87,7 +87,10 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           height: "800px",
           alignItems: "center",
-          py: 2,
+          py: {
+            xs: 2,
+            md: 0,
+          },
           px: PADDING_X_SECTION,
         }}
       >

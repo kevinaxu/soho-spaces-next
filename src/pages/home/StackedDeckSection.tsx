@@ -6,7 +6,7 @@ import { PADDING_X_MOBILE } from "@/src/constants";
 
 const DESKTOP_OFFSET_BASE = 200;
 const DESKTOP_OFFSET = 100;
-const DESKTOP_REVEAL_OFFSET = 300;
+const DESKTOP_REVEAL_OFFSET = 250;
 
 const MOBILE_CARD_HEIGHT = "650px";
 
@@ -103,7 +103,7 @@ function StackedDeckDesktop(props: StackedDeckProps): React.JSX.Element {
         sx={{
           position: "absolute",
           py: 2,
-          px: 4,
+          px: 3,
           backgroundColor: cards[cards.length - 1].bg,
           zIndex: cards.length + 1,
         }}
