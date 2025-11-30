@@ -21,7 +21,7 @@ interface PortfolioPageProps {
   }[];
 }
 
-const IMAGE_MAX_HEIGHT = 650;
+const IMAGE_MAX_HEIGHT = 600;
 
 export default function PortfolioPage({
   portfolio,
@@ -35,11 +35,11 @@ export default function PortfolioPage({
         sx={{
           py: {
             xs: 2,
-            md: 4,
+            md: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            md: 2,
           },
           alignItems: "center",
         }}
@@ -48,7 +48,7 @@ export default function PortfolioPage({
           <Box sx={{ flexGrow: 1, py: 2 }}>
             <Grid
               container
-              columnSpacing={4}
+              columnSpacing={2}
               rowSpacing={{
                 xs: 4,
                 md: 8,
@@ -64,7 +64,12 @@ export default function PortfolioPage({
                   display="flex"
                   justifyContent="center"
                 >
-                  <Column sx={{ width: "100%", maxWidth: 400 }}>
+                  <Column
+                    sx={{
+                      width: "100%",
+                      maxWidth: 400,
+                    }}
+                  >
                     <Link href={`/portfolio/${project.slug}`} passHref>
                       <Box
                         className={styles.containerBlock}
