@@ -4,8 +4,6 @@
   - Header
     - [] Mobile - lots of real-estate in Drawer right now. Add in some additional
     - [x] Desktop - make this thinner. Update padding on desktop
-  - Footer
-    - [] Logo should be transparent and slightly overflow on the top of the footer, creating a watermark effect
 - Production readiness
   - [] Create a 404 page
   - [] Update Umamimk to point to production site
@@ -22,7 +20,7 @@
   - Timeline
     - [] Add icon highlighting when container is centered
 - Explore page
-  - [] Implement this using Mosaic
+  - [] Implement this using React Photo Gallery
 - Refactor
   - [] Extract Image with Trim into separate component (Portfolio page, Team section)
   - [] Extract all the Layout constants and move them into the FullWidthSection, if possible
@@ -38,6 +36,9 @@
 - About page
   - Timeline
     - [x] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
+- Shared components
+  - Footer
+    - [x] Logo should be transparent and slightly overflow on the top of the footer, creating a watermark effect
 - Project page
   - Hero
     - [x] Make this horizontally scrollable on mobile
