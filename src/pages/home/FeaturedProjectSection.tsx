@@ -43,7 +43,7 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
       >
         <Arrow
           direction="right"
-          title="explore our portfolio"
+          title="see the projects"
           size="md"
           href={PAGES.portfolio}
         />

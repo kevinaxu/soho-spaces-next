@@ -7,6 +7,7 @@ import { lighten } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 
 import { Row, Column } from "@/src/components/Layout";
+import { SectionSubtitle } from "@/src/components/SectionTitle";
 
 export default function Footer() {
   const theme = useTheme();
@@ -75,7 +76,7 @@ function FooterMain() {
         },
         paddingTop: {
           xs: 8,
-          md: 4,
+          md: 8,
         },
         alignItems: {
           md: "flex-end", // push columns to bottom
@@ -90,6 +91,7 @@ function FooterMain() {
           },
         }}
       >
+        {/* Need this here in order to align right column properly */}
         {/* <FooterMainLogo /> */}
       </Box>
       <Box
@@ -137,10 +139,8 @@ function FooterMainLinks() {
       }}
     >
       <Column gap={1}>
-        <Row paddingBottom={1}>
-          <Typography variant="h5" fontWeight="medium">
-            explore
-          </Typography>
+        <Row>
+          <SectionSubtitle title="explore" />
         </Row>
         <Link
           color="inherit"
@@ -168,10 +168,8 @@ function FooterMainLinks() {
         </Link>
       </Column>
       <Column gap={1}>
-        <Row paddingBottom={1}>
-          <Typography variant="h5" fontWeight="medium">
-            contact us
-          </Typography>
+        <Row>
+          <SectionSubtitle title="contact us" />
         </Row>
         <Link
           color="inherit"

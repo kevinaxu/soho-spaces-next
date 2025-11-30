@@ -64,7 +64,7 @@ export function ContactUsSection(props: ContactUsSectionProps) {
             sx={{
               position: "relative",
               textAlign: "center",
-              maxWidth: "600px",
+              maxWidth: "650px",
               color: "#fff",
               zIndex: 3,
               textDecoration: "none",

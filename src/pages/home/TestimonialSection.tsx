@@ -90,7 +90,7 @@ export function TestimonialSection({
                 sx={{
                   color: "footer.contrastText",
                   textAlign: "center",
-                  fontStyle: "italic",
+                  //   fontStyle: "italic",
                 }}
               >
                 {t.quote}
