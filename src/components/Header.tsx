@@ -29,8 +29,6 @@ const links = [
   { label: "contact", href: "/contact" },
 ];
 
-const AESTHETIC_WHITE = "#E5DED3";
-
 export default function Header({
   sticky,
   transparent,
@@ -145,7 +143,6 @@ function MobileDrawer({
           position: "relative", // needed for absolute logo
           minHeight: "100%", // ensure logo is at bottom
           height: "100vh", // take full screen height
-          backgroundColor: AESTHETIC_WHITE,
         }}
         role="presentation"
       >

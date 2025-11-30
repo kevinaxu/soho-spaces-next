@@ -1,6 +1,5 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -19,6 +18,20 @@ import "@fontsource/cormorant-garamond/700.css"; // bold
 import "@fontsource/quattrocento/400.css"; // regular
 import "@fontsource/quattrocento/700.css"; // bold
 
+// Define custom palette fields
+declare module "@mui/material/styles" {
+  interface Palette {
+    detail: {
+      testimonial: string;
+    };
+  }
+  interface PaletteOptions {
+    detail?: {
+      testimonial?: string;
+    };
+  }
+}
+
 const AESTHETIC_WHITE = "#E5DED3";
 
 const lightTheme = createTheme({
@@ -31,14 +44,20 @@ const lightTheme = createTheme({
       main: "#c19a6b", // soft tan
     },
     background: {
-      default: AESTHETIC_WHITE,
+      default: AESTHETIC_WHITE, // Sherwin Williams Aesthetic White SW7035
       paper: "#fffaf0", // slightly warmer paper color
     },
     text: {
       primary: "#333333",
       secondary: "#555555",
     },
-    footer: { main: "#78716C", contrastText: "#F2F0E9" },
+    footer: {
+      main: "#8A7A6A", // Sherwin Williams Virtual Taupe SW7039
+      contrastText: "#F2F0E9",
+    },
+    detail: {
+      testimonial: "#432722", // Sherwin Williams Polished Mahogany SW2838
+    },
   },
   typography: {
     fontFamily: ["Lexend", "Helvetica", "Arial", "sans-serifc"].join(","),

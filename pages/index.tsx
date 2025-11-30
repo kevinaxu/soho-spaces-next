@@ -86,7 +86,6 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          //   bgcolor: AESTHETIC_WHITE,
           height: "800px",
           alignItems: "center",
           py: {
@@ -140,7 +139,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           height: "800px",
           alignItems: "center",
-          bgcolor: "#073027",
+          bgcolor: "#432724",
           marginBottom: 2,
           marginX: 2,
         }}
@@ -172,7 +171,6 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          //   bgcolor: AESTHETIC_WHITE,
           px: {
             xs: PADDING_X_MOBILE,
             md: PADDING_X_SECTION,
