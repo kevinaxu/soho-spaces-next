@@ -8,7 +8,7 @@ interface DesignPhilosophySectionProps {
 }
 
 export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
-  const { title, subtitle } = props;
+  const { title } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
@@ -30,49 +30,13 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         <Typography
           variant={isMobile ? "h5" : "h2"}
           sx={{
-            // fontStyle: "italic",
+            fontStyle: "italic",
             lineHeight: 1.5,
             fontFamily: "Nanum Myeongjo, serif",
             fontWeight: 700,
           }}
         >
           {title} (Nanum Myeongjo)
-        </Typography>
-      </Row>
-
-      <Row
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <Typography
-          variant={isMobile ? "h5" : "h2"}
-          sx={{
-            // fontStyle: "italic",
-            lineHeight: 1.5,
-            fontFamily: "Cormorant Garamond, serif",
-            fontWeight: 700,
-          }}
-        >
-          {title} (Cormorant Garamond)
-        </Typography>
-      </Row>
-
-      <Row
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <Typography
-          variant={isMobile ? "h5" : "h2"}
-          sx={{
-            fontStyle: "italic",
-            lineHeight: 1.5,
-            fontFamily: ["Montserrat", "sans-serif"].join(","),
-            fontWeight: 400,
-          }}
-        >
-          {title} (Lexend)
         </Typography>
       </Row>
 

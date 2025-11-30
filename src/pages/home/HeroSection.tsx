@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { forwardRef } from "react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
-// import "@fontsource/lexend/400.css";
 
 interface HeroSectionProps {
   src?: string;
@@ -119,6 +118,17 @@ export function HeroLogo({
   lineHeight = { xs: "6rem", md: "normal" },
   color = "#fff",
 }) {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    // Wait until all fonts are loaded
+    document.fonts.ready.then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
+  if (!fontLoaded) return null; // or a placeholder
+
   return (
     <Typography
       component="h3"
@@ -137,35 +147,3 @@ export function HeroLogo({
     </Typography>
   );
 }
-
-/*
-function HeroLogo() {
-  return (
-    <Typography
-      //   variant="h3"
-      //   component="h3"
-      sx={{
-        color: "#fff",
-        fontWeight: 400,
-        fontFamily: ["Lexend", "sans-serif"].join(","),
-        fontSize: {
-          xs: "4rem",
-          md: "6rem",
-        },
-        letterSpacing: {
-          xs: "1rem",
-          md: "1.5rem",
-        },
-        lineHeight: {
-          xs: "6rem",
-          md: "normal",
-        },
-        textAlign: "center",
-        textTransform: "uppercase",
-      }}
-    >
-      soho spaces
-    </Typography>
-  );
-}
-*/

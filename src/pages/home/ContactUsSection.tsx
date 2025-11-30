@@ -77,7 +77,7 @@ export function ContactUsSection(props: ContactUsSectionProps) {
                 width: "100%",
                 alignItems: "center",
                 mx: "auto",
-                gap: 4,
+                gap: 2,
               }}
             >
               <Row

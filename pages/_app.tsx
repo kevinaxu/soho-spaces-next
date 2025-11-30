@@ -2,13 +2,10 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Lexend } from "next/font/google";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
-
-// default fonts
-import "@fontsource/lexend/300.css"; // Light
-import "@fontsource/lexend/400.css"; // Light
 
 // quote fonts
 import "@fontsource/nanum-myeongjo/400.css"; // regular
@@ -17,6 +14,8 @@ import "@fontsource/cormorant-garamond/400.css"; // regular
 import "@fontsource/cormorant-garamond/700.css"; // bold
 import "@fontsource/quattrocento/400.css"; // regular
 import "@fontsource/quattrocento/700.css"; // bold
+
+const lexend = Lexend({ subsets: ["latin"], weight: ["300", "400"] });
 
 // Define custom palette fields
 declare module "@mui/material/styles" {
@@ -60,7 +59,8 @@ const lightTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Lexend", "Helvetica", "Arial", "sans-serifc"].join(","),
+    // fontFamily: ["Lexend", "Helvetica", "Arial", "sans-serif"].join(","),
+    fontFamily: lexend.style.fontFamily,
     fontWeightLight: 300, // optional for reference
     fontWeightRegular: 300, // default "regular" font weight
     fontWeightMedium: 400, // when you want a heavier one
