@@ -5,6 +5,7 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import ContactFormSection from "@/src/pages/contact/ContactFormSection";
 import { client } from "@/src/sanity/client";
 
@@ -70,9 +71,11 @@ export default function ContactPage({
               maxWidth: "800px",
             }}
           >
-            <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-              {contact.title}
-            </Typography>
+            <SectionTitle
+              title={contact.title}
+              italicize={true}
+              gutterBottom={false}
+            />
             <Typography color="text.secondary">
               {contact.description}
             </Typography>
