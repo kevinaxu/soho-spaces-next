@@ -8,6 +8,7 @@ import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import ModalLightbox from "@/src/components/ModalLightbox";
 import { FullWidthSection } from "@/src/components/Section";
+import { SectionSubtitle } from "@/src/components/SectionTitle";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import BeforeAfterSection from "@/src/pages/project/BeforeAfterSection";
@@ -107,7 +108,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         }}
       >
         <Column gap={2} sx={{ width: "100%" }}>
-          <Typography variant="h2">Before and After</Typography>
+          <SectionSubtitle title="Before & Afters" gutterBottom={false} />
           <BeforeAfterSection items={project.comparison.images} />
         </Column>
       </FullWidthSection>
@@ -126,7 +127,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         }}
       >
         <Column gap={2} sx={{ width: "100%" }}>
-          <Typography variant="h2">Materials</Typography>
+          <SectionSubtitle title="Materials & Finishes" gutterBottom={false} />
           <HotspotSection
             image={project.hotspot.hotspotImage}
             hotspots={project.hotspot.hotspots}

@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 import { Column } from "@/src/components/Layout";
+import { SectionTitle } from "@/src/components/SectionTitle";
 
 interface OverviewSectionProps {
   title: string;
@@ -24,9 +25,7 @@ export function OverviewSection(props: OverviewSectionProps) {
       {/* column left */}
       <Box sx={{ flex: "0 0 70%" }}>
         <Column sx={{ alignItems: "flex-start", gap: 2 }}>
-          <Typography variant="h3" gutterBottom sx={{}}>
-            {title}
-          </Typography>
+          <SectionTitle title={title} />
           <Typography color="text.secondary">{description}</Typography>
         </Column>
       </Box>

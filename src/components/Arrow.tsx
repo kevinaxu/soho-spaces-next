@@ -41,7 +41,7 @@ function ArrowContent({
     <Row
       sx={{
         alignItems: "center",
-        gap: 2,
+        gap: 1.5,
         cursor: onClick ? "pointer" : "default",
         "&:hover .arrow-title": {
           textDecoration: "underline", // underline on hover only

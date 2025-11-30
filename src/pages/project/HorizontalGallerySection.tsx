@@ -73,19 +73,12 @@ export default function HorizontalGallerySection({
           },
         }}
       >
-        <Link href={PAGES.portfolio} passHref>
-          <Typography
-            component="a"
-            sx={{
-              variant: {
-                xs: "subtitle1",
-                md: "h6",
-              },
-            }}
-          >
-            back to interiors
-          </Typography>
-        </Link>
+        <Arrow
+          direction="left"
+          title="back to interiors"
+          size="md"
+          href={PAGES.portfolio}
+        />
         <Arrow
           direction="right"
           title="scroll"
