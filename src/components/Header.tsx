@@ -29,7 +29,13 @@ const links = [
   { label: "contact", href: "/contact" },
 ];
 
-export default function Header({ sticky }: { sticky: boolean }) {
+export default function Header({
+  sticky,
+  transparent,
+}: {
+  sticky: boolean;
+  transparent?: boolean;
+}) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
@@ -38,7 +44,14 @@ export default function Header({ sticky }: { sticky: boolean }) {
       position={sticky ? "sticky" : "relative"}
       elevation={0}
       sx={{
-        backgroundColor: (theme) => theme.palette.background.default,
+        ...(transparent
+          ? {
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              backdropFilter: "blur(12px)", // <-- frosted glass effect
+            }
+          : {
+              backgroundColor: (theme) => theme.palette.background.default,
+            }),
         color: (theme) => theme.palette.text.primary,
         paddingX: {
           xs: PADDING_X_MOBILE,

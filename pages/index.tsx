@@ -79,7 +79,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
   return (
     <>
-      {sticky && <Header sticky={sticky} />}
+      {sticky && <Header sticky={sticky} transparent />}
 
       <HeroSection src={home.hero.videoUrl} type="video" ref={heroRef} />
 
