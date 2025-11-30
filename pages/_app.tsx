@@ -7,6 +7,13 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 
+// import "@fontsource/raleway/400.css"; // regular
+// import "@fontsource/raleway/700.css"; // bold
+// import "@fontsource/lato/400.css"; // regular
+// import "@fontsource/lato/700.css"; // bold
+import "@fontsource/lexend/300.css"; // regular
+import "@fontsource/lexend/700.css"; // bold
+
 const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -27,7 +34,8 @@ const lightTheme = createTheme({
     footer: { main: "#78716C", contrastText: "#F2F0E9" },
   },
   typography: {
-    fontFamily: ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(","),
+    // fontFamily: ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(","),
+    fontFamily: ["Lexend"].join(","),
     h1: {
       fontSize: "2.5rem",
       fontWeight: 600,
