@@ -60,8 +60,6 @@ interface HomePageProps {
   };
 }
 
-const AESTHETIC_WHITE = "#E5DED3";
-
 export default function HomePage({ home }: { home: HomePageProps }) {
   const [sticky, setSticky] = useState<boolean | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -88,7 +86,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          bgcolor: AESTHETIC_WHITE,
+          //   bgcolor: AESTHETIC_WHITE,
           height: "800px",
           alignItems: "center",
           py: {
@@ -122,8 +120,6 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          //   bgcolor: "#e3e2dc",
-          bgcolor: AESTHETIC_WHITE,
           py: {
             md: 2,
           },
@@ -140,31 +136,25 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         />
       </FullWidthSection>
 
-      <Box sx={{ bgcolor: AESTHETIC_WHITE, padding: 2 }}>
-        {/* padding area color */}
-        <FullWidthSection
-          sx={{
-            height: "800px",
-            alignItems: "center",
-            bgcolor: "#073027",
-            // py: 0,
-            // px: 0,
-            // margin: 0,
-          }}
-        >
-          <TestimonialSection
-            testimonials={home.testimonials}
-            autoScroll={true}
-          />
-        </FullWidthSection>
-      </Box>
+      <FullWidthSection
+        sx={{
+          height: "800px",
+          alignItems: "center",
+          bgcolor: "#073027",
+          marginBottom: 2,
+          marginX: 2,
+        }}
+      >
+        <TestimonialSection
+          testimonials={home.testimonials}
+          autoScroll={true}
+        />
+      </FullWidthSection>
 
       <FullWidthSection
         sx={{
           alignItems: "center",
-          bgcolor: AESTHETIC_WHITE,
           py: {
-            // md: 4,
             md: 0,
           },
           px: {
@@ -182,7 +172,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          bgcolor: AESTHETIC_WHITE,
+          //   bgcolor: AESTHETIC_WHITE,
           px: {
             xs: PADDING_X_MOBILE,
             md: PADDING_X_SECTION,

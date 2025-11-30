@@ -29,12 +29,54 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
       >
         <Typography
           variant={isMobile ? "h5" : "h2"}
-          sx={{ fontStyle: "italic" }}
+          sx={{
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            fontFamily: "Nanum Myeongjo, serif",
+            fontWeight: 700,
+          }}
         >
-          {title}
+          {title} (Nanum Myeongjo)
         </Typography>
       </Row>
-      {subtitle && (
+
+      <Row
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant={isMobile ? "h5" : "h2"}
+          sx={{
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            fontFamily: "Cormorant Garamond, serif",
+            fontWeight: 700,
+          }}
+        >
+          {title} (Cormorant Garamond)
+        </Typography>
+      </Row>
+
+      <Row
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant={isMobile ? "h5" : "h2"}
+          sx={{
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            fontFamily: "Quattrocento, serif",
+            fontWeight: 700,
+          }}
+        >
+          {title} (Quattrocento)
+        </Typography>
+      </Row>
+
+      {/* {subtitle && (
         <Row
           sx={{
             paddingX: {
@@ -46,7 +88,7 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         >
           <Typography variant="body1">{subtitle}</Typography>
         </Row>
-      )}
+      )} */}
     </Column>
   );
 }

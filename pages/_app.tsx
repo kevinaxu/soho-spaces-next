@@ -7,12 +7,19 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 
-// import "@fontsource/raleway/400.css"; // regular
-// import "@fontsource/raleway/700.css"; // bold
-// import "@fontsource/lato/400.css"; // regular
-// import "@fontsource/lato/700.css"; // bold
+// default fonts
 import "@fontsource/lexend/300.css"; // regular
 import "@fontsource/lexend/700.css"; // bold
+
+// quote fonts
+import "@fontsource/nanum-myeongjo/400.css"; // regular
+import "@fontsource/nanum-myeongjo/700.css"; // bold
+import "@fontsource/cormorant-garamond/400.css"; // regular
+import "@fontsource/cormorant-garamond/700.css"; // bold
+import "@fontsource/quattrocento/400.css"; // regular
+import "@fontsource/quattrocento/700.css"; // bold
+
+const AESTHETIC_WHITE = "#E5DED3";
 
 const lightTheme = createTheme({
   palette: {
@@ -24,7 +31,7 @@ const lightTheme = createTheme({
       main: "#c19a6b", // soft tan
     },
     background: {
-      default: "#F2F0E9",
+      default: AESTHETIC_WHITE,
       paper: "#fffaf0", // slightly warmer paper color
     },
     text: {
@@ -34,8 +41,7 @@ const lightTheme = createTheme({
     footer: { main: "#78716C", contrastText: "#F2F0E9" },
   },
   typography: {
-    // fontFamily: ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(","),
-    fontFamily: ["Lexend"].join(","),
+    fontFamily: ["Lexend", "Helvetica", "Arial", "sans-serifc"].join(","),
     h1: {
       fontSize: "2.5rem",
       fontWeight: 600,
@@ -59,6 +65,15 @@ const lightTheme = createTheme({
     caption: {
       fontSize: "0.75rem",
       color: "#777777",
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: AESTHETIC_WHITE, // or use: backgroundColor: theme.palette.background.default
+        },
+      },
     },
   },
 });
