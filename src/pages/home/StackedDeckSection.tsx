@@ -8,7 +8,7 @@ const DESKTOP_OFFSET_BASE = 200;
 const DESKTOP_OFFSET = 100;
 const DESKTOP_REVEAL_OFFSET = 250;
 
-const MOBILE_CARD_HEIGHT = "650px";
+const MOBILE_CARD_HEIGHT = "400px";
 
 interface StackedDeckProps {
   title: string;
@@ -132,7 +132,7 @@ function StackedDeckMobile(props: StackedDeckProps) {
         }}
       >
         <Column sx={{ paddingX: PADDING_X_MOBILE, gap: 1 }}>
-          <Typography variant="h6">{title}</Typography>
+          <Typography variant="h3">{title}</Typography>
           <Typography variant="body1">{description}</Typography>
         </Column>
       </Row>
