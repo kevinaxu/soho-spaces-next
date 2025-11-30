@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle } from "@/src/components/SectionTitle";
 
 interface ContactUsSectionProps {
   title: string;
@@ -84,9 +85,7 @@ export function ContactUsSection(props: ContactUsSectionProps) {
                   textAlign: "center",
                 }}
               >
-                <Typography variant="h2" sx={{ fontStyle: "italic" }}>
-                  {title}
-                </Typography>
+                <SectionTitle title={title} italicize />
               </Row>
               <Row
                 sx={{
@@ -94,15 +93,14 @@ export function ContactUsSection(props: ContactUsSectionProps) {
                   gap: 2,
                 }}
               >
-                <Typography
+                <Arrow
+                  direction="right"
+                  title={cta.toLowerCase()}
+                  size="md"
                   sx={{
                     color: "footer.contrastText",
-                    variant: "h4",
                   }}
-                >
-                  {cta}
-                </Typography>
-                <Arrow direction="right" size="md" />
+                />
               </Row>
             </Column>
           </Box>

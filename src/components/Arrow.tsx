@@ -1,5 +1,5 @@
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import Typography from "@mui/material/Typography";
+import { Typography, SxProps, Theme } from "@mui/material";
 import { keyframes } from "@mui/system";
 import Link from "next/link";
 
@@ -17,6 +17,7 @@ interface ArrowProps {
   onClick?: () => void;
   href?: string;
   size?: "sm" | "md" | "lg";
+  sx?: SxProps<Theme>;
 }
 
 const sizeMap = {
@@ -31,6 +32,7 @@ function ArrowContent({
   title,
   onClick,
   size = "md",
+  sx,
 }: ArrowProps) {
   const isLeft = direction === "left";
   const config = sizeMap[size];
@@ -68,6 +70,7 @@ function ArrowContent({
             color: "text.secondary",
             variant: { xs: config.textXs, md: "body1" },
             textDecoration: "none",
+            ...sx,
           }}
         >
           {title}

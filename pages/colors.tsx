@@ -64,7 +64,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
   const [sticky, setSticky] = useState<boolean | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
 
-  const ACCESSIBLE_BEIGE = "#D1C7B7";
+  const ACCESSIBLE_BEIGE = "#E3DED0";
   const VAN_DYKE_BROWN = "#564536";
 
   useEffect(() => {

@@ -66,13 +66,13 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
         <Typography
           variant={isMobile ? "h5" : "h2"}
           sx={{
-            // fontStyle: "italic",
+            fontStyle: "italic",
             lineHeight: 1.5,
-            fontFamily: "Quattrocento, serif",
-            fontWeight: 700,
+            fontFamily: ["Montserrat", "sans-serif"].join(","),
+            fontWeight: 400,
           }}
         >
-          {title} (Quattrocento)
+          {title} (Lexend)
         </Typography>
       </Row>
 

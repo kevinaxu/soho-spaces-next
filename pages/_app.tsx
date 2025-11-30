@@ -7,8 +7,8 @@ import Script from "next/script";
 import { useEffect } from "react";
 
 // default fonts
-import "@fontsource/lexend/300.css"; // regular
-import "@fontsource/lexend/700.css"; // bold
+import "@fontsource/lexend/300.css"; // Light
+import "@fontsource/lexend/400.css"; // Light
 
 // quote fonts
 import "@fontsource/nanum-myeongjo/400.css"; // regular
@@ -61,6 +61,10 @@ const lightTheme = createTheme({
   },
   typography: {
     fontFamily: ["Lexend", "Helvetica", "Arial", "sans-serifc"].join(","),
+    fontWeightLight: 300, // optional for reference
+    fontWeightRegular: 300, // default "regular" font weight
+    fontWeightMedium: 400, // when you want a heavier one
+
     h1: {
       fontSize: "2.5rem",
       fontWeight: 600,

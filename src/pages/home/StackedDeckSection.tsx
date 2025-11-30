@@ -2,6 +2,7 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 
 import { Row, Column } from "@/src/components/Layout";
+import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 import { PADDING_X_MOBILE } from "@/src/constants";
 
 const DESKTOP_OFFSET_BASE = 200;
@@ -110,9 +111,7 @@ function StackedDeckDesktop(props: StackedDeckProps): React.JSX.Element {
       >
         {/* Our Services */}
         <Box sx={{ maxWidth: 500 }}>
-          <Typography variant="h3" gutterBottom>
-            {title}
-          </Typography>
+          <SectionTitle title={title} />
           <Typography variant="body1">{description}</Typography>
         </Box>
       </Row>
@@ -132,7 +131,7 @@ function StackedDeckMobile(props: StackedDeckProps) {
         }}
       >
         <Column sx={{ paddingX: PADDING_X_MOBILE, gap: 1 }}>
-          <Typography variant="h3">{title}</Typography>
+          <SectionSubtitle title={title} />
           <Typography variant="body1">{description}</Typography>
         </Column>
       </Row>
@@ -196,9 +195,7 @@ function ServicesColumn({
         {numberText}
       </Typography>
       <Box>
-        <Typography variant="h3" gutterBottom>
-          {title}
-        </Typography>
+        <SectionSubtitle title={title} />
         <Typography variant="body1">{description}</Typography>
       </Box>
     </Column>

@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 import { useRef } from "react";
 
 import { Row } from "@/src/components/Layout";
+// import "@fontsource/lexend/400.css";
 
 interface HeroSectionProps {
   src?: string;
@@ -110,15 +111,43 @@ const HeroVideoSection = forwardRef<
 });
 HeroVideoSection.displayName = "HeroSectionVideo";
 
+export function HeroLogo({
+  fontFamily = ["Lexend", "sans-serif"].join(","),
+  fontWeight = 400,
+  fontSize = { xs: "4rem", md: "6rem" },
+  letterSpacing = { xs: "1rem", md: "1.5rem" },
+  lineHeight = { xs: "6rem", md: "normal" },
+  color = "#fff",
+}) {
+  return (
+    <Typography
+      component="h3"
+      sx={{
+        fontFamily,
+        fontWeight,
+        fontSize,
+        letterSpacing,
+        lineHeight,
+        color,
+        textAlign: "center",
+        textTransform: "uppercase",
+      }}
+    >
+      soho spaces
+    </Typography>
+  );
+}
+
+/*
 function HeroLogo() {
   return (
     <Typography
-      variant="h3"
-      component="h3"
+      //   variant="h3"
+      //   component="h3"
       sx={{
         color: "#fff",
-        fontWeight: "bold",
-        fontFamily: ["Montserrat", "sans-serif"].join(","),
+        fontWeight: 400,
+        fontFamily: ["Lexend", "sans-serif"].join(","),
         fontSize: {
           xs: "4rem",
           md: "6rem",
@@ -139,3 +168,4 @@ function HeroLogo() {
     </Typography>
   );
 }
+*/

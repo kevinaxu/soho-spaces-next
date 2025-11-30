@@ -4,6 +4,7 @@ import React, { useCallback, useState, useEffect, useRef } from "react";
 
 import { Column } from "@/src/components/Layout";
 import { MAX_WIDTH_TEXT_CONTAINER } from "@/src/constants";
+import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 
 import "keen-slider/keen-slider.min.css";
 
@@ -67,12 +68,10 @@ export function TestimonialSection({
         mx: "auto",
       }}
     >
-      <Typography
-        variant="h2"
+      <SectionTitle
+        title="Testimonials"
         sx={{ pb: 4, textAlign: "center", color: "footer.contrastText" }}
-      >
-        Testimonial
-      </Typography>
+      />
 
       <Box
         sx={{ position: "relative", width: "100%" }}

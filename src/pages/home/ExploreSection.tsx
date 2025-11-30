@@ -11,6 +11,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Arrow } from "@/src/components/Arrow";
 import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
 import { PAGES } from "@/src/constants";
 
@@ -58,9 +59,7 @@ export default function ExploreSection(props: ExploreSectionProps) {
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
-      <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        {title}
-      </Typography>
+      <SectionTitle title={title} />
       <Typography color="text.secondary">{description}</Typography>
       <Arrow
         direction="right"

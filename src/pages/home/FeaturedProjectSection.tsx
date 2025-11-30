@@ -12,7 +12,9 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
+import { PAGES } from "@/src/constants";
 
 interface FeaturedProjectSectionProps {
   title: string;
@@ -31,9 +33,7 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
-      <Typography variant="h3" gutterBottom sx={{ fontStyle: "italic" }}>
-        {title}
-      </Typography>
+      <SectionTitle title={title} />
       <Typography color="text.secondary">{description}</Typography>
       <Row
         sx={{
@@ -41,16 +41,12 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
           gap: 2,
         }}
       >
-        <Typography
-          color="text.secondary"
-          sx={{
-            variant: "body1",
-          }}
-        >
-          see the project
-        </Typography>
-
-        <Arrow direction="right" size="md" />
+        <Arrow
+          direction="right"
+          title="explore our portfolio"
+          size="md"
+          href={PAGES.portfolio}
+        />
       </Row>
     </Column>
   );
