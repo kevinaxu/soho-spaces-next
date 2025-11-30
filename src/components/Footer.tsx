@@ -13,24 +13,40 @@ export default function Footer() {
   return (
     <Column
       sx={{
+        position: "relative", // needed for absolute logo
         gap: 2,
         backgroundColor: "footer.main",
         color: "footer.contrastText",
-        paddingX: {
-          xs: 4,
-          md: 8,
-        },
-        paddingTop: {
-          xs: 4,
-          md: 8,
-        },
-        paddingBottom: 2,
+        px: { xs: 4, md: 8 },
+        py: 2, // smaller footer height
+        overflow: "hidden", // prevent anything from overflowing the footer
       }}
     >
+      {/* Logo as background */}
+      <Box
+        component="img"
+        src="https://soho-spaces.com/assets/soho_logo_white.svg"
+        alt="soho spaces logo"
+        sx={{
+          position: "absolute",
+          top: -60, // moves logo above the top of the footer
+          bottom: "100%", // aligns the bottom of logo with top of footer
+          left: "20%",
+          transform: "translateX(-50%)",
+          opacity: 0.1,
+          width: { xs: 300, md: 400 }, // bigger logo
+          height: "auto",
+          pointerEvents: "none", // make sure it doesn't block clicks
+          zIndex: 0,
+        }}
+      />
+
       <FooterMain />
       <Divider
         sx={{
           borderColor: lighten(theme.palette.footer.main, 0.5),
+          position: "relative",
+          zIndex: 1, // on top of background logo
         }}
       />
       <FooterAttribution />
@@ -59,7 +75,10 @@ function FooterMain() {
         },
         paddingTop: {
           xs: 8,
-          md: 2,
+          md: 4,
+        },
+        alignItems: {
+          md: "flex-end", // push columns to bottom
         },
       }}
     >
@@ -71,7 +90,7 @@ function FooterMain() {
           },
         }}
       >
-        <FooterMainLogo />
+        {/* <FooterMainLogo /> */}
       </Box>
       <Box
         sx={{
