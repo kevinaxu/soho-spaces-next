@@ -90,7 +90,7 @@ export default function Header({
             },
           }}
         >
-          soho spaces
+          SOHO SPACES
         </Typography>
 
         {/* Desktop Header */}
@@ -106,7 +106,7 @@ export default function Header({
                 "&:hover": { textDecoration: "underline" },
               }}
             >
-              {link.label}
+              {link.label.toUpperCase()}
             </Typography>
           ))}
         </Box>
@@ -206,7 +206,7 @@ function NavItem({
     <>
       <ListItem disablePadding>
         <ListItemButton component="a" href={href} onClick={onClick} sx={sx}>
-          <ListItemText primary={label} />
+          <ListItemText primary={label.toUpperCase()} />
         </ListItemButton>
       </ListItem>
       {children}
