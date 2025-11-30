@@ -3,9 +3,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useState } from "react";
 
-import ImageCarousel from "@/src/components/ImageCarousel";
 import { Column } from "@/src/components/Layout";
-import { urlFor } from "@/src/utils/sanityImage";
 
 const layoutTemplates: { rows: number; cols: number }[][] = [
   // first three - full height column on left
@@ -87,13 +85,6 @@ export default function PhotoGallerySection({
           })}
         </ImageList>
       </Column>
-      {isCarouselOpen && (
-        <ImageCarousel
-          images={images}
-          initialIndex={carouselOpenIndex}
-          onClose={() => setIsCarouselOpen(false)}
-        />
-      )}
     </>
   );
 }
