@@ -8,9 +8,11 @@ import {
 } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
+import { Arrow } from "@/src/components/Arrow";
 import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import StickyBox from "@/src/components/StickyBox";
+import { PAGES } from "@/src/constants";
 
 interface ExploreSectionProps {
   title: string;
@@ -60,6 +62,12 @@ export default function ExploreSection(props: ExploreSectionProps) {
         {title}
       </Typography>
       <Typography color="text.secondary">{description}</Typography>
+      <Arrow
+        direction="right"
+        title="explore our portfolio"
+        size="md"
+        href={PAGES.portfolio}
+      />
     </Column>
   );
 

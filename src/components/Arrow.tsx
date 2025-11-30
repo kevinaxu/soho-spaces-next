@@ -1,6 +1,7 @@
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
+import Link from "next/link";
 
 import { Row } from "@/src/components/Layout";
 
@@ -14,6 +15,7 @@ interface ArrowProps {
   direction?: "left" | "right";
   title?: string;
   onClick?: () => void;
+  href?: string;
   size?: "sm" | "md" | "lg";
 }
 
@@ -23,7 +25,7 @@ const sizeMap = {
   lg: { xs: 1.8, md: 2.2, textXs: "h6", textMd: "h5" },
 };
 
-export function Arrow({
+function ArrowContent({
   animate = false,
   direction = "right",
   title,
@@ -39,16 +41,19 @@ export function Arrow({
         alignItems: "center",
         gap: 1,
         cursor: onClick ? "pointer" : "default",
+        "&:hover .arrow-title": {
+          textDecoration: "underline", // underline on hover only
+        },
       }}
       onClick={onClick}
     >
-      {/* Arrow on the left if direction=left */}
+      {/* Arrow on left */}
       {isLeft && (
         <ArrowRightAltIcon
           sx={{
             transform: {
-              xs: `scaleX(-${config.xs})`,
-              md: `scaleX(-${config.md})`,
+              xs: `scaleX(-${config.xs}) scaleY(0.7)`,
+              md: `scaleX(-${config.md}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}
@@ -58,21 +63,24 @@ export function Arrow({
       {/* Title */}
       {title && (
         <Typography
+          className="arrow-title"
           sx={{
-            variant: { xs: config.textXs, md: config.textMd },
+            color: "text.secondary",
+            variant: { xs: config.textXs, md: "body1" },
+            textDecoration: "none",
           }}
         >
           {title}
         </Typography>
       )}
 
-      {/* Arrow on the right if direction=right */}
+      {/* Arrow on right */}
       {!isLeft && (
         <ArrowRightAltIcon
           sx={{
             transform: {
-              xs: `scaleX(${config.xs})`,
-              md: `scaleX(${config.md})`,
+              xs: `scaleX(${config.xs}) scaleY(0.7)`,
+              md: `scaleX(${config.md}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}
@@ -80,4 +88,25 @@ export function Arrow({
       )}
     </Row>
   );
+}
+
+export function Arrow(props: ArrowProps) {
+  const { href } = props;
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        style={{
+          textDecoration: "none",
+          color: "inherit",
+          display: "inline-flex",
+        }}
+      >
+        <ArrowContent {...props} />
+      </Link>
+    );
+  }
+
+  return <ArrowContent {...props} />;
 }

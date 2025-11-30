@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
 import { Arrow } from "@/src/components/Arrow";
 import { Row } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
+import { PAGES } from "@/src/constants";
 
 interface HorizontalGallerySectionProps {
   images: {
@@ -62,24 +64,28 @@ export default function HorizontalGallerySection({
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-          px: 2,
           paddingTop: 1,
-          paddingX: {
-            xs: 2,
+          paddingLeft: {
+            md: 2,
+          },
+          paddingRight: {
             md: 4,
           },
         }}
       >
-        <Typography
-          sx={{
-            variant: {
-              xs: "subtitle1",
-              md: "h6",
-            },
-          }}
-        >
-          back to interiors
-        </Typography>
+        <Link href={PAGES.portfolio} passHref>
+          <Typography
+            component="a"
+            sx={{
+              variant: {
+                xs: "subtitle1",
+                md: "h6",
+              },
+            }}
+          >
+            back to interiors
+          </Typography>
+        </Link>
         <Arrow
           direction="right"
           title="scroll"
