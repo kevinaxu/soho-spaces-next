@@ -14,13 +14,13 @@ interface TeamSectionProps {
   }[];
 }
 
-const IMAGE_MAX_HEIGHT = 650;
+const IMAGE_MAX_HEIGHT = 500;
 
 export default function TeamSection({ team }: TeamSectionProps) {
   return (
     <Grid
       container
-      columnSpacing={4}
+      columnSpacing={2}
       rowSpacing={{
         xs: 4,
         md: 8,
@@ -42,7 +42,7 @@ export default function TeamSection({ team }: TeamSectionProps) {
               className={styles.containerBlock}
               sx={{
                 width: "100%",
-                aspectRatio: "9 / 16",
+                aspectRatio: "2/3",
                 maxHeight: IMAGE_MAX_HEIGHT,
                 position: "relative",
                 overflow: "hidden",

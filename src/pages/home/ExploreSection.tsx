@@ -84,8 +84,11 @@ export default function ExploreSection(props: ExploreSectionProps) {
           top={theme.spacing(8)}
           sx={{
             // Padding on the text column
-            paddingX: {
+            px: {
               md: 0,
+            },
+            paddingRight: {
+              md: 4,
             },
           }}
         >

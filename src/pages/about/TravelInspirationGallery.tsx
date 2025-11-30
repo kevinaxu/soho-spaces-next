@@ -49,6 +49,7 @@ export default function TravelInspirationGallery({
         gap: 4,
         py: {
           xs: 8,
+          md: 0,
         },
       }}
     >
@@ -57,10 +58,15 @@ export default function TravelInspirationGallery({
         titleSection
       ) : (
         <StickyBox
+          leftWidth={"40%"}
           top={theme.spacing(8)}
           sx={{
-            paddingX: {
+            // Padding on the text column
+            px: {
               md: 0,
+            },
+            paddingRight: {
+              md: 4,
             },
           }}
         >
@@ -71,7 +77,7 @@ export default function TravelInspirationGallery({
         <ImageList
           cols={isMobile ? 2 : 3}
           gap={16}
-          rowHeight={isMobile ? 300 : 450}
+          rowHeight={isMobile ? 300 : 400}
         >
           {imagesToDisplay.map((item, i) => (
             <ImageListItem

@@ -59,7 +59,7 @@ interface AboutPageProps {
 export default function AboutPage({ about }: { about: AboutPageProps }) {
   return (
     <>
-      <Header sticky={true} />
+      <Header sticky={true} transparent />
 
       <FullWidthSection
         sx={{
@@ -69,7 +69,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
           },
           py: {
             xs: 2,
-            md: 2,
+            md: 0,
           },
         }}
       >
@@ -84,7 +84,13 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
           },
           py: {
             xs: 4,
-            md: 8,
+            md: 0,
+          },
+          paddingTop: {
+            md: 6,
+          },
+          paddingBottom: {
+            md: 2,
           },
         }}
       >
@@ -120,7 +126,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         sx={{
           bgcolor: "#e3e2dc",
           py: {
-            md: 4,
+            md: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
@@ -137,7 +143,10 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
 
       <FullWidthSection
         sx={{
-          py: 8,
+          py: {
+            xs: 8,
+            md: 2,
+          },
           px: {
             xs: PADDING_X_MOBILE,
             md: PADDING_X_SECTION,
@@ -147,7 +156,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
       >
         <Column
           sx={{
-            gap: 4,
+            gap: 2,
           }}
         >
           <Column
