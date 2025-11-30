@@ -29,6 +29,8 @@ const links = [
   { label: "contact", href: "/contact" },
 ];
 
+const AESTHETIC_WHITE = "#E5DED3";
+
 export default function Header({
   sticky,
   transparent,
@@ -70,7 +72,7 @@ export default function Header({
           display: "flex",
           justifyContent: "space-between",
           paddingX: {
-            xs: 2,
+            xs: 0,
             md: 2,
           },
           minHeight: {
@@ -85,7 +87,7 @@ export default function Header({
           href="/"
           sx={{
             fontSize: {
-              md: "1.5rem",
+              md: "1.25rem",
               xs: "1.5rem",
             },
           }}
@@ -140,9 +142,31 @@ function MobileDrawer({
             xs: 300,
             md: 400,
           },
+          position: "relative", // needed for absolute logo
+          minHeight: "100%", // ensure logo is at bottom
+          height: "100vh", // take full screen height
+          backgroundColor: AESTHETIC_WHITE,
         }}
         role="presentation"
       >
+        {/* Background logo */}
+        <Box
+          component="img"
+          src="https://soho-spaces.com/assets/soho_logo_black.svg"
+          alt="soho spaces logo"
+          sx={{
+            position: "absolute",
+            bottom: 16, // small gap from bottom
+            left: "50%",
+            transform: "translateX(-50%)",
+            opacity: 0.1,
+            width: 180,
+            height: "auto",
+            pointerEvents: "none", // non-interactive
+            zIndex: 0,
+          }}
+        />
+
         <List>
           {links.map((link) => (
             <NavItem
