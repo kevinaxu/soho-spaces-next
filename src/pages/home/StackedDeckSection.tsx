@@ -103,7 +103,7 @@ function StackedDeckDesktop(props: StackedDeckProps): React.JSX.Element {
         sx={{
           position: "absolute",
           py: 2,
-          px: 3,
+          px: 2,
           backgroundColor: cards[cards.length - 1].bg,
           zIndex: cards.length + 1,
         }}

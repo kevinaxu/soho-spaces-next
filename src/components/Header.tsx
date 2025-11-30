@@ -55,7 +55,7 @@ export default function Header({
         color: (theme) => theme.palette.text.primary,
         paddingX: {
           xs: PADDING_X_MOBILE,
-          md: 0.5,
+          md: 0,
         },
         paddingY: {
           xs: 1,
@@ -64,11 +64,15 @@ export default function Header({
       }}
     >
       <Toolbar
+        disableGutters
         sx={{
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
-          paddingX: 0,
+          paddingX: {
+            xs: 2,
+            md: 2,
+          },
           minHeight: {
             xs: 12,
             md: 40,
