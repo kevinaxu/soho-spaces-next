@@ -13,20 +13,20 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import { PADDING_X_MOBILE } from "../constants";
+import { PADDING_X_MOBILE, PAGES } from "../constants";
 
 const links = [
-  { label: "about", href: "/about" },
+  { label: "about", href: PAGES.about },
   {
     label: "portfolio",
-    href: "/portfolio",
+    href: PAGES.portfolio,
     children: [
       { label: "Dark Academia", href: "/portfolio/dark-academia-living-room" },
       { label: "Modern Gothic", href: "/" },
       { label: "Moody Romantic", href: "/" },
     ],
   },
-  { label: "contact", href: "/contact" },
+  { label: "contact", href: PAGES.contact },
 ];
 
 export default function Header({
@@ -46,7 +46,7 @@ export default function Header({
       sx={{
         ...(transparent
           ? {
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
               backdropFilter: "blur(12px)", // <-- frosted glass effect
             }
           : {
@@ -80,14 +80,18 @@ export default function Header({
         }}
       >
         <Typography
-          variant="h5"
           component="a"
-          href="/"
+          variant="h6"
+          href={PAGES.home}
           sx={{
-            fontSize: {
-              md: "1.25rem",
-              xs: "1.5rem",
-            },
+            // fontSize: {
+            //   md: "1rem",
+            //   xs: "1.5rem",
+            // },
+            fontWeight: 400,
+            // fontStyle: "italic",
+            color: "inherit",
+            "&:hover": { textDecoration: "underline" },
           }}
         >
           SOHO SPACES
@@ -99,9 +103,11 @@ export default function Header({
             <Typography
               key={link.label}
               component="a"
+              variant="body2"
               href={link.href}
               sx={{
-                textDecoration: "none",
+                fontWeight: 400,
+                fontStyle: "italic",
                 color: "inherit",
                 "&:hover": { textDecoration: "underline" },
               }}
