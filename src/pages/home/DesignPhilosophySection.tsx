@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { useTheme, useMediaQuery, Typography } from "@mui/material";
 
 import { Row, Column } from "@/src/components/Layout";
 
@@ -9,6 +9,9 @@ interface DesignPhilosophySectionProps {
 
 export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
   const { title, subtitle } = props;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
   return (
     <Column
       sx={{
@@ -24,7 +27,10 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
           textAlign: "center",
         }}
       >
-        <Typography variant="h2" sx={{ fontStyle: "italic" }}>
+        <Typography
+          variant={isMobile ? "h5" : "h2"}
+          sx={{ fontStyle: "italic" }}
+        >
           {title}
         </Typography>
       </Row>
