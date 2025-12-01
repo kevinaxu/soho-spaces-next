@@ -10,6 +10,7 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import { FullWidthSection } from "@/src/components/Section";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import {
   MAX_WIDTH_TEXT_CONTAINER,
   PADDING_X_SECTION,
@@ -20,7 +21,6 @@ import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
 import TeamSection from "@/src/pages/about/TeamSection";
 import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery";
 import { client } from "@/src/sanity/client";
-import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 
 interface AboutPageProps {
   progression: {
@@ -123,7 +123,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
 
       <FullWidthSection
         sx={{
-          bgcolor: "#e3e2dc",
+          bgcolor: "#D1C8B7",
           py: {
             md: 2,
           },

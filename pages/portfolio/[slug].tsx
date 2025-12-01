@@ -127,7 +127,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         }}
       >
         <Column gap={2} sx={{ width: "100%" }}>
-          <SectionSubtitle title="Materials & Finishes" gutterBottom={false} />
+          <SectionSubtitle title="Details & Finishes" gutterBottom={false} />
           <HotspotSection
             image={project.hotspot.hotspotImage}
             hotspots={project.hotspot.hotspots}

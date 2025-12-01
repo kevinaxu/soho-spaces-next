@@ -107,7 +107,6 @@ export default function Header({
               href={link.href}
               sx={{
                 fontWeight: 400,
-                fontStyle: "italic",
                 color: "inherit",
                 "&:hover": { textDecoration: "underline" },
               }}
