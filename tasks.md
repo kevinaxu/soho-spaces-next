@@ -4,8 +4,26 @@
   - Header
     - [] Mobile - lots of real-estate in Drawer right now. Add in some additional
     - [x] Desktop - make this thinner. Update padding on desktop
-- Production readiness
+  - Drawer
+    - [] Mobile - update drawer styling (background color, shrink the horizontal size)
+- Home page
+  - Hero section
+    - [] Change this to a static image with transparent overlay (optional)
+  - Feature Projects section
+    - [] Mobile - add a different set of photos for these (square)
+- About page
+  - Travel Inspiration
+    - [] Mobile - display all 9 photos in viewport (like kwinmade)
+- Project page
+  - Horizontal Gallery
+    - [] Desktop - 2 1/2 photos in view by default (do this AFTER new photos uploaded)
+  - Before & Afters
+    - [] Styling - change the background color of the section
+    - [] Desktop - add arrows on left / right of the content to replace dots
+    - [] Mobile - add arrows as controls for left and right switching
+- 404 Page
   - [] Create a 404 page
+- Production readiness
   - [] Update Umamimk to point to production site
   - [] Update Netlify form to forward email to soho spaces email
   - [] Update Nav links
@@ -25,11 +43,8 @@
   - [] Extract Image with Trim into separate component (Portfolio page, Team section)
   - [] Extract all the Layout constants and move them into the FullWidthSection, if possible
   - [] Extract all the 2-column layout with StickyBox into a separate component
-  - [] "See the project" CTA links should be extracted into shared component
-  - [] Extract Image responsiveness into a shared component which handles viewport checks, `srcset`, etc
   - [] Move all mockData into a separate /data directory (/data/mockData/about.json). This can be the output of `sanity dataset export production`
     - Does this need to be pushed? Really only needs to be used for local development
-  - [] Create an adapter that converts Sanity API into minimal mockData format
 
 ## Done
 
@@ -58,3 +73,7 @@
   - [x] Hook up Netlify form to forward email to soho spaces email
 - Production readiness
   - [x] Add analytics (https://umami.is/)
+- Refactor
+  - [x] "See the project" CTA links should be extracted into shared component
+  - [x] Extract Image responsiveness into a shared component which handles viewport checks, `srcset`, etc
+  - [x] Create an adapter that converts Sanity API into minimal mockData format
