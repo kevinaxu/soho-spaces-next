@@ -8,6 +8,7 @@ import Header from "@/src/components/Header";
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import { FullWidthSection } from "@/src/components/Section";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import { PADDING_X_MOBILE } from "@/src/constants";
 import { client } from "@/src/sanity/client";
 import styles from "@/styles/projectImage.module.css";
@@ -33,43 +34,30 @@ export default function PortfolioPage({
       <Header sticky={true} />
       <FullWidthSection
         sx={{
-          py: {
-            xs: 2,
-            md: 2,
-          },
-          px: {
-            xs: PADDING_X_MOBILE,
-            md: 2,
-          },
+          py: { xs: 2, md: 4 },
+          px: { xs: PADDING_X_MOBILE, md: 0 },
           alignItems: "center",
         }}
       >
-        <Column gap={2}>
-          <Box sx={{ flexGrow: 1, py: 2 }}>
-            <Grid
-              container
-              columnSpacing={2}
-              rowSpacing={{
-                xs: 4,
-                md: 8,
-              }}
-            >
+        <Column
+          gap={2}
+          sx={{
+            minHeight: {
+              md: "65vh",
+            },
+          }}
+        >
+          {/* Grid */}
+          <Box sx={{ width: "100%", paddingX: { xs: 0, md: 2 } }}>
+            <Grid container spacing={{ xs: 4, md: 6 }} justifyContent="center">
               {portfolio.projects.map((project, idx) => (
                 <Grid
-                  size={{
-                    xs: 12,
-                    md: 4,
-                  }}
                   key={idx}
                   display="flex"
                   justifyContent="center"
+                  size={{ xs: 12, md: 4 }}
                 >
-                  <Column
-                    sx={{
-                      width: "100%",
-                      maxWidth: 400,
-                    }}
-                  >
+                  <Column sx={{ width: "100%", maxWidth: 400 }}>
                     <Link href={`/portfolio/${project.slug}`} passHref>
                       <Box
                         className={styles.containerBlock}
@@ -83,7 +71,7 @@ export default function PortfolioPage({
                       >
                         <ResponsiveSanityBox
                           src={project.image}
-                          alt="Image title"
+                          alt={project.title}
                           sx={{
                             width: "100%",
                             height: "100%",
@@ -96,6 +84,7 @@ export default function PortfolioPage({
                         </Box>
                       </Box>
                     </Link>
+
                     <Row
                       justifyContent="space-between"
                       alignItems="center"
