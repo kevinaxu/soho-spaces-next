@@ -4,8 +4,10 @@ import { useState, useRef, useEffect } from "react";
 
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
+import PageMeta from "@/src/components/PageMeta";
 import { FullWidthSection } from "@/src/components/Section";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
+import { PAGES } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import ExploreSection from "@/src/pages/home/ExploreSection";
@@ -81,6 +83,13 @@ export default function HomePage({ home }: { home: HomePageProps }) {
   return (
     <>
       {sticky && <Header sticky={sticky} transparent />}
+
+      <PageMeta
+        title="Welcome Home | Soho Spaces"
+        description="Soho Spaces is a full-service interior design studio in Atlanta, specializing in modern, timeless interiors tailored to each client's story."
+        url={PAGES.home}
+        pageType="home"
+      />
 
       <HeroSection src={home.hero.videoUrl} type="video" ref={heroRef} />
 

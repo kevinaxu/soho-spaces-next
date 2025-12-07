@@ -50,7 +50,7 @@ export default function Header({
               backdropFilter: "blur(12px)", // <-- frosted glass effect
             }
           : {
-              //   backgroundColor: (theme) => theme.palette.background.default,
+              backgroundColor: (theme) => theme.palette.background.default,
             }),
         color: (theme) => theme.palette.text.primary,
         paddingX: {

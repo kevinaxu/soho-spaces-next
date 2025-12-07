@@ -4,8 +4,10 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
+import PageMeta from "@/src/components/PageMeta";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 import { SectionTitle } from "@/src/components/SectionTitle";
+import { PAGES } from "@/src/constants";
 import ContactFormSection from "@/src/pages/contact/ContactFormSection";
 import { client } from "@/src/sanity/client";
 
@@ -22,6 +24,13 @@ export default function ContactPage({
 }) {
   return (
     <>
+      <PageMeta
+        title="Contact | Soho Spaces"
+        description="Get in touch with Soho Spaces for interior design inquiries, consultations, or project collaborations."
+        url={PAGES.contact}
+        pageType="contact"
+      />
+
       <Header sticky={true} />
 
       <Box

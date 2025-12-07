@@ -6,6 +6,7 @@ import { Arrow } from "@/src/components/Arrow";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Row, Column } from "@/src/components/Layout";
+import PageMeta from "@/src/components/PageMeta";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import { FullWidthSection } from "@/src/components/Section";
 import { SectionTitle } from "@/src/components/SectionTitle";
@@ -31,6 +32,13 @@ export default function PortfolioPage({
 }) {
   return (
     <>
+      <PageMeta
+        title="Portfolio | Soho Spaces Interior Design"
+        description="Explore interior design projects by Soho Spaces, featuring full renovations, commercial spaces, and more."
+        url="/portfolio"
+        pageType="portfolio"
+      />
+
       <Header sticky={true} />
       <FullWidthSection
         sx={{

@@ -9,6 +9,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
+import PageMeta from "@/src/components/PageMeta";
 import { FullWidthSection } from "@/src/components/Section";
 import { SectionTitle } from "@/src/components/SectionTitle";
 import {
@@ -16,6 +17,7 @@ import {
   PADDING_X_SECTION,
   PADDING_X_MOBILE,
 } from "@/src/constants";
+import { PAGES } from "@/src/constants";
 import ImageCrossFade from "@/src/pages/about/ImageCrossFade";
 import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
 import TeamSection from "@/src/pages/about/TeamSection";
@@ -60,6 +62,13 @@ interface AboutPageProps {
 export default function AboutPage({ about }: { about: AboutPageProps }) {
   return (
     <>
+      <PageMeta
+        title="About | Soho Spaces"
+        description="Learn about Soho Spaces, a full-service interior design studio in Atlanta dedicated to creating thoughtful, story-driven spaces."
+        url={PAGES.about}
+        pageType="about"
+      />
+
       <Header sticky={true} transparent />
 
       <FullWidthSection

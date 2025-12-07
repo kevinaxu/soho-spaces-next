@@ -7,9 +7,11 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
 import ModalLightbox from "@/src/components/ModalLightbox";
+import PageMeta from "@/src/components/PageMeta";
 import { FullWidthSection } from "@/src/components/Section";
 import { SectionSubtitle } from "@/src/components/SectionTitle";
 import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
+import { PAGES } from "@/src/constants";
 import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import BeforeAfterSection from "@/src/pages/project/BeforeAfterSection";
 import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
@@ -18,9 +20,12 @@ import { OverviewSection } from "@/src/pages/project/OverviewSection";
 import { client } from "@/src/sanity/client";
 
 interface Project {
-  overview: {
+  metadata: {
     title: string;
     description: string;
+  };
+  overview: {
+    intro: string;
     details: { label: string; value: string }[];
   };
   hero: {
@@ -52,7 +57,13 @@ interface Project {
   };
 }
 
-export default function ProjectPage({ project }: { project: Project }) {
+export default function ProjectPage({
+  project,
+  slug,
+}: {
+  project: Project;
+  slug: string;
+}) {
   const [heroCarouselOpen, heroSetCarouselOpen] = useState(false);
   const [heroCarouselIndex, heroSetCarouselIndex] = useState(0);
   const handleHeroImageClick = (index: number) => {
@@ -63,6 +74,18 @@ export default function ProjectPage({ project }: { project: Project }) {
 
   return (
     <>
+      <PageMeta
+        title={`${project.metadata.title} | Soho Spaces`}
+        description={
+          project.metadata.description ||
+          `A look inside the ${project.metadata.title} by Soho Spaces—featuring rich finishes, bold contrast, and a refined, contemporary atmosphere.`
+        }
+        url={`${PAGES.portfolio}/${slug}`}
+        // TODO: create a separate image crop for image preview (1200x630)
+        image={project.hero.images[0].src}
+        pageType="project"
+      />
+
       <Header sticky={false} />
 
       <FullWidthSection
@@ -88,8 +111,8 @@ export default function ProjectPage({ project }: { project: Project }) {
         }}
       >
         <OverviewSection
-          title={project.overview.title}
-          description={project.overview.description}
+          title={project.metadata.title}
+          description={project.overview.intro}
           details={project.overview.details}
         />
       </FullWidthSection>
@@ -173,9 +196,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const project = await client.fetch(
     `*[_type == "project" && slug.current == $slug && projectStatus == "ACTIVE"][0]{
-      "overview": {
+    "metadata": { 
         title,
-        description,
+        description
+      },
+      "overview": {
+        intro,
         details
       },
       "hero": {
@@ -219,7 +245,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   return {
-    props: { project },
+    props: { project, slug },
   };
 };
 
@@ -240,7 +266,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-// TODO: add anything for the page metadata (SEO, etc)
 const mockData = {
   overview: {
     title: "Dark Academia Living Room",
