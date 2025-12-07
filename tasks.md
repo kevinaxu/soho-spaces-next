@@ -1,14 +1,9 @@
 ## Task List
 
 - Shared Components
-  - Header
-    - [] Mobile - lots of real-estate in Drawer right now. Add in some additional
-    - [x] Desktop - make this thinner. Update padding on desktop
-  - Drawer
-    - [] Mobile - update drawer styling (background color, shrink the horizontal size)
 - Home page
   - Hero section
-    - [] Change this to a static image with transparent overlay (optional)
+    - [] Change this to a static image with transparent overlay (https://amberinteriordesign.com/)
   - Feature Projects section
     - [] Mobile - add a different set of photos for these (square)
 - About page
@@ -21,10 +16,9 @@
     - [] Styling - change the background color of the section
     - [] Desktop - add arrows on left / right of the content to replace dots
     - [] Mobile - add arrows as controls for left and right switching
-- 404 Page
-  - [] Create a 404 page
 - Production readiness
   - [] Update Umamimk to point to production site
+  - [] Update constants.ts - Prod base URL, updated image preview, etc
   - [] Update Netlify form to forward email to soho spaces email
   - [] Update Nav links
   - [] Verify all the page titles, favicons, metadata (preview image), SEO
@@ -52,8 +46,12 @@
   - Timeline
     - [x] Remove extra padding from left side: https://github.com/mui/material-ui/issues/46639
 - Shared components
+  - Header
+    - [x] Desktop - make this thinner. Update padding on desktop
   - Footer
     - [x] Logo should be transparent and slightly overflow on the top of the footer, creating a watermark effect
+  - Drawer
+    - [x] Mobile - update drawer styling (background color, shrink the horizontal size)
 - Project page
   - Hero
     - [x] Make this horizontally scrollable on mobile
@@ -69,6 +67,8 @@
     - [x] Make mobile responsive
   - [x] Stacked deck - change this to 3
   - [x] Testimonial section - make this scrollable with multiple testimonials
+- 404 Page
+  - [x] Create a 404 page
 - Contact page
   - [x] Hook up Netlify form to forward email to soho spaces email
 - Production readiness
