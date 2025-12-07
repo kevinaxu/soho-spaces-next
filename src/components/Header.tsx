@@ -16,9 +16,9 @@ import { useState } from "react";
 import { PADDING_X_MOBILE, PAGES } from "../constants";
 
 const links = [
-  { label: "about", href: PAGES.about },
+  { label: "About", href: PAGES.about },
   {
-    label: "portfolio",
+    label: "Portfolio",
     href: PAGES.portfolio,
     children: [
       { label: "Dark Academia", href: "/portfolio/dark-academia-living-room" },
@@ -26,7 +26,7 @@ const links = [
       { label: "Moody Romantic", href: "/" },
     ],
   },
-  { label: "contact", href: PAGES.contact },
+  { label: "Contact", href: PAGES.contact },
 ];
 
 export default function Header({
@@ -50,7 +50,7 @@ export default function Header({
               backdropFilter: "blur(12px)", // <-- frosted glass effect
             }
           : {
-              backgroundColor: (theme) => theme.palette.background.default,
+              //   backgroundColor: (theme) => theme.palette.background.default,
             }),
         color: (theme) => theme.palette.text.primary,
         paddingX: {
@@ -111,7 +111,7 @@ export default function Header({
                 "&:hover": { textDecoration: "underline" },
               }}
             >
-              {link.label.toUpperCase()}
+              {link.label}
             </Typography>
           ))}
         </Box>
@@ -138,7 +138,18 @@ function MobileDrawer({
   onClose: () => void;
 }) {
   return (
-    <Drawer anchor="right" open={open} onClose={onClose}>
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        backdrop: {
+          sx: {
+            backgroundColor: "rgba(0,0,0,0.25)", // light dim, page still visible
+          },
+        },
+      }}
+    >
       <Box
         sx={{
           width: {
@@ -171,14 +182,14 @@ function MobileDrawer({
 
         <List>
           {links.map((link) => (
-            <NavItem
+            <MobileNavItem
               key={link.label}
               label={link.label}
               href={link.href}
               onClick={onClose}
             >
               {link.children?.map((child) => (
-                <NavItem
+                <MobileNavItem
                   key={child.label}
                   label={child.label}
                   href={child.href}
@@ -186,7 +197,7 @@ function MobileDrawer({
                   sx={{ pl: 4 }}
                 />
               ))}
-            </NavItem>
+            </MobileNavItem>
           ))}
         </List>
       </Box>
@@ -194,7 +205,7 @@ function MobileDrawer({
   );
 }
 
-function NavItem({
+function MobileNavItem({
   label,
   href,
   onClick,
@@ -211,7 +222,7 @@ function NavItem({
     <>
       <ListItem disablePadding>
         <ListItemButton component="a" href={href} onClick={onClick} sx={sx}>
-          <ListItemText primary={label.toUpperCase()} />
+          <ListItemText primary={label} />
         </ListItemButton>
       </ListItem>
       {children}
