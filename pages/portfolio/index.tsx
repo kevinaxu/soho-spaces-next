@@ -24,6 +24,7 @@ interface PortfolioPageProps {
 }
 
 const IMAGE_MAX_HEIGHT = 600;
+const GRID_MAX_WIDTH = 1500;
 
 export default function PortfolioPage({
   portfolio,
@@ -56,8 +57,20 @@ export default function PortfolioPage({
           }}
         >
           {/* Grid */}
-          <Box sx={{ width: "100%", paddingX: { xs: 0, md: 2 } }}>
-            <Grid container spacing={{ xs: 4, md: 6 }} justifyContent="center">
+          <Box
+            sx={{
+              width: "100%",
+              maxWidth: GRID_MAX_WIDTH,
+              mx: "auto", // centers the grid
+              paddingX: { xs: 0, md: 2 },
+            }}
+          >
+            <Grid
+              container
+              spacing={{ xs: 4, md: 6 }}
+              rowSpacing={{ xs: 6, md: 8 }}
+              justifyContent={{ xs: "center", md: "flex-start" }}
+            >
               {portfolio.projects.map((project, idx) => (
                 <Grid
                   key={idx}
