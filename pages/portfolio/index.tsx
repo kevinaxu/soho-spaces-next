@@ -76,7 +76,11 @@ export default function PortfolioPage({
                   key={idx}
                   display="flex"
                   justifyContent="center"
-                  size={{ xs: 12, lg: 4 }}
+                  size={{
+                    xs: 12, // 1 column (portrait)
+                    sm: 6, // 2 columns (mobile landscape)
+                    lg: 4, // 3 columns (desktop)
+                  }}
                 >
                   <Column sx={{ width: "100%", maxWidth: 400 }}>
                     <Link href={`/portfolio/${project.slug}`} passHref>
