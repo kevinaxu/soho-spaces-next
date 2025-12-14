@@ -58,7 +58,7 @@ function ArrowContent({
           sx={{
             transform: {
               xs: `scaleX(-${config.xs}) scaleY(0.7)`,
-              lg: `scaleX(-${config.md}) scaleY(0.7)`,
+              lg: `scaleX(-${config.lg}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}
@@ -86,7 +86,7 @@ function ArrowContent({
           sx={{
             transform: {
               xs: `scaleX(${config.xs}) scaleY(0.7)`,
-              lg: `scaleX(${config.md}) scaleY(0.7)`,
+              lg: `scaleX(${config.lg}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}
