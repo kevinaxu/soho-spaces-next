@@ -92,8 +92,8 @@ export default function ProjectPage({
         sx={{
           bgcolor: "#e3e2dc",
           alignItems: "center",
-          py: 0,
-          mb: 2,
+          paddingTop: 0,
+          paddingBottom: 2,
         }}
       >
         <HorizontalGallerySection
