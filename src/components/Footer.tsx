@@ -109,21 +109,6 @@ function FooterMain() {
   );
 }
 
-function FooterMainLogo() {
-  return (
-    <Box
-      component="img"
-      src="https://soho-spaces.com/assets/soho_logo_white.svg"
-      alt="soho spaces logo"
-      sx={{
-        opacity: 0.2,
-        width: 180,
-        height: "auto",
-      }}
-    />
-  );
-}
-
 function FooterMainLinks() {
   return (
     <Row

@@ -9,7 +9,6 @@ import { Row, Column } from "@/src/components/Layout";
 import PageMeta from "@/src/components/PageMeta";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import { FullWidthSection } from "@/src/components/Section";
-import { SectionTitle } from "@/src/components/SectionTitle";
 import { PADDING_X_MOBILE } from "@/src/constants";
 import { client } from "@/src/sanity/client";
 import styles from "@/styles/projectImage.module.css";
