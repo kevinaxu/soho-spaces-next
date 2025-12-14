@@ -1,8 +1,8 @@
-import Typography from "@mui/material/Typography";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useState } from "react";
 
+import { HOMEPAGE_SANITY_ID } from "@/pages/index";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import { Column } from "@/src/components/Layout";
@@ -247,14 +247,32 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     { slug }
   );
 
+  const home = await client.fetch(
+    `*[_type == "home" && _id == $id][0]{
+        "contact": {
+            "title": contact.title,
+            "cta": contact.cta,
+            "src": contact.image->image { ..., asset-> }
+        }
+   }
+`,
+    { id: HOMEPAGE_SANITY_ID }
+  );
+
   // Validate all required sections are present
-  const requiredKeys = ["overview", "hero", "comparison", "hotspot", "contact"];
+  const requiredKeys = ["overview", "hero", "comparison", "contact"];
   if (!project || !requiredKeys.every((key) => project[key])) {
     return { notFound: true };
   }
 
   return {
-    props: { project, slug },
+    props: {
+      project: {
+        ...project,
+        ...home,
+      },
+      slug,
+    },
   };
 };
 

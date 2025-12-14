@@ -205,7 +205,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
   );
 }
 
-const HOMEPAGE_SANITY_ID = "2b096586-d457-4156-bb1b-17e5d9e08973";
+export const HOMEPAGE_SANITY_ID = "2b096586-d457-4156-bb1b-17e5d9e08973";
 
 export const getStaticProps = async () => {
   const home = await client.fetch(

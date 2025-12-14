@@ -14,13 +14,15 @@ import { PADDING_X_MOBILE } from "@/src/constants";
 import { client } from "@/src/sanity/client";
 import styles from "@/styles/projectImage.module.css";
 
+interface Project {
+  title: string;
+  slug: string;
+  status: "COMING_SOON" | "ACTIVE" | "HIDDEN";
+  image: SanityImageSource;
+}
+
 interface PortfolioPageProps {
-  projects: {
-    title: string;
-    slug: string;
-    status: "COMING_SOON" | "ACTIVE" | "HIDDEN";
-    image: SanityImageSource;
-  }[];
+  projects: Project[];
 }
 
 const IMAGE_MAX_HEIGHT = 600;
@@ -83,42 +85,32 @@ export default function PortfolioPage({
                   }}
                 >
                   <Column sx={{ width: "100%", maxWidth: 400 }}>
-                    <Link href={`/portfolio/${project.slug}`} passHref>
-                      <Box
-                        className={styles.containerBlock}
-                        sx={{
-                          width: "100%",
-                          aspectRatio: "2/3",
-                          maxHeight: IMAGE_MAX_HEIGHT,
-                          position: "relative",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <ResponsiveSanityBox
-                          src={project.image}
-                          alt={project.title}
-                          sx={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            display: "block",
-                          }}
-                        />
-                        <Box className={styles.innerBlock}>
-                          <Box className={styles.sliderTopRight} />
-                        </Box>
-                      </Box>
-                    </Link>
+                    {renderProjectBox(project)}
 
-                    <Row
-                      justifyContent="space-between"
-                      alignItems="center"
-                      sx={{ mt: 1 }}
-                    >
-                      <Link href={`/portfolio/${project.slug}`} passHref>
-                        <Typography variant="body1">{project.title}</Typography>
+                    {project.status !== "COMING_SOON" ? (
+                      <Link
+                        href={`/portfolio/${project.slug}`}
+                        passHref
+                        style={{ width: "100%" }}
+                      >
+                        <Row
+                          justifyContent="space-between"
+                          alignItems="center"
+                          sx={{ mt: 1, cursor: "pointer" }}
+                        >
+                          <Typography variant="body1">
+                            {project.title}
+                          </Typography>
+                          <Arrow direction="right" size="md" />
+                        </Row>
                       </Link>
-                      {project.status === "COMING_SOON" ? (
+                    ) : (
+                      <Row
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{ mt: 1 }}
+                      >
+                        <Typography variant="body1">{project.title}</Typography>
                         <Typography
                           variant="body2"
                           color="textSecondary"
@@ -126,10 +118,8 @@ export default function PortfolioPage({
                         >
                           coming soon
                         </Typography>
-                      ) : (
-                        <Arrow direction="right" size="md" />
-                      )}
-                    </Row>
+                      </Row>
+                    )}
                   </Column>
                 </Grid>
               ))}
@@ -139,6 +129,43 @@ export default function PortfolioPage({
       </FullWidthSection>
       <Footer />
     </>
+  );
+}
+
+function renderProjectBox(project: Project) {
+  const boxContent = (
+    <Box
+      className={styles.containerBlock}
+      sx={{
+        width: "100%",
+        aspectRatio: "2/3",
+        maxHeight: IMAGE_MAX_HEIGHT,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <ResponsiveSanityBox
+        src={project.image}
+        alt={project.title}
+        sx={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+        }}
+      />
+      <Box className={styles.innerBlock}>
+        <Box className={styles.sliderTopRight} />
+      </Box>
+    </Box>
+  );
+
+  return project.status !== "COMING_SOON" ? (
+    <Link href={`/portfolio/${project.slug}`} passHref>
+      {boxContent}
+    </Link>
+  ) : (
+    boxContent
   );
 }
 
