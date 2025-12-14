@@ -1,12 +1,20 @@
 ## Task List
 
-- Shared Components
-- Home page
-  - Hero section
-    - [] Change this to a static image with transparent overlay (https://amberinteriordesign.com/)
-  - Feature Projects section
-    - [] Mobile - add a different set of photos for these (square)
+- Production readiness
+  - [] Update Umamimk to point to production site
+  - [] Update constants.ts - Prod base URL, updated image preview, etc
+  - [] Update Netlify form to forward email to soho spaces email
+  - [] Update Nav links
+  - [] Verify all the page titles, favicons, metadata (preview image), SEO
+  - [x] Verify image responsiveness works correctly on different devices
+
+## CUT LINE
+
 - About page
+  - CrossFade
+    - [] Update this so that it fades on scroll
+  - Timeline
+    - [] Add icon highlighting when container is centered
   - Travel Inspiration
     - [] Mobile - display all 9 photos in viewport (like kwinmade)
 - Project page
@@ -16,21 +24,6 @@
     - [] Styling - change the background color of the section
     - [] Desktop - add arrows on left / right of the content to replace dots
     - [] Mobile - add arrows as controls for left and right switching
-- Production readiness
-  - [] Update Umamimk to point to production site
-  - [] Update constants.ts - Prod base URL, updated image preview, etc
-  - [] Update Netlify form to forward email to soho spaces email
-  - [] Update Nav links
-  - [] Verify all the page titles, favicons, metadata (preview image), SEO
-  - [] Verify image responsiveness works correctly on different devices
-
-## CUT LINE
-
-- About page
-  - CrossFade
-    - [] Update this so that it fades on scroll
-  - Timeline
-    - [] Add icon highlighting when container is centered
 - Explore page
   - [] Implement this using React Photo Gallery
 - Refactor
@@ -63,8 +56,11 @@
   - Hero
     - [x] Hook up hero video dynamically when video is passed.
     - [x] Fix bug where page reload does not load the video again
+    - [x] Change this to a static image with transparent overlay (https://amberinteriordesign.com/)
   - Services
     - [x] Make mobile responsive
+  - Feature Projects section
+    - [x] Mobile - add a different set of photos for these (square)
   - [x] Stacked deck - change this to 3
   - [x] Testimonial section - make this scrollable with multiple testimonials
 - 404 Page
