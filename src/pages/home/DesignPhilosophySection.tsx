@@ -36,23 +36,9 @@ export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
             fontWeight: 700,
           }}
         >
-          {title} (Nanum Myeongjo)
+          {title}
         </Typography>
       </Row>
-
-      {/* {subtitle && (
-        <Row
-          sx={{
-            paddingX: {
-              xs: 4,
-              md: 12,
-            },
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="body1">{subtitle}</Typography>
-        </Row>
-      )} */}
     </Column>
   );
 }

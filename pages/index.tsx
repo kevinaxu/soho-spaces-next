@@ -12,18 +12,19 @@ import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import { DesignPhilosophySection } from "@/src/pages/home/DesignPhilosophySection";
 import ExploreSection from "@/src/pages/home/ExploreSection";
 import { FeaturedProjectSection } from "@/src/pages/home/FeaturedProjectSection";
-import { HeroSection } from "@/src/pages/home/HeroSection";
+import { HeroImageSection } from "@/src/pages/home/HeroSection";
 import StackedDeck from "@/src/pages/home/StackedDeckSection";
 import { TestimonialSection } from "@/src/pages/home/TestimonialSection";
 import { client } from "@/src/sanity/client";
 
 interface HomePageProps {
   hero: {
-    videoUrl: string;
+    // videoUrl: string;
+    image: SanityImageSource;
+    imageMobile: SanityImageSource;
   };
   designPhilosophy: {
     title: string;
-    subtitle?: string;
   };
   services: {
     title: string;
@@ -92,7 +93,11 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         pageType="home"
       />
 
-      <HeroSection src={home.hero.videoUrl} type="video" ref={heroRef} />
+      <HeroImageSection
+        image={home.hero.image}
+        imageMobile={home.hero.imageMobile}
+        ref={heroRef}
+      />
 
       <FullWidthSection
         sx={{
@@ -105,10 +110,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
           px: PADDING_X_SECTION,
         }}
       >
-        <DesignPhilosophySection
-          title={home.designPhilosophy.title}
-          subtitle={home.designPhilosophy.subtitle}
-        />
+        <DesignPhilosophySection title={home.designPhilosophy.title} />
       </FullWidthSection>
 
       <FullWidthSection
@@ -209,11 +211,17 @@ export const getStaticProps = async () => {
   const home = await client.fetch(
     `*[_type == "home" && _id == $id][0]{
         hero {
-        "videoUrl": video.asset->url
+            "image": image->image{
+                ...,
+                asset->
+            },
+            "imageMobile": imageMobile->image{
+                ...,
+                asset->
+            },
         },
         designPhilosophy {
             title,
-            subtitle
         },
         services {
         title,

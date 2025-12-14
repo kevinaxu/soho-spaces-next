@@ -1,58 +1,83 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { forwardRef } from "react";
 import { useRef, useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
-
-interface HeroSectionProps {
-  src?: string;
-  type: "image" | "video";
-}
+import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 
 const VIDEO_PLAYBACK_RATE = 0.5;
 
-export const HeroSection = forwardRef<HTMLDivElement, HeroSectionProps>(
-  (props, ref) => {
-    const { src, type } = props;
-    return type === "image" ? (
-      <HeroImageSection src={src} ref={ref} />
-    ) : (
-      <HeroVideoSection src={src} ref={ref} />
-    );
-  }
-);
-HeroSection.displayName = "HeroSection";
+interface HeroImageSectionProps {
+  image: SanityImageSource;
+  imageMobile: SanityImageSource;
+}
 
-const HeroImageSection = forwardRef<
+export const HeroImageSection = forwardRef<
   HTMLDivElement,
-  Omit<HeroSectionProps, "type">
+  HeroImageSectionProps
 >((props, ref) => {
-  const { src: image } = props;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { image, imageMobile } = props;
+
   return (
     <Row
       ref={ref}
       sx={{
+        position: "relative",
         height: "100vh",
         width: "100vw",
-        backgroundImage: `url(${image})`,
+        backgroundImage: `url(${buildSanitySrc(
+          isMobile ? imageMobile : image
+        )})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         justifyContent: "center",
         alignItems: "center",
+        overflow: "hidden",
       }}
     >
-      <HeroLogo />
+      {/* Overlay */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          //   backgroundColor: "rgba(25, 14, 5, 0.5)", // dark-brown, warm
+          //   backgroundColor: "rgba(0,0,0,0.5)", // black, cooler
+          //   backgroundColor: "rgba(24, 16, 10, 0.65)", // deep espresso
+          //   backgroundColor: "rgba(32, 24, 18, 0.6)", // charcoal
+          //   backgroundColor: "rgba(25, 18, 12, 0.65)", // dark coffee
+          backgroundColor: "rgba(38, 28, 20, 0.5)", // soft umber
+          zIndex: 1,
+        }}
+      />
+      {/* Content */}
+      <Box
+        sx={(theme) => ({
+          position: "relative",
+          zIndex: 2,
+          color: theme.palette.background.default,
+        })}
+      >
+        <HeroLogo />
+      </Box>
     </Row>
   );
 });
+
 HeroImageSection.displayName = "HeroImageSection";
 
-const HeroVideoSection = forwardRef<
+interface HeroVideoSectionProps {
+  video?: string;
+}
+
+export const HeroVideoSection = forwardRef<
   HTMLDivElement,
-  Omit<HeroSectionProps, "type">
+  HeroVideoSectionProps
 >((props, ref) => {
-  const { src: video } = props;
+  const { video } = props;
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   return (
@@ -110,7 +135,7 @@ const HeroVideoSection = forwardRef<
 });
 HeroVideoSection.displayName = "HeroSectionVideo";
 
-export function HeroLogo({
+function HeroLogo({
   fontFamily = ["Lexend", "sans-serif"].join(","),
   fontWeight = 400,
   fontSize = { xs: "4rem", md: "6rem" },
