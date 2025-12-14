@@ -1,7 +1,7 @@
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, useMediaQuery } from "@mui/material";
 import Link from "@mui/material/Link";
 import { lighten } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
@@ -11,6 +11,8 @@ import { SectionSubtitle } from "@/src/components/SectionTitle";
 
 export default function Footer() {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+
   return (
     <Column
       sx={{
@@ -32,7 +34,7 @@ export default function Footer() {
           position: "absolute",
           top: -60, // moves logo above the top of the footer
           bottom: "100%", // aligns the bottom of logo with top of footer
-          left: "20%",
+          left: isMobile ? "50%" : "20%",
           transform: "translateX(-50%)",
           opacity: 0.1,
           width: { xs: 300, md: 400 }, // bigger logo
@@ -71,11 +73,10 @@ function FooterMain() {
           md: "space-between",
         },
         paddingBottom: {
-          xs: 4,
+          xs: 2,
           md: 2,
         },
         paddingTop: {
-          xs: 8,
           md: 8,
         },
         alignItems: {
@@ -131,6 +132,10 @@ function FooterMainLinks() {
         width: {
           xs: "100%",
           md: "fit-content",
+        },
+        flexDirection: {
+          xs: "column",
+          md: "row",
         },
         gap: {
           xs: 6,

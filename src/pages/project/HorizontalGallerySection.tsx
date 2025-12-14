@@ -31,7 +31,7 @@ export default function HorizontalGallerySection({
         sx={{
           overflowX: "auto",
           height: {
-            xs: 300,
+            xs: 250,
             md: 400,
           },
           gap: "16px",
@@ -66,9 +66,11 @@ export default function HorizontalGallerySection({
           width: "100%",
           paddingTop: 1,
           paddingLeft: {
+            xs: 1,
             md: 2,
           },
           paddingRight: {
+            xs: 1,
             md: 4,
           },
         }}

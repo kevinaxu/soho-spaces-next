@@ -27,15 +27,24 @@ export function SectionTitle({
 
 export function SectionSubtitle({
   title,
+  italicize = false,
   gutterBottom = true,
   sx,
 }: {
   title: string;
+  italicize?: boolean;
   gutterBottom?: boolean;
   sx?: SxProps<Theme>;
 }) {
   return (
-    <Typography variant="h6" gutterBottom={gutterBottom} sx={sx}>
+    <Typography
+      variant="h6"
+      gutterBottom={gutterBottom}
+      sx={{
+        fontStyle: italicize ? "italic" : "normal",
+        ...sx,
+      }}
+    >
       {title.toUpperCase()}
     </Typography>
   );

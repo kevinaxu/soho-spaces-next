@@ -42,7 +42,7 @@ interface Project {
     }[];
   };
   hotspot: {
-    hotspotImage: SanityImageSource;
+    hotspotImage?: SanityImageSource;
     hotspots: {
       title: string;
       description: string;
@@ -89,7 +89,12 @@ export default function ProjectPage({
       <Header sticky={false} />
 
       <FullWidthSection
-        sx={{ bgcolor: "#e3e2dc", alignItems: "center", py: 0 }}
+        sx={{
+          bgcolor: "#e3e2dc",
+          alignItems: "center",
+          py: 0,
+          mb: 2,
+        }}
       >
         <HorizontalGallerySection
           images={project.hero.images}
@@ -102,11 +107,11 @@ export default function ProjectPage({
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 8,
+            md: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 20,
+            md: 16,
           },
         }}
       >
@@ -122,41 +127,43 @@ export default function ProjectPage({
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 8,
+            md: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 20,
+            md: 16,
           },
         }}
       >
         <Column gap={2} sx={{ width: "100%" }}>
-          <SectionSubtitle title="Before & Afters" gutterBottom={false} />
+          <SectionSubtitle title="Before & After" gutterBottom={false} />
           <BeforeAfterSection items={project.comparison.images} />
         </Column>
       </FullWidthSection>
 
-      <FullWidthSection
-        sx={{
-          bgcolor: "#e3e2dc",
-          py: {
-            xs: 2,
-            md: 8,
-          },
-          px: {
-            xs: PADDING_X_MOBILE,
-            md: 20,
-          },
-        }}
-      >
-        <Column gap={2} sx={{ width: "100%" }}>
-          <SectionSubtitle title="Details & Finishes" gutterBottom={false} />
-          <HotspotSection
-            image={project.hotspot.hotspotImage}
-            hotspots={project.hotspot.hotspots}
-          />
-        </Column>
-      </FullWidthSection>
+      {project.hotspot.hotspotImage && (
+        <FullWidthSection
+          sx={{
+            bgcolor: "#e3e2dc",
+            py: {
+              xs: 2,
+              md: 8,
+            },
+            px: {
+              xs: PADDING_X_MOBILE,
+              md: 16,
+            },
+          }}
+        >
+          <Column gap={2} sx={{ width: "100%" }}>
+            <SectionSubtitle title="Details & Finishes" gutterBottom={false} />
+            <HotspotSection
+              image={project.hotspot.hotspotImage}
+              hotspots={project.hotspot.hotspots}
+            />
+          </Column>
+        </FullWidthSection>
+      )}
 
       <FullWidthSection
         sx={{

@@ -80,11 +80,7 @@ export default function ContactPage({
               maxWidth: "800px",
             }}
           >
-            <SectionTitle
-              title={contact.title}
-              italicize={true}
-              gutterBottom={false}
-            />
+            <SectionTitle title={contact.title} gutterBottom={false} />
             <Typography color="text.secondary">
               {contact.description}
             </Typography>

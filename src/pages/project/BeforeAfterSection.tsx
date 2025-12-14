@@ -45,7 +45,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
               className="keen-slider__slide"
               sx={{
                 width: "100%",
-                aspectRatio: "16/9",
+                aspectRatio: isMobile ? "1/1" : "3/2",
               }}
             >
               <ReactCompareSlider

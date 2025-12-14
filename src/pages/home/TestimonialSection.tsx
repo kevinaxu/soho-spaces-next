@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 import { useKeenSlider } from "keen-slider/react";
 import React, { useCallback, useState, useEffect, useRef } from "react";
 
@@ -25,11 +25,13 @@ export function TestimonialSection({
   autoScroll = false,
   scrollInterval = 5000,
 }: TestimonialSectionProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderInterval = useRef<NodeJS.Timeout | null>(null);
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
-    loop: true,
+    loop: testimonials.length > 1,
     slides: { perView: 1 },
     slideChanged(s) {
       setCurrentSlide(s.track.details.rel);
@@ -74,7 +76,7 @@ export function TestimonialSection({
       />
 
       <Box
-        sx={{ position: "relative", width: "100%" }}
+        sx={{ position: "relative", width: { md: "100%", xs: "80vw" } }}
         onMouseEnter={stopAutoScroll}
         onMouseLeave={startAutoScroll}
       >
@@ -86,7 +88,7 @@ export function TestimonialSection({
               sx={{ alignItems: "center", gap: 2 }}
             >
               <Typography
-                variant="h6"
+                variant={isMobile ? "body1" : "h6"}
                 sx={{
                   color: "footer.contrastText",
                   textAlign: "center",

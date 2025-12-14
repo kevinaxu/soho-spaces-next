@@ -20,7 +20,6 @@ import {
 import { PAGES } from "@/src/constants";
 import ImageCrossFade from "@/src/pages/about/ImageCrossFade";
 import ProcessTimeline from "@/src/pages/about/ProcessTimelineSection";
-import TeamSection from "@/src/pages/about/TeamSection";
 import TravelInspirationGallery from "@/src/pages/about/TravelInspirationGallery";
 import { client } from "@/src/sanity/client";
 
