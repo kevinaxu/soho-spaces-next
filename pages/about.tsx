@@ -149,7 +149,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         />
       </FullWidthSection>
 
-      <FullWidthSection
+      {/* <FullWidthSection
         sx={{
           py: {
             xs: 8,
@@ -183,7 +183,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
           </Column>
           <TeamSection team={about.team.members} />
         </Column>
-      </FullWidthSection>
+      </FullWidthSection> */}
 
       <Footer />
     </>
@@ -226,25 +226,25 @@ export const getStaticProps = async () => {
         }
       }
     },
-    team {
-      title,
-      description,
-      members[] {
-        name,
-        title,
-        content,
-        "image": image->image{
-          ...,
-          asset->
-        }
-      }
-    }
+    // team {
+    //   title,
+    //   description,
+    //   members[] {
+    //     name,
+    //     title,
+    //     content,
+    //     "image": image->image{
+    //       ...,
+    //       asset->
+    //     }
+    //   }
+    // }
   }`,
     { id: ABOUTPAGE_SANITY_ID }
   );
 
   // Validate all required sections are present
-  const requiredKeys = ["progression", "timeline", "travel", "team"];
+  const requiredKeys = ["progression", "timeline", "travel"];
   if (!about || !requiredKeys.every((key) => about[key])) {
     return { notFound: true };
   }
