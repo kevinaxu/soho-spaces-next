@@ -39,7 +39,7 @@ export default function ImageCrossFade({ images }: ImageCrossFadeProps) {
           width: "100%",
           height: {
             xs: 500,
-            md: 700,
+            lg: 700,
           },
         }}
       >

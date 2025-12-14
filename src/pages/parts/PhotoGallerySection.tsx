@@ -38,7 +38,7 @@ export default function PhotoGallerySection({
   };
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   return (
     <>

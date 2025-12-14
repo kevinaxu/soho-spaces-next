@@ -30,7 +30,7 @@ export default function ProcessTimeline({
   timelineData: ProcessStepContent[];
 }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
   return (
     <Column
       sx={{
@@ -49,7 +49,7 @@ export default function ProcessTimeline({
           sx={{
             padding: 0,
             maxWidth: {
-              md: TIMELINE_MAX_WIDTH,
+              lg: TIMELINE_MAX_WIDTH,
             },
           }}
         >
@@ -64,7 +64,7 @@ export default function ProcessTimeline({
                   "&::before": {
                     display: {
                       xs: "none",
-                      md: "flex",
+                      lg: "flex",
                     },
                   },
                 }}
@@ -103,7 +103,7 @@ function TimelineContentCard({
       sx={{
         paddingBottom: {
           xs: 8,
-          //   md: 4,
+          //   lg: 4,
         },
       }}
     >
@@ -113,7 +113,7 @@ function TimelineContentCard({
           // this is causing the left / right align to be less than the 1200
           mx: {
             xs: 0,
-            md: 4,
+            lg: 4,
           },
           alignSelf: "center",
         }}
@@ -127,7 +127,7 @@ function TimelineContentCard({
             title={title}
             sx={{
               textAlign: {
-                md: "center",
+                lg: "center",
               },
             }}
           />
@@ -142,10 +142,10 @@ function TimelineContentCard({
             lazy={true}
             sx={{
               width: {
-                md: "100%",
+                lg: "100%",
               },
               height: {
-                md: "300px",
+                lg: "300px",
               },
               objectFit: "cover",
               display: "block",

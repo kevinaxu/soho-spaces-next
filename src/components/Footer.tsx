@@ -11,7 +11,7 @@ import { SectionSubtitle } from "@/src/components/SectionTitle";
 
 export default function Footer() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   return (
     <Column
@@ -20,7 +20,7 @@ export default function Footer() {
         gap: 2,
         backgroundColor: "footer.main",
         color: "footer.contrastText",
-        px: { xs: 4, md: 8 },
+        px: { xs: 4, lg: 8 },
         py: 2, // smaller footer height
         overflow: "hidden", // prevent anything from overflowing the footer
       }}
@@ -37,7 +37,7 @@ export default function Footer() {
           left: isMobile ? "50%" : "20%",
           transform: "translateX(-50%)",
           opacity: 0.1,
-          width: { xs: 300, md: 400 }, // bigger logo
+          width: { xs: 300, lg: 400 }, // bigger logo
           height: "auto",
           pointerEvents: "none", // make sure it doesn't block clicks
           zIndex: 0,
@@ -66,21 +66,21 @@ function FooterMain() {
         gap: 4,
         flexDirection: {
           xs: "column",
-          md: "row",
+          lg: "row",
         },
         justifyContent: {
           xs: "center",
-          md: "space-between",
+          lg: "space-between",
         },
         paddingBottom: {
           xs: 2,
-          md: 2,
+          lg: 2,
         },
         paddingTop: {
-          md: 8,
+          lg: 8,
         },
         alignItems: {
-          md: "flex-end", // push columns to bottom
+          lg: "flex-end", // push columns to bottom
         },
       }}
     >
@@ -88,7 +88,7 @@ function FooterMain() {
         sx={{
           width: {
             xs: "100%",
-            md: "fit-content",
+            lg: "fit-content",
           },
         }}
       >
@@ -100,7 +100,7 @@ function FooterMain() {
           gap: 2,
           width: {
             xs: "100%",
-            md: "fit-content",
+            lg: "fit-content",
           },
         }}
       >
@@ -131,15 +131,15 @@ function FooterMainLinks() {
       sx={{
         width: {
           xs: "100%",
-          md: "fit-content",
+          lg: "fit-content",
         },
         flexDirection: {
           xs: "column",
-          md: "row",
+          lg: "row",
         },
         gap: {
           xs: 6,
-          md: 12,
+          lg: 12,
         },
       }}
     >
@@ -214,11 +214,11 @@ function FooterAttribution() {
         alignItems: "center",
         flexDirection: {
           xs: "column",
-          md: "row",
+          lg: "row",
         },
         justifyContent: {
           xs: "center",
-          md: "space-between",
+          lg: "space-between",
         },
         paddingY: 2,
         gap: 0.5,

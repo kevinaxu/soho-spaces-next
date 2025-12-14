@@ -30,7 +30,7 @@ export default function TravelInspirationGallery({
   images,
 }: TravelInspirationGalleryProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
   const imagesToDisplay = isMobile ? images.slice(0, 8) : images;
 
   const titleSection = (
@@ -44,11 +44,11 @@ export default function TravelInspirationGallery({
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column", lg: "row" },
         gap: 4,
         py: {
           xs: 8,
-          md: 0,
+          lg: 0,
         },
       }}
     >
@@ -62,10 +62,10 @@ export default function TravelInspirationGallery({
           sx={{
             // Padding on the text column
             px: {
-              md: 0,
+              lg: 0,
             },
             paddingRight: {
-              md: 4,
+              lg: 4,
             },
           }}
         >

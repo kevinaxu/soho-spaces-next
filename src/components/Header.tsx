@@ -55,11 +55,11 @@ export default function Header({
         color: (theme) => theme.palette.text.primary,
         paddingX: {
           xs: PADDING_X_MOBILE,
-          md: 0,
+          lg: 0,
         },
         paddingY: {
           xs: 1,
-          md: 0,
+          lg: 0,
         },
       }}
     >
@@ -71,11 +71,11 @@ export default function Header({
           justifyContent: "space-between",
           paddingX: {
             xs: 0,
-            md: 2,
+            lg: 2,
           },
           minHeight: {
             xs: 12,
-            md: 40,
+            lg: 40,
           }, // Adjust these values to shrink the height
         }}
       >
@@ -85,7 +85,7 @@ export default function Header({
           href={PAGES.home}
           sx={{
             // fontSize: {
-            //   md: "1rem",
+            //   lg: "1rem",
             //   xs: "1.5rem",
             // },
             fontWeight: 400,
@@ -98,7 +98,7 @@ export default function Header({
         </Typography>
 
         {/* Desktop Header */}
-        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+        <Box sx={{ display: { xs: "none", lg: "flex" }, gap: 3 }}>
           {links.map((link) => (
             <Typography
               key={link.label}
@@ -117,7 +117,7 @@ export default function Header({
         </Box>
 
         {/* Mobile Header */}
-        <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}>
+        <Box sx={{ display: { xs: "flex", lg: "none" }, alignItems: "center" }}>
           <IconButton onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
@@ -154,7 +154,7 @@ function MobileDrawer({
         sx={{
           width: {
             xs: 300,
-            md: 400,
+            lg: 400,
           },
           position: "relative", // needed for absolute logo
           minHeight: "100%", // ensure logo is at bottom

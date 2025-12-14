@@ -18,7 +18,7 @@ export const HeroImageSection = forwardRef<
   HeroImageSectionProps
 >((props, ref) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { image, imageMobile } = props;
 
   return (
@@ -138,9 +138,9 @@ HeroVideoSection.displayName = "HeroSectionVideo";
 function HeroLogo({
   fontFamily = ["Lexend", "sans-serif"].join(","),
   fontWeight = 400,
-  fontSize = { xs: "4rem", md: "6rem" },
-  letterSpacing = { xs: "1rem", md: "1.5rem" },
-  lineHeight = { xs: "6rem", md: "normal" },
+  fontSize = { xs: "4rem", lg: "6rem" },
+  letterSpacing = { xs: "1rem", lg: "1.5rem" },
+  lineHeight = { xs: "6rem", lg: "normal" },
   color = "#fff",
 }) {
   const [fontLoaded, setFontLoaded] = useState(false);

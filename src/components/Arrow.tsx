@@ -21,9 +21,9 @@ interface ArrowProps {
 }
 
 const sizeMap = {
-  sm: { xs: 1.2, md: 1.4, textXs: "caption", textMd: "subtitle2" },
-  md: { xs: 1.5, md: 1.8, textXs: "subtitle1", textMd: "h6" },
-  lg: { xs: 1.8, md: 2.2, textXs: "h6", textMd: "h5" },
+  sm: { xs: 1.2, lg: 1.4, textXs: "caption", textMd: "subtitle2" },
+  md: { xs: 1.5, lg: 1.8, textXs: "subtitle1", textMd: "h6" },
+  lg: { xs: 1.8, lg: 2.2, textXs: "h6", textMd: "h5" },
 };
 
 function ArrowContent({
@@ -31,7 +31,7 @@ function ArrowContent({
   direction = "right",
   title,
   onClick,
-  size = "md",
+  size = "lg",
   sx,
 }: ArrowProps) {
   const isLeft = direction === "left";
@@ -43,7 +43,7 @@ function ArrowContent({
         alignItems: "center",
         gap: {
           xs: 0.5,
-          md: 1.5,
+          lg: 1.5,
         },
         cursor: "pointer",
         "&:hover .arrow-title": {
@@ -58,7 +58,7 @@ function ArrowContent({
           sx={{
             transform: {
               xs: `scaleX(-${config.xs}) scaleY(0.7)`,
-              md: `scaleX(-${config.md}) scaleY(0.7)`,
+              lg: `scaleX(-${config.md}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}
@@ -71,7 +71,7 @@ function ArrowContent({
           className="arrow-title"
           sx={{
             color: "text.secondary",
-            variant: { xs: config.textXs, md: "body1" },
+            variant: { xs: config.textXs, lg: "body1" },
             textDecoration: "none",
             ...sx,
           }}
@@ -86,7 +86,7 @@ function ArrowContent({
           sx={{
             transform: {
               xs: `scaleX(${config.xs}) scaleY(0.7)`,
-              md: `scaleX(${config.md}) scaleY(0.7)`,
+              lg: `scaleX(${config.md}) scaleY(0.7)`,
             },
             animation: animate ? `${nudge} 1s ease-in-out infinite` : "none",
           }}

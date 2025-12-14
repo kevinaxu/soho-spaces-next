@@ -18,7 +18,7 @@ export function OverviewSection(props: OverviewSectionProps) {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column", lg: "row" },
         gap: 4,
       }}
     >
@@ -35,7 +35,7 @@ export function OverviewSection(props: OverviewSectionProps) {
         <Column
           sx={{
             alignItems: {
-              md: "flex-end",
+              lg: "flex-end",
             },
             gap: 1,
           }}
@@ -44,7 +44,7 @@ export function OverviewSection(props: OverviewSectionProps) {
             gap={0.5}
             sx={{
               textAlign: {
-                md: "end",
+                lg: "end",
               },
             }}
           >

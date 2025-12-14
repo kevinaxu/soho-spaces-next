@@ -186,7 +186,7 @@ export default function ContactFormSection() {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         sx={{
           mb: {
-            md: 4,
+            lg: 4,
           },
         }}
       />

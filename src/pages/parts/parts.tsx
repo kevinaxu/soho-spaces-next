@@ -16,11 +16,11 @@ export default function PartsPage() {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 0,
+            lg: 0,
           },
         }}
       >
@@ -32,11 +32,11 @@ export default function PartsPage() {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            lg: 16,
           },
         }}
       >
@@ -50,11 +50,11 @@ export default function PartsPage() {
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
         }}
       >

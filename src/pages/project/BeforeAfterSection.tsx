@@ -25,7 +25,7 @@ interface BeforeAfterSectionProps {
 
 export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
@@ -95,7 +95,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
               gap: 1,
               mt: {
                 xs: 2,
-                md: 4,
+                lg: 4,
               },
             }}
           >

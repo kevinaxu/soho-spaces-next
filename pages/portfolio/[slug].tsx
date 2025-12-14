@@ -107,11 +107,11 @@ export default function ProjectPage({
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 4,
+            lg: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            lg: 16,
           },
         }}
       >
@@ -127,11 +127,11 @@ export default function ProjectPage({
           bgcolor: "#e3e2dc",
           py: {
             xs: 2,
-            md: 4,
+            lg: 4,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 16,
+            lg: 16,
           },
         }}
       >
@@ -147,11 +147,11 @@ export default function ProjectPage({
             bgcolor: "#e3e2dc",
             py: {
               xs: 2,
-              md: 8,
+              lg: 8,
             },
             px: {
               xs: PADDING_X_MOBILE,
-              md: 16,
+              lg: 16,
             },
           }}
         >
@@ -170,11 +170,11 @@ export default function ProjectPage({
           bgcolor: "#e3e2dc",
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
           py: {
             xs: 2,
-            md: 2,
+            lg: 2,
           },
         }}
       >

@@ -39,7 +39,7 @@ export default function ContactPage({
           width: "100%",
           minHeight: "70vh",
           maxHeight: {
-            md: "800px",
+            lg: "800px",
           },
           gap: 4,
         }}
@@ -63,8 +63,8 @@ export default function ContactPage({
         <Box
           sx={{
             flex: 2,
-            px: { xs: 2, md: 12 },
-            py: { xs: 4, md: 8 },
+            px: { xs: 2, lg: 12 },
+            py: { xs: 4, lg: 8 },
             display: "flex",
             flexDirection: "column",
             gap: 8,

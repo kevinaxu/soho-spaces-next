@@ -23,7 +23,7 @@ interface FeaturedProjectSectionProps {
 export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
   const { title, description, projects } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
@@ -49,17 +49,17 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column-reverse", md: "row" },
+        flexDirection: { xs: "column-reverse", lg: "row" },
         gap: 4,
         // TODO: move this to parent layout
         // same for TravelInspirationGallery component
         py: {
           xs: 8,
-          md: 0,
+          lg: 0,
         },
       }}
     >
-      <Stack spacing={{ xs: 4, md: 4 }}>
+      <Stack spacing={{ xs: 4, lg: 4 }}>
         {projects.map((project, i) => (
           <Link
             key={i}
@@ -99,7 +99,7 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
           sx={{
             // Padding on the text column
             paddingLeft: {
-              md: 4,
+              lg: 4,
             },
           }}
         >

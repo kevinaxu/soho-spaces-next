@@ -43,8 +43,8 @@ export default function Custom404Page({
 
       <FullWidthSection
         sx={{
-          py: { xs: 8, md: 2 },
-          px: { xs: PADDING_X_MOBILE, md: PADDING_X_SECTION },
+          py: { xs: 8, lg: 2 },
+          px: { xs: PADDING_X_MOBILE, lg: PADDING_X_SECTION },
           alignItems: "center",
           minHeight: "70vh",
         }}
@@ -62,13 +62,13 @@ export default function Custom404Page({
           >
             <Typography
               variant="h3"
-              sx={{ fontSize: { xs: "2.5rem", md: "4rem" }, fontWeight: 200 }}
+              sx={{ fontSize: { xs: "2.5rem", lg: "4rem" }, fontWeight: 200 }}
             >
               Oops — pardon our dust!
             </Typography>
             <Typography
               variant="h3"
-              sx={{ fontSize: { xs: "2.5rem", md: "4rem" }, fontWeight: 200 }}
+              sx={{ fontSize: { xs: "2.5rem", lg: "4rem" }, fontWeight: 200 }}
             >
               We're remodeling.
             </Typography>

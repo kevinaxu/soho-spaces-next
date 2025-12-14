@@ -28,7 +28,7 @@ export default function StackedDeck(
 ): React.JSX.Element {
   const { title, description, cards } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   return (
     <>
@@ -181,13 +181,13 @@ function ServicesColumn({
         justifyContent: "space-between",
         height: {
           xs: MOBILE_CARD_HEIGHT,
-          md: "100%",
+          lg: "100%",
         },
         maxWidth: {
-          md: 250,
+          lg: 250,
         },
         paddingY: {
-          md: 0,
+          lg: 0,
         },
       }}
     >

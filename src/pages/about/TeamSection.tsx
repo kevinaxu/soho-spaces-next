@@ -24,14 +24,14 @@ export default function TeamSection({ team }: TeamSectionProps) {
       columnSpacing={2}
       rowSpacing={{
         xs: 4,
-        md: 8,
+        lg: 8,
       }}
     >
       {team.map((member, idx) => (
         <Grid
           size={{
             xs: 12,
-            md: 4,
+            lg: 4,
           }}
           key={idx}
           display="flex"

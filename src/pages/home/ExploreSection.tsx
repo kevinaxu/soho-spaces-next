@@ -39,7 +39,7 @@ const MOBILE_LAYOUT = [
 export default function ExploreSection(props: ExploreSectionProps) {
   const { title, description, images } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   let columns;
   if (isMobile) {
@@ -74,11 +74,11 @@ export default function ExploreSection(props: ExploreSectionProps) {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column", lg: "row" },
         gap: 4,
         py: {
           xs: 8,
-          md: 0,
+          lg: 0,
         },
       }}
     >
@@ -92,10 +92,10 @@ export default function ExploreSection(props: ExploreSectionProps) {
           sx={{
             // Padding on the text column
             px: {
-              md: 0,
+              lg: 0,
             },
             paddingRight: {
-              md: 4,
+              lg: 4,
             },
           }}
         >
@@ -140,11 +140,11 @@ function ExploreColumn({
   return (
     <Grid
       spacing={{
-        md: 6,
+        lg: 6,
       }}
       size={{
         xs: 6,
-        md: 4,
+        lg: 4,
       }}
       sx={{
         height: "100%",

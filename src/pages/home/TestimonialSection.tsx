@@ -26,7 +26,7 @@ export function TestimonialSection({
   scrollInterval = 5000,
 }: TestimonialSectionProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderInterval = useRef<NodeJS.Timeout | null>(null);
 
@@ -76,7 +76,7 @@ export function TestimonialSection({
       />
 
       <Box
-        sx={{ position: "relative", width: { md: "100%", xs: "80vw" } }}
+        sx={{ position: "relative", width: { lg: "100%", xs: "80vw" } }}
         onMouseEnter={stopAutoScroll}
         onMouseLeave={startAutoScroll}
       >
@@ -116,7 +116,7 @@ export function TestimonialSection({
               gap: 1,
               mt: {
                 xs: 2,
-                md: 8,
+                lg: 8,
               },
             }}
           >

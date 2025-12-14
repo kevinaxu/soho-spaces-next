@@ -74,11 +74,11 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         sx={{
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
           py: {
             xs: 2,
-            md: 0,
+            lg: 0,
           },
         }}
       >
@@ -89,17 +89,17 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         sx={{
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
           py: {
             xs: 4,
-            md: 0,
+            lg: 0,
           },
           paddingTop: {
-            md: 6,
+            lg: 6,
           },
           paddingBottom: {
-            md: 2,
+            lg: 2,
           },
         }}
       >
@@ -107,7 +107,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
           sx={{
             gap: {
               xs: 4,
-              md: 8,
+              lg: 8,
             },
           }}
         >
@@ -133,11 +133,11 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         sx={{
           bgcolor: "#D1C8B7",
           py: {
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
         }}
       >
@@ -152,11 +152,11 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         sx={{
           py: {
             xs: 8,
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
           alignItems: "center",
         }}

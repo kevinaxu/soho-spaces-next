@@ -51,7 +51,7 @@ export default function HotspotSection({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
 
   const handleClick = (idx: number) => {
     setActiveIdx(idx === activeIdx ? null : idx);

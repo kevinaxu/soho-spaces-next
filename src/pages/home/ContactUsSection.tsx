@@ -15,7 +15,7 @@ interface ContactUsSectionProps {
 
 export function ContactUsSection(props: ContactUsSectionProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { title, cta, src } = props;
   return (
     <Row>

@@ -105,7 +105,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
           alignItems: "center",
           py: {
             xs: 2,
-            md: 0,
+            lg: 0,
           },
           px: PADDING_X_SECTION,
         }}
@@ -118,7 +118,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
           alignItems: "center",
           backgroundColor: "#f1eeed",
           py: {
-            md: 0,
+            lg: 0,
           },
         }}
       >
@@ -132,11 +132,11 @@ export default function HomePage({ home }: { home: HomePageProps }) {
       <FullWidthSection
         sx={{
           py: {
-            md: 2,
+            lg: 2,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
         }}
       >
@@ -166,11 +166,11 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           alignItems: "center",
           py: {
-            md: 0,
+            lg: 0,
           },
           px: {
             xs: PADDING_X_MOBILE,
-            md: 2,
+            lg: 2,
           },
         }}
       >
@@ -185,11 +185,11 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         sx={{
           px: {
             xs: PADDING_X_MOBILE,
-            md: PADDING_X_SECTION,
+            lg: PADDING_X_SECTION,
           },
           py: {
             xs: 2,
-            md: 2,
+            lg: 2,
           },
         }}
       >

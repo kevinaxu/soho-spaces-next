@@ -43,8 +43,8 @@ export default function PortfolioPage({
       <Header sticky={true} />
       <FullWidthSection
         sx={{
-          py: { xs: 2, md: 4 },
-          px: { xs: PADDING_X_MOBILE, md: 0 },
+          py: { xs: 2, lg: 4 },
+          px: { xs: PADDING_X_MOBILE, lg: 0 },
           alignItems: "center",
         }}
       >
@@ -52,7 +52,7 @@ export default function PortfolioPage({
           gap={2}
           sx={{
             minHeight: {
-              md: "65vh",
+              lg: "65vh",
             },
           }}
         >
@@ -62,21 +62,21 @@ export default function PortfolioPage({
               width: "100%",
               maxWidth: GRID_MAX_WIDTH,
               mx: "auto", // centers the grid
-              paddingX: { xs: 0, md: 2 },
+              paddingX: { xs: 0, lg: 2 },
             }}
           >
             <Grid
               container
-              spacing={{ xs: 4, md: 6 }}
-              rowSpacing={{ xs: 6, md: 8 }}
-              justifyContent={{ xs: "center", md: "flex-start" }}
+              spacing={{ xs: 4, lg: 6 }}
+              rowSpacing={{ xs: 6, lg: 8 }}
+              justifyContent={{ xs: "center", lg: "flex-start" }}
             >
               {portfolio.projects.map((project, idx) => (
                 <Grid
                   key={idx}
                   display="flex"
                   justifyContent="center"
-                  size={{ xs: 12, md: 4 }}
+                  size={{ xs: 12, lg: 4 }}
                 >
                   <Column sx={{ width: "100%", maxWidth: 400 }}>
                     <Link href={`/portfolio/${project.slug}`} passHref>
