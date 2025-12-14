@@ -24,7 +24,7 @@ export default function Footer() {
       {/* Logo as background */}
       <Box
         component="img"
-        src="https://soho-spaces.com/assets/soho_logo_white.svg"
+        src="/soho_logo_white.svg"
         alt="soho spaces logo"
         sx={{
           position: "absolute",

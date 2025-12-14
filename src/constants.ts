@@ -4,7 +4,7 @@ export const PADDING_X_MOBILE = 2;
 export const MAX_WIDTH_TEXT_CONTAINER = "800px";
 
 // TODO: update this once we switch to production URL!
-export const BASE_URL = "https://soho-spaces-next.netlify.app/";
+export const BASE_URL = "https://soho-spaces.com/";
 
 // This is used in <head> as the default image preview
 // Dark Academia - Couch / Chair
