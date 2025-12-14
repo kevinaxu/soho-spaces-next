@@ -37,10 +37,11 @@ interface HomePageProps {
   featuredProject: {
     title: string;
     description: string;
-    images: {
-      src: SanityImageSource;
+    projects: {
       title: string;
-      subtitle: string;
+      slug: string;
+      image: SanityImageSource;
+      imageMobile: SanityImageSource;
     }[];
   };
   testimonials: {
@@ -140,7 +141,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
         <FeaturedProjectSection
           title={home.featuredProject.title}
           description={home.featuredProject.description}
-          images={home.featuredProject.images}
+          projects={home.featuredProject.projects}
         />
       </FullWidthSection>
 
@@ -224,15 +225,19 @@ export const getStaticProps = async () => {
             }
         },
         featuredProject {
-          title,
-          description,
-          images[] {
-            "src": image->image{
-              ...,
-              asset->
-            },
             title,
-            subtitle
+            description,
+            projects[] {
+                title,
+                "image": image->image{
+                    ...,
+                    asset->
+                },
+                "imageMobile": imageMobile->image{
+                    ...,
+                    asset->
+                },
+                "slug": project->slug.current,
             }
         },
         testimonials[] {

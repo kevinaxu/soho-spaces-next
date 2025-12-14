@@ -1,13 +1,6 @@
-import {
-  Box,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-} from "@mui/material";
+import { Box, Stack, Typography, useTheme, useMediaQuery } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
 import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
@@ -19,15 +12,16 @@ import { PAGES } from "@/src/constants";
 interface FeaturedProjectSectionProps {
   title: string;
   description: string;
-  images: {
-    src: SanityImageSource;
+  projects: {
     title: string;
-    subtitle: string;
+    slug: string;
+    image: SanityImageSource;
+    imageMobile: SanityImageSource;
   }[];
 }
 
 export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
-  const { title, description, images } = props;
+  const { title, description, projects } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // true if screen < 600px
 
@@ -43,7 +37,7 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
       >
         <Arrow
           direction="right"
-          title="see the projects"
+          title="see all the projects"
           size="md"
           href={PAGES.portfolio}
         />
@@ -65,42 +59,37 @@ export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
         },
       }}
     >
-      <Box sx={{ flex: 1 }}>
-        <ImageList cols={1} gap={16} rowHeight={500}>
-          {images.map((item, i) => (
-            <ImageListItem
-              key={i}
-              sx={{
-                "&:hover .MuiImageListItemBar-root": { opacity: 1 },
-              }}
-            >
+      <Stack spacing={{ xs: 4, md: 4 }}>
+        {projects.map((project, i) => (
+          <Link
+            key={i}
+            href={`${PAGES.portfolio}/${project.slug}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Box key={i}>
               <ResponsiveSanityImage
-                src={item.src}
-                alt={item.title}
-                lazy={true}
+                src={isMobile ? project.imageMobile : project.image}
+                alt={project.title}
+                lazy
                 style={{
                   width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
                   display: "block",
+                  objectFit: "cover",
+                  aspectRatio: isMobile ? "1/1" : "3/2",
                 }}
               />
-              {item.title && item.subtitle && (
-                <ImageListItemBar
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  sx={{
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)",
-                  }}
-                />
-              )}
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box>
+              <Row
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ pt: 1 }}
+              >
+                <Typography variant="body1">{project.title}</Typography>
+              </Row>
+            </Box>
+          </Link>
+        ))}
+      </Stack>
+
       {isMobile ? (
         titleSection
       ) : (
