@@ -1,11 +1,4 @@
-import {
-  Box,
-  Grid,
-  Stack,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Arrow } from "@/src/components/Arrow";
@@ -14,6 +7,7 @@ import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
 import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
 import { PAGES } from "@/src/constants";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface ExploreSectionProps {
   title: string;
@@ -39,7 +33,7 @@ const MOBILE_LAYOUT = [
 export default function ExploreSection(props: ExploreSectionProps) {
   const { title, description, images } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
 
   let columns;
   if (isMobile) {

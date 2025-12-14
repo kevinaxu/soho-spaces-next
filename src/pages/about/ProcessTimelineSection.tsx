@@ -8,12 +8,13 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@mui/lab";
-import { Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
-import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
+import { SectionSubtitle } from "@/src/components/SectionTitle";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface ProcessStepContent {
   title: string;
@@ -29,8 +30,7 @@ export default function ProcessTimeline({
 }: {
   timelineData: ProcessStepContent[];
 }) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
   return (
     <Column
       sx={{

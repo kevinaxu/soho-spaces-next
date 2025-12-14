@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 
@@ -8,6 +8,7 @@ import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
 import { PAGES } from "@/src/constants";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface FeaturedProjectSectionProps {
   title: string;
@@ -23,7 +24,7 @@ interface FeaturedProjectSectionProps {
 export function FeaturedProjectSection(props: FeaturedProjectSectionProps) {
   const { title, description, projects } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
 
   const titleSection = (
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>

@@ -1,6 +1,7 @@
-import { useTheme, useMediaQuery, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import { Row, Column } from "@/src/components/Layout";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface DesignPhilosophySectionProps {
   title: string;
@@ -9,9 +10,7 @@ interface DesignPhilosophySectionProps {
 
 export function DesignPhilosophySection(props: DesignPhilosophySectionProps) {
   const { title } = props;
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
-
+  const isMobile = useIsMobile();
   return (
     <Column
       sx={{

@@ -1,10 +1,11 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { forwardRef } from "react";
 import { useRef, useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 const VIDEO_PLAYBACK_RATE = 0.5;
 
@@ -17,8 +18,7 @@ export const HeroImageSection = forwardRef<
   HTMLDivElement,
   HeroImageSectionProps
 >((props, ref) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const isMobile = useIsMobile();
   const { image, imageMobile } = props;
 
   return (

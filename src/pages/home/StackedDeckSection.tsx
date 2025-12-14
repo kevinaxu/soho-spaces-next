@@ -1,9 +1,10 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 
 import { Row, Column } from "@/src/components/Layout";
 import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
 import { PADDING_X_MOBILE } from "@/src/constants";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 const DESKTOP_OFFSET_BASE = 200;
 const DESKTOP_OFFSET = 100;
@@ -27,8 +28,7 @@ export default function StackedDeck(
   props: StackedDeckProps
 ): React.JSX.Element {
   const { title, description, cards } = props;
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
 
   return (
     <>

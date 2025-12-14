@@ -1,9 +1,10 @@
-import { Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Typography } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useState } from "react";
 
 import { Column } from "@/src/components/Layout";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 const layoutTemplates: { rows: number; cols: number }[][] = [
   // first three - full height column on left
@@ -37,8 +38,7 @@ export default function PhotoGallerySection({
     setIsCarouselOpen(true);
   };
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
 
   return (
     <>

@@ -1,10 +1,11 @@
-import { Typography, Box, useTheme, useMediaQuery } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { useKeenSlider } from "keen-slider/react";
 import React, { useCallback, useState, useEffect, useRef } from "react";
 
 import { Column } from "@/src/components/Layout";
+import { SectionTitle } from "@/src/components/SectionTitle";
 import { MAX_WIDTH_TEXT_CONTAINER } from "@/src/constants";
-import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 import "keen-slider/keen-slider.min.css";
 
@@ -25,8 +26,8 @@ export function TestimonialSection({
   autoScroll = false,
   scrollInterval = 5000,
 }: TestimonialSectionProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderInterval = useRef<NodeJS.Timeout | null>(null);
 

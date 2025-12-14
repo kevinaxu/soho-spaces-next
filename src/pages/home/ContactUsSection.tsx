@@ -1,4 +1,4 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 
@@ -6,6 +6,7 @@ import { Arrow } from "@/src/components/Arrow";
 import { Row, Column } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 import { SectionTitle, SectionSubtitle } from "@/src/components/SectionTitle";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface ContactUsSectionProps {
   title: string;
@@ -14,15 +15,17 @@ interface ContactUsSectionProps {
 }
 
 export function ContactUsSection(props: ContactUsSectionProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const isMobile = useIsMobile();
   const { title, cta, src } = props;
   return (
     <Row>
       <Row
         sx={{
           width: "100%",
-          aspectRatio: isMobile ? "1/1" : "16/9",
+          aspectRatio: {
+            xs: "1/1",
+            lg: "16/9",
+          },
           position: "relative", // parent for absolute children
           justifyContent: "center",
           alignItems: "center",
@@ -36,7 +39,10 @@ export function ContactUsSection(props: ContactUsSectionProps) {
             top: 0,
             left: 0,
             width: "100%",
-            aspectRatio: isMobile ? "1/1" : "16/9",
+            aspectRatio: {
+              xs: "1/1",
+              lg: "16/9",
+            },
             backgroundImage: `url(${buildSanitySrc(src)})`,
             backgroundSize: "cover",
             backgroundPosition: "center",

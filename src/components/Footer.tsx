@@ -1,18 +1,14 @@
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Box, Typography, Divider, useMediaQuery } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import Link from "@mui/material/Link";
 import { lighten } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
 
 import { Row, Column } from "@/src/components/Layout";
 import { SectionSubtitle } from "@/src/components/SectionTitle";
 
 export default function Footer() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
-
   return (
     <Column
       sx={{
@@ -34,7 +30,10 @@ export default function Footer() {
           position: "absolute",
           top: -60, // moves logo above the top of the footer
           bottom: "100%", // aligns the bottom of logo with top of footer
-          left: isMobile ? "50%" : "20%",
+          left: {
+            xs: "50%",
+            lg: "20%",
+          },
           transform: "translateX(-50%)",
           opacity: 0.1,
           width: { xs: 300, lg: 400 }, // bigger logo
@@ -46,11 +45,11 @@ export default function Footer() {
 
       <FooterMain />
       <Divider
-        sx={{
+        sx={(theme) => ({
           borderColor: lighten(theme.palette.footer.main, 0.5),
           position: "relative",
           zIndex: 1, // on top of background logo
-        }}
+        })}
       />
       <FooterAttribution />
     </Column>

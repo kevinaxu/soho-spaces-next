@@ -1,13 +1,14 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import React, { useState, useEffect, useRef } from "react";
 
 import { Row, Column } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface Hotspot {
   title: string;
@@ -50,8 +51,7 @@ export default function HotspotSection({
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
 
   const handleClick = (idx: number) => {
     setActiveIdx(idx === activeIdx ? null : idx);

@@ -5,7 +5,6 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  useMediaQuery,
 } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
@@ -13,6 +12,7 @@ import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import { SectionTitle } from "@/src/components/SectionTitle";
 import StickyBox from "@/src/components/StickyBox";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface TravelInspirationGalleryProps {
   title: string;
@@ -30,7 +30,7 @@ export default function TravelInspirationGallery({
   images,
 }: TravelInspirationGalleryProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg")); // true if screen < 600px
+  const isMobile = useIsMobile();
   const imagesToDisplay = isMobile ? images.slice(0, 8) : images;
 
   const titleSection = (

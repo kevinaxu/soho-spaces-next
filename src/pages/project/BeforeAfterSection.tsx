@@ -1,4 +1,4 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useKeenSlider } from "keen-slider/react";
 import { useState } from "react";
@@ -7,12 +7,13 @@ import {
   ReactCompareSliderImage,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import "keen-slider/keen-slider.min.css";
 
+import "keen-slider/keen-slider.min.css";
 import {
   buildSanitySrc,
   buildSanitySrcSet,
 } from "@/src/components/ResponsiveSanityImage";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface BeforeAfterItem {
   before: { src: SanityImageSource };
@@ -24,8 +25,7 @@ interface BeforeAfterSectionProps {
 }
 
 export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const isMobile = useIsMobile();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
@@ -45,7 +45,10 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
               className="keen-slider__slide"
               sx={{
                 width: "100%",
-                aspectRatio: isMobile ? "1/1" : "3/2",
+                aspectRatio: {
+                  xs: "1/1",
+                  lg: "3/2",
+                },
               }}
             >
               <ReactCompareSlider
