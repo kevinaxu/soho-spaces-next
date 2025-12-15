@@ -12,6 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { PADDING_X_MOBILE, PAGES } from "../constants";
 
@@ -26,6 +27,7 @@ const links = [
       { label: "Moody Romantic", href: "/" },
     ],
   },
+  { label: "Explore", href: PAGES.explore },
   { label: "Contact", href: PAGES.contact },
 ];
 
@@ -36,6 +38,7 @@ export default function Header({
   sticky: boolean;
   transparent?: boolean;
 }) {
+  const pathname = usePathname(); // current URL path
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
@@ -89,7 +92,6 @@ export default function Header({
             //   xs: "1.5rem",
             // },
             fontWeight: 400,
-            // fontStyle: "italic",
             color: "inherit",
             "&:hover": { textDecoration: "underline" },
           }}
@@ -99,21 +101,26 @@ export default function Header({
 
         {/* Desktop Header */}
         <Box sx={{ display: { xs: "none", lg: "flex" }, gap: 3 }}>
-          {links.map((link) => (
-            <Typography
-              key={link.label}
-              component="a"
-              variant="body2"
-              href={link.href}
-              sx={{
-                fontWeight: 400,
-                color: "inherit",
-                "&:hover": { textDecoration: "underline" },
-              }}
-            >
-              {link.label}
-            </Typography>
-          ))}
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Typography
+                key={link.label}
+                component="a"
+                variant="body2"
+                href={link.href}
+                sx={{
+                  fontWeight: 400,
+                  fontStyle: isActive ? "italic" : "normal", // italicize if active page
+                  color: "inherit",
+                  textDecoration: "none",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                {link.label}
+              </Typography>
+            );
+          })}
         </Box>
 
         {/* Mobile Header */}
@@ -218,10 +225,21 @@ function MobileNavItem({
   sx?: object;
   children?: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isActive = href === pathname;
+
   return (
     <>
       <ListItem disablePadding>
-        <ListItemButton component="a" href={href} onClick={onClick} sx={sx}>
+        <ListItemButton
+          component="a"
+          href={href}
+          onClick={onClick}
+          sx={{
+            fontStyle: isActive ? "italic" : "normal",
+            ...sx,
+          }}
+        >
           <ListItemText primary={label} />
         </ListItemButton>
       </ListItem>

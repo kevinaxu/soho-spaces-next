@@ -16,5 +16,6 @@ export const PAGES = {
   portfolio: "/portfolio",
   about: "/about",
   contact: "/contact",
+  explore: "/explore",
   custom404: "/404",
 };
