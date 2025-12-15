@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import PhotoAlbum from "react-photo-album";
@@ -6,10 +6,12 @@ import PhotoAlbum from "react-photo-album";
 import "react-photo-album/styles.css";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
+import PageMeta from "@/src/components/PageMeta";
+import { PAGES } from "@/src/constants";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 import { client } from "@/src/sanity/client";
 
 interface SanityImage {
-  _type: "image";
   asset: {
     _id: string;
     url: string;
@@ -17,10 +19,7 @@ interface SanityImage {
       dimensions: {
         width: number;
         height: number;
-        aspectRatio: number;
       };
-      lqip?: string;
-      blurHash?: string;
     };
   };
 }
@@ -30,7 +29,6 @@ interface ExplorePhoto {
   title: string;
   image: SanityImage;
   labels?: string[];
-  priority: number;
   project?: {
     _id: string;
     title: string;
@@ -43,20 +41,39 @@ const urlFor = (source: SanityImageSource) => builder.image(source);
 const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
 
 export default function ExplorePage({ photos }: { photos: ExplorePhoto[] }) {
+  const isMobile = useIsMobile();
   const mergedPhotos = photos.map(transformPhoto);
-
-  console.log("dumping photos", JSON.stringify(mergedPhotos[0], null, 2));
 
   return (
     <>
       <Header sticky={true} transparent />
 
-      <Box sx={{ width: "100%", mx: "auto", px: 2, paddingBottom: 2 }}>
+      <PageMeta
+        title="Explore Our Projects | Soho Spaces"
+        description="Soho Spaces is a full-service interior design studio in Atlanta, specializing in modern, timeless interiors tailored to each client's story."
+        url={PAGES.home}
+        pageType="home"
+      />
+
+      <Box
+        sx={{
+          width: "100%",
+          mx: "auto",
+          px: {
+            xs: 1,
+            lg: 2,
+          },
+          paddingBottom: {
+            xs: 1,
+            lg: 2,
+          },
+        }}
+      >
         <PhotoAlbum
           photos={mergedPhotos}
           layout="columns"
-          columns={3}
-          spacing={16}
+          columns={isMobile ? 2 : 3}
+          spacing={isMobile ? 8 : 16}
         />
       </Box>
 
