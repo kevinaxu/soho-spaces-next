@@ -59,7 +59,7 @@ export default function ExploreSection(props: ExploreSectionProps) {
         direction="right"
         title="explore our portfolio"
         size="md"
-        href={PAGES.portfolio}
+        href={PAGES.explore}
       />
     </Column>
   );
