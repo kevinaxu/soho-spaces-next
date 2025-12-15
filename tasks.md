@@ -24,14 +24,10 @@
     - [] Styling - change the background color of the section
     - [] Desktop - add arrows on left / right of the content to replace dots
     - [] Mobile - add arrows as controls for left and right switching
-- Explore page
-  - [] Implement this using React Photo Gallery
 - Refactor
   - [] Extract Image with Trim into separate component (Portfolio page, Team section)
   - [] Extract all the Layout constants and move them into the FullWidthSection, if possible
   - [] Extract all the 2-column layout with StickyBox into a separate component
-  - [] Move all mockData into a separate /data directory (/data/mockData/about.json). This can be the output of `sanity dataset export production`
-    - Does this need to be pushed? Really only needs to be used for local development
 
 ## Done
 
@@ -50,6 +46,8 @@
     - [x] Make this horizontally scrollable on mobile
   - Materials component
     - [x] Update this so that details show up as tooltip
+- Explore page
+  - [x] Implement this using React Photo Gallery
 - Home page
   - Explore section
     - [x] Instead of using quilted, use separate ImageList option which will allow top / bottom images to align instead of custom calculation
@@ -73,3 +71,4 @@
   - [x] "See the project" CTA links should be extracted into shared component
   - [x] Extract Image responsiveness into a shared component which handles viewport checks, `srcset`, etc
   - [x] Create an adapter that converts Sanity API into minimal mockData format
+  - [x] Move all mockData into a separate /data directory (/data/mockData/about.json). This can be the output of `sanity dataset export production`

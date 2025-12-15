@@ -117,10 +117,3 @@ export const getStaticProps = async () => {
     props: { contact },
   };
 };
-
-const mockData = {
-  sidebarImage: "/IMG_0008.jpeg",
-  title: "Design your dream space with us",
-  description:
-    "Whether you're starting fresh or refining a vision,we would love to learn more about how we can help you bring your design vision to life.",
-};
