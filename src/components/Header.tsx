@@ -53,9 +53,14 @@ export default function Header({
 
   return (
     <AppBar
-      position={sticky ? "sticky" : "relative"}
+      position="fixed"
       elevation={0}
       sx={{
+        top: 0,
+        left: 0,
+        right: 0,
+        transform: sticky ? "translateY(0)" : "translateY(-100%)",
+        transition: "transform 220ms ease, background-color 200ms ease",
         ...(transparent
           ? {
               backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -64,6 +69,7 @@ export default function Header({
           : {
               backgroundColor: (theme) => theme.palette.background.default,
             }),
+        pointerEvents: sticky ? "auto" : "none",
         color: (theme) => theme.palette.text.primary,
         paddingX: {
           xs: PADDING_X_MOBILE,
@@ -73,6 +79,7 @@ export default function Header({
           xs: 1,
           lg: 0,
         },
+        zIndex: (theme) => theme.zIndex.appBar,
       }}
     >
       <Toolbar

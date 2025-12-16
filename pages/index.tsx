@@ -84,7 +84,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
   return (
     <>
-      {sticky && <Header sticky={sticky} transparent />}
+      <Header sticky={!!sticky} transparent />
 
       <PageMeta
         title="Welcome Home | Soho Spaces"
