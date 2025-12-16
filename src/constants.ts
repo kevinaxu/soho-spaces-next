@@ -26,6 +26,6 @@ export const PROJECTS = {
   moodyRomantic: "moody-romantic-dining-room",
   poshNouveau: "posh-nouveau-whisky-lounge",
   mediterraneanGarden: "mediterranean-botanical-master-bathroom",
-  parisianNoir: "parisian-noir-powder-room",
+  belleEpoque: "belle-epoque-powder-room",
   gingkosAndGreys: "gingkos-and-greys-powder-room",
 };
