@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import Link from "next/link";
 
 import { Arrow } from "@/src/components/Arrow";
 import { Row } from "@/src/components/Layout";

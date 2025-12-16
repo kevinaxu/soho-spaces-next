@@ -3,8 +3,8 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { Column } from "@/src/components/Layout";
 import { ResponsiveSanityBox } from "@/src/components/ResponsiveSanityImage";
-import styles from "@/styles/projectImage.module.css";
 import { SectionSubtitle } from "@/src/components/SectionTitle";
+import styles from "@/styles/projectImage.module.css";
 
 interface TeamSectionProps {
   team: {

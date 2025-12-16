@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { useState, useRef, useEffect } from "react";
 

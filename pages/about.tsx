@@ -1,8 +1,3 @@
-import ConstructionIcon from "@mui/icons-material/Construction";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import GroupsIcon from "@mui/icons-material/Groups";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import { Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
