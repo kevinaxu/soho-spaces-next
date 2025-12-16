@@ -11,10 +11,10 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-import { PADDING_X_MOBILE, PAGES } from "../constants";
+import { PADDING_X_MOBILE, PAGES, PROJECTS } from "@/src/constants";
 
 const links = [
   { label: "About", href: PAGES.about },
@@ -22,9 +22,18 @@ const links = [
     label: "Portfolio",
     href: PAGES.portfolio,
     children: [
-      { label: "Dark Academia", href: "/portfolio/dark-academia-living-room" },
-      { label: "Modern Gothic", href: "/" },
-      { label: "Moody Romantic", href: "/" },
+      {
+        label: "Posh Nouveau",
+        href: `${PAGES.portfolio}/${PROJECTS.poshNouveau}`,
+      },
+      {
+        label: "Mediterranean Garden",
+        href: `${PAGES.portfolio}/${PROJECTS.mediterraneanGarden}`,
+      },
+      {
+        label: "Modern Gothic",
+        href: `${PAGES.portfolio}/${PROJECTS.modernGothic}`,
+      },
     ],
   },
   { label: "Explore", href: PAGES.explore },

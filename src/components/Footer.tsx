@@ -7,6 +7,22 @@ import { lighten } from "@mui/material/styles";
 
 import { Row, Column } from "@/src/components/Layout";
 import { SectionSubtitle } from "@/src/components/SectionTitle";
+import { PROJECTS, PAGES } from "@/src/constants";
+
+const links = [
+  {
+    label: "Posh Nouveau",
+    href: `${PAGES.portfolio}/${PROJECTS.poshNouveau}`,
+  },
+  {
+    label: "Mediterranean Garden",
+    href: `${PAGES.portfolio}/${PROJECTS.mediterraneanGarden}`,
+  },
+  {
+    label: "Modern Gothic",
+    href: `${PAGES.portfolio}/${PROJECTS.modernGothic}`,
+  },
+];
 
 export default function Footer() {
   return (
@@ -131,30 +147,17 @@ function FooterMainLinks() {
         <Row>
           <SectionSubtitle title="explore" />
         </Row>
-        <Link
-          color="inherit"
-          variant="subtitle1"
-          underline="hover"
-          href="/portfolio/moody-romantic-bedroom"
-        >
-          moody romantic
-        </Link>
-        <Link
-          color="inherit"
-          variant="subtitle1"
-          underline="hover"
-          href="/portfolio/dark-academia-living-room"
-        >
-          dark academia
-        </Link>
-        <Link
-          color="inherit"
-          variant="subtitle1"
-          underline="hover"
-          href="/portfolio/modern-gothic-kitchen"
-        >
-          modern gothic
-        </Link>
+        {links.map(({ label, href }) => (
+          <Link
+            key={href}
+            color="inherit"
+            variant="subtitle1"
+            underline="hover"
+            href={href}
+          >
+            {label}
+          </Link>
+        ))}
       </Column>
       <Column gap={1}>
         <Row>

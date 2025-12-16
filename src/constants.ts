@@ -19,3 +19,13 @@ export const PAGES = {
   explore: "/explore",
   custom404: "/404",
 };
+
+export const PROJECTS = {
+  darkAcademia: "dark-academia-living-room",
+  modernGothic: "modern-gothic-kitchen",
+  moodyRomantic: "moody-romantic-dining-room",
+  poshNouveau: "posh-nouveau-whisky-lounge",
+  mediterraneanGarden: "mediterranean-botanical-master-bathroom",
+  parisianNoir: "parisian-noir-powder-room",
+  gingkosAndGreys: "gingkos-and-greys-powder-room",
+};
