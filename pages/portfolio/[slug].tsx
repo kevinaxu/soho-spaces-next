@@ -86,13 +86,17 @@ export default function ProjectPage({
         pageType="project"
       />
 
-      <Header sticky={false} />
+      <Header sticky={true} />
 
       <FullWidthSection
         sx={{
           bgcolor: "#e3e2dc",
           alignItems: "center",
-          paddingTop: 0,
+          // manually offset for sticky header on mobile / desktop
+          paddingTop: {
+            xs: "56px",
+            lg: "40px",
+          },
           paddingBottom: 2,
         }}
       >
