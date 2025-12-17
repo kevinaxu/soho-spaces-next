@@ -116,7 +116,7 @@ export default function ProjectPage({
           px: {
             xs: PADDING_X_MOBILE,
             sm: 6,
-            lg: 16,
+            lg: 20,
           },
         }}
       >
@@ -137,7 +137,7 @@ export default function ProjectPage({
           px: {
             xs: PADDING_X_MOBILE,
             sm: 6,
-            lg: 16,
+            lg: 20,
           },
         }}
       >
@@ -157,7 +157,7 @@ export default function ProjectPage({
             },
             px: {
               xs: PADDING_X_MOBILE,
-              lg: 16,
+              lg: 20,
             },
           }}
         >
