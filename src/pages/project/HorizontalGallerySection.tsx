@@ -14,6 +14,8 @@ interface HorizontalGallerySectionProps {
   handleImageClick?: (index: number) => void;
 }
 
+const NUM_EAGER_LOAD_IMAGES = 5;
+
 export default function HorizontalGallerySection({
   images,
   handleImageClick,
@@ -36,6 +38,8 @@ export default function HorizontalGallerySection({
         }}
       >
         {images.map((image, idx) => {
+          const eager = idx < NUM_EAGER_LOAD_IMAGES;
+
           return (
             <Box
               key={image.title}
@@ -45,7 +49,8 @@ export default function HorizontalGallerySection({
               <ResponsiveSanityImage
                 src={image.src}
                 alt={image.title}
-                lazy={false} // eager load since these are above the fold
+                // lazy={false} // eager load since these are above the fold
+                lazy={!eager}
                 style={{
                   height: "100%",
                   width: "auto",

@@ -4,10 +4,10 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
+import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
-
-import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 
 interface ModalLightboxProps {
   images: {
@@ -19,14 +19,20 @@ interface ModalLightboxProps {
   close: () => void;
 }
 
+const LIGHTBOX_WIDTH = 2400;
+
 export default function ModalLightbox({
   images,
   index,
   open,
   close,
 }: ModalLightboxProps) {
+  // TODO: optimize this via srcSet
+  const isMobile = useIsMobile();
   const slides = images.map((img) => ({
-    src: buildSanitySrc(img.src),
+    src: isMobile
+      ? buildSanitySrc(img.src)
+      : buildSanitySrc(img.src, LIGHTBOX_WIDTH),
     title: img.title,
   }));
 
