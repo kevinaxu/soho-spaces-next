@@ -44,12 +44,10 @@ export const HeroImageSection = forwardRef<
         sx={{
           position: "absolute",
           inset: 0,
-          //   backgroundColor: "rgba(25, 14, 5, 0.5)", // dark-brown, warm
-          //   backgroundColor: "rgba(0,0,0,0.5)", // black, cooler
-          //   backgroundColor: "rgba(24, 16, 10, 0.65)", // deep espresso
+          backgroundColor: "rgba(25, 14, 5, 0.5)", // dark-brown, warm
           //   backgroundColor: "rgba(32, 24, 18, 0.6)", // charcoal
           //   backgroundColor: "rgba(25, 18, 12, 0.65)", // dark coffee
-          backgroundColor: "rgba(38, 28, 20, 0.5)", // soft umber
+          //   backgroundColor: "rgba(38, 28, 20, 0.5)", // soft umber
           zIndex: 1,
         }}
       />
