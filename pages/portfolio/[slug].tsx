@@ -171,26 +171,6 @@ export default function ProjectPage({
         </FullWidthSection>
       )}
 
-      <FullWidthSection
-        sx={{
-          bgcolor: "#e3e2dc",
-          px: {
-            xs: PADDING_X_MOBILE,
-            lg: PADDING_X_SECTION,
-          },
-          py: {
-            xs: 2,
-            lg: 2,
-          },
-        }}
-      >
-        <ContactUsSection
-          title={project.contact.title}
-          cta={project.contact.cta}
-          src={project.contact.src}
-        />
-      </FullWidthSection>
-
       {heroCarouselOpen && (
         <ModalLightbox
           images={project.hero.images}
