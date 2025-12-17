@@ -11,7 +11,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 import { PADDING_X_MOBILE, PAGES, PROJECTS } from "@/src/constants";
@@ -47,7 +47,8 @@ export default function Header({
   sticky: boolean;
   transparent?: boolean;
 }) {
-  const pathname = usePathname(); // current URL path
+  const router = useRouter();
+  const pathname = router.asPath;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
@@ -241,7 +242,8 @@ function MobileNavItem({
   sx?: object;
   children?: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  const router = useRouter();
+  const pathname = router.asPath;
   const isActive = href === pathname;
 
   return (
