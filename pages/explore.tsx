@@ -126,7 +126,7 @@ function transformPhoto(photo: ExplorePhoto) {
   return {
     // Sanity metadata
     _id: photo._id,
-    title: photo.title,
+    // title: photo.title,
     labels: photo.labels,
     project: photo.project,
 
