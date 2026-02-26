@@ -55,12 +55,7 @@ export default function ExploreSection(props: ExploreSectionProps) {
     <Column sx={{ alignItems: "flex-start", gap: 2 }}>
       <SectionTitle title={title} />
       <Typography color="text.secondary">{description}</Typography>
-      <Arrow
-        direction="right"
-        title="explore our portfolio"
-        size="md"
-        href={PAGES.explore}
-      />
+      <Arrow direction="right" title="explore" size="md" href={PAGES.explore} />
     </Column>
   );
 
