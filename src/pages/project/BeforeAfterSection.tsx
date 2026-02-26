@@ -44,48 +44,50 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
             <Box
               key={index}
               className="keen-slider__slide"
-              sx={{
-                width: "100%",
-                aspectRatio: {
-                  xs: "3/4",
-                  md: "3/2",
-                },
-              }}
+              sx={{ width: "100%" }}
             >
-              <ReactCompareSlider
-                position={20}
-                style={{ width: "100%", height: "100%" }}
-                itemOne={
-                  <ReactCompareSliderImage
-                    src={buildSanitySrc(item.before.src)}
-                    srcSet={buildSanitySrcSet(item.before.src)}
-                    alt="Before"
-                  />
-                }
-                itemTwo={
-                  <ReactCompareSliderImage
-                    src={buildSanitySrc(item.after.src)}
-                    srcSet={buildSanitySrcSet(item.after.src)}
-                    alt="After"
-                  />
-                }
-                handle={
-                  <ReactCompareSliderHandle
-                    buttonStyle={
-                      isMobile
-                        ? {
-                            width: 40,
-                            height: 40,
-                            borderRadius: "50%",
-                            border: "2px solid #fff",
-                            backdropFilter: "blur(4px)",
-                            backgroundColor: "rgba(255,255,255,0.2)",
-                          }
-                        : undefined
-                    }
-                  />
-                }
-              />
+              <Box
+                sx={{
+                  width: "100%",
+                  aspectRatio: { xs: "3/4", md: "3/2" },
+                  minHeight: { xs: 300, md: "unset" },
+                }}
+              >
+                <ReactCompareSlider
+                  position={20}
+                  style={{ width: "100%", height: "100%" }}
+                  itemOne={
+                    <ReactCompareSliderImage
+                      src={buildSanitySrc(item.before.src)}
+                      srcSet={buildSanitySrcSet(item.before.src)}
+                      alt="Before"
+                    />
+                  }
+                  itemTwo={
+                    <ReactCompareSliderImage
+                      src={buildSanitySrc(item.after.src)}
+                      srcSet={buildSanitySrcSet(item.after.src)}
+                      alt="After"
+                    />
+                  }
+                  handle={
+                    <ReactCompareSliderHandle
+                      buttonStyle={
+                        isMobile
+                          ? {
+                              width: 40,
+                              height: 40,
+                              borderRadius: "50%",
+                              border: "2px solid #fff",
+                              backdropFilter: "blur(4px)",
+                              backgroundColor: "rgba(255,255,255,0.2)",
+                            }
+                          : undefined
+                      }
+                    />
+                  }
+                />
+              </Box>
             </Box>
           ))}
         </div>
