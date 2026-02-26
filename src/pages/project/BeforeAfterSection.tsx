@@ -30,6 +30,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     initial: 0,
+    drag: !isMobile,
     slideChanged(s) {
       setCurrentSlide(s.track.details.rel);
     },
