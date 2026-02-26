@@ -23,7 +23,7 @@ const links = [
     href: PAGES.portfolio,
     children: [
       {
-        label: "Posh Nouveau",
+        label: "Art Nouveau",
         href: `${PAGES.portfolio}/${PROJECTS.poshNouveau}`,
       },
       {

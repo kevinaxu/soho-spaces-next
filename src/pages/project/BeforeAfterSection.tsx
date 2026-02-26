@@ -47,7 +47,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
               sx={{
                 width: "100%",
                 aspectRatio: {
-                  xs: "1/1",
+                  xs: "3/4",
                   md: "3/2",
                 },
               }}

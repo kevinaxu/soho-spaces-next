@@ -11,7 +11,7 @@ import { PROJECTS, PAGES } from "@/src/constants";
 
 const links = [
   {
-    label: "Posh Nouveau",
+    label: "Art Nouveau",
     href: `${PAGES.portfolio}/${PROJECTS.poshNouveau}`,
   },
   {
