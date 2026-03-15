@@ -34,6 +34,10 @@ const links = [
         label: "Modern Gothic",
         href: `${PAGES.portfolio}/${PROJECTS.modernGothic}`,
       },
+      {
+        label: "Sole e Mare",
+        href: `${PAGES.portfolio}/${PROJECTS.soleEMare}`,
+      },
     ],
   },
   { label: "Explore", href: PAGES.explore },
@@ -169,7 +173,14 @@ function MobileDrawer({
       slotProps={{
         backdrop: {
           sx: {
-            backgroundColor: "rgba(0,0,0,0.25)", // light dim, page still visible
+            // this is the backdrop behind the drawer when it's open
+            // light dim - page still visible
+            backgroundColor: "rgba(0,0,0,0.25)",
+          },
+        },
+        paper: {
+          sx: {
+            backgroundColor: (theme) => theme.palette.background.default,
           },
         },
       }}
@@ -189,15 +200,15 @@ function MobileDrawer({
         {/* Background logo */}
         <Box
           component="img"
-          src="https://soho-spaces.com/assets/soho_logo_black.svg"
+          src="/soho_logo_black.svg"
           alt="soho spaces logo"
           sx={{
             position: "absolute",
-            bottom: 16, // small gap from bottom
+            bottom: 24, // small gap from bottom
             left: "50%",
             transform: "translateX(-50%)",
             opacity: 0.1,
-            width: 180,
+            width: 120,
             height: "auto",
             pointerEvents: "none", // non-interactive
             zIndex: 0,
