@@ -18,6 +18,7 @@ interface ArrowProps {
   href?: string;
   size?: "sm" | "md" | "lg";
   sx?: SxProps<Theme>;
+  disableLinkOnHover?: boolean;
 }
 
 const sizeMap = {
@@ -33,6 +34,7 @@ function ArrowContent({
   onClick,
   size = "lg",
   sx,
+  disableLinkOnHover = false,
 }: ArrowProps) {
   const isLeft = direction === "left";
   const config = sizeMap[size];
@@ -45,10 +47,10 @@ function ArrowContent({
           xs: 0.5,
           lg: 1.5,
         },
-        cursor: "pointer",
-        "&:hover .arrow-title": {
-          textDecoration: "underline", // underline on hover only
-        },
+        cursor: disableLinkOnHover ? "default" : "pointer",
+        ...(disableLinkOnHover
+          ? {}
+          : { "&:hover .arrow-title": { textDecoration: "underline" } }),
       }}
       onClick={onClick}
     >
@@ -97,7 +99,7 @@ function ArrowContent({
 }
 
 export function Arrow(props: ArrowProps) {
-  const { href } = props;
+  const { href, disableLinkOnHover } = props;
 
   if (href) {
     return (
@@ -107,12 +109,13 @@ export function Arrow(props: ArrowProps) {
           textDecoration: "none",
           color: "inherit",
           display: "inline-flex",
+          pointerEvents: disableLinkOnHover ? "none" : undefined,
         }}
       >
-        <ArrowContent {...props} />
+        <ArrowContent {...props} disableLinkOnHover={disableLinkOnHover} />
       </Link>
     );
   }
 
-  return <ArrowContent {...props} />;
+  return <ArrowContent {...props} disableLinkOnHover={disableLinkOnHover} />;
 }

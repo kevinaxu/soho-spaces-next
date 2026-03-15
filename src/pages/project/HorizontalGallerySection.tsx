@@ -5,6 +5,7 @@ import { Arrow } from "@/src/components/Arrow";
 import { Row } from "@/src/components/Layout";
 import { ResponsiveSanityImage } from "@/src/components/ResponsiveSanityImage";
 import { PAGES } from "@/src/constants";
+import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 interface HorizontalGallerySectionProps {
   images: {
@@ -20,6 +21,8 @@ export default function HorizontalGallerySection({
   images,
   handleImageClick,
 }: HorizontalGallerySectionProps) {
+  const isMobile = useIsMobile();
+
   return (
     <Box
       sx={{
@@ -86,9 +89,9 @@ export default function HorizontalGallerySection({
         />
         <Arrow
           direction="right"
-          title="scroll"
+          title={isMobile ? "swipe" : "scroll to see more"}
           size="md"
-          //   onClick={() => console.log("scroll arrow clicked")}
+          disableLinkOnHover
         />
       </Row>
     </Box>
