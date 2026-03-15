@@ -63,7 +63,7 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
         pageType="about"
       />
 
-      <Header sticky={true} transparent />
+      <Header sticky={true} />
 
       <FullWidthSection
         sx={{
@@ -72,8 +72,8 @@ export default function AboutPage({ about }: { about: AboutPageProps }) {
             lg: PADDING_X_SECTION,
           },
           py: {
-            xs: 2,
-            lg: 0,
+            xs: 9,
+            lg: 6,
           },
         }}
       >
@@ -234,7 +234,7 @@ export const getStaticProps = async () => {
     //   }
     // }
   }`,
-    { id: ABOUTPAGE_SANITY_ID }
+    { id: ABOUTPAGE_SANITY_ID },
   );
 
   // Validate all required sections are present

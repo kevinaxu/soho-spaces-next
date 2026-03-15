@@ -44,7 +44,7 @@ export default function PortfolioPage({
       <Header sticky={true} />
       <FullWidthSection
         sx={{
-          py: { xs: 2, lg: 4 },
+          py: { xs: 8, lg: 6 },
           px: { xs: PADDING_X_MOBILE, lg: 0 },
           alignItems: "center",
         }}
@@ -183,7 +183,7 @@ export const getStaticProps = async () => {
       "status": project->projectStatus,
     }
   }`,
-    { id: PORTFOLIO_PAGE_SANITY_ID }
+    { id: PORTFOLIO_PAGE_SANITY_ID },
   );
 
   // Validate all required sections are present

@@ -68,7 +68,9 @@ export default function ExplorePage({ photos }: { photos: ExplorePhoto[] }) {
       />
 
       <Box
-        sx={{
+        sx={(theme) => ({
+          backgroundColor: theme.palette.background.default,
+          py: { xs: 6, lg: 2 },
           width: "100%",
           mx: "auto",
           px: {
@@ -79,7 +81,7 @@ export default function ExplorePage({ photos }: { photos: ExplorePhoto[] }) {
             xs: 1,
             lg: 2,
           },
-        }}
+        })}
       >
         <PhotoAlbum
           photos={mergedPhotos}
@@ -111,7 +113,7 @@ function transformPhoto(photo: ExplorePhoto) {
   const { width: originalWidth, height: originalHeight } = metadata.dimensions;
 
   const mainHeight = Math.round(
-    (originalHeight / originalWidth) * DEFAULT_IMAGE_WIDTH
+    (originalHeight / originalWidth) * DEFAULT_IMAGE_WIDTH,
   );
 
   const srcSet = BREAKPOINTS.map((w) => {

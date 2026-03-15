@@ -41,6 +41,13 @@ export default function ContactPage({
           maxHeight: {
             lg: "800px",
           },
+          paddingTop: {
+            xs: 8,
+            lg: 2,
+          },
+          paddingBottom: {
+            lg: 0,
+          },
           gap: 4,
         }}
       >
@@ -105,7 +112,7 @@ export const getStaticProps = async () => {
           asset->
         },
   }`,
-    { id: CONTACT_PAGE_SANITY_ID }
+    { id: CONTACT_PAGE_SANITY_ID },
   );
 
   // Validate all required sections are present
