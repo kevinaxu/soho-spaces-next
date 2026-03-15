@@ -10,9 +10,8 @@ import ModalLightbox from "@/src/components/ModalLightbox";
 import PageMeta from "@/src/components/PageMeta";
 import { FullWidthSection } from "@/src/components/Section";
 import { SectionSubtitle } from "@/src/components/SectionTitle";
-import { PADDING_X_SECTION, PADDING_X_MOBILE } from "@/src/constants";
+import { PADDING_X_MOBILE } from "@/src/constants";
 import { PAGES } from "@/src/constants";
-import { ContactUsSection } from "@/src/pages/home/ContactUsSection";
 import BeforeAfterSection from "@/src/pages/project/BeforeAfterSection";
 import HorizontalGallerySection from "@/src/pages/project/HorizontalGallerySection";
 import HotspotSection from "@/src/pages/project/HotspotSection";
@@ -90,7 +89,6 @@ export default function ProjectPage({
 
       <FullWidthSection
         sx={{
-          bgcolor: "#e3e2dc",
           alignItems: "center",
           // manually offset for sticky header on mobile / desktop
           paddingTop: {
@@ -108,7 +106,6 @@ export default function ProjectPage({
 
       <FullWidthSection
         sx={{
-          bgcolor: "#e3e2dc",
           py: {
             xs: 2,
             lg: 4,
@@ -129,7 +126,6 @@ export default function ProjectPage({
 
       <FullWidthSection
         sx={{
-          bgcolor: "#e3e2dc",
           py: {
             xs: 2,
             lg: 4,
@@ -150,7 +146,6 @@ export default function ProjectPage({
       {project.hotspot.hotspotImage && (
         <FullWidthSection
           sx={{
-            bgcolor: "#e3e2dc",
             py: {
               xs: 2,
               lg: 8,
@@ -228,7 +223,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
   }
 `,
-    { slug }
+    { slug },
   );
 
   const home = await client.fetch(
@@ -240,7 +235,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
    }
 `,
-    { id: HOMEPAGE_SANITY_ID }
+    { id: HOMEPAGE_SANITY_ID },
   );
 
   // Validate all required sections are present
@@ -264,7 +259,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await client.fetch(
     `*[_type == "project" && defined(slug.current)]{
       "slug": slug.current
-    }`
+    }`,
   );
 
   const paths = projects.map((p: { slug: string }) => ({
