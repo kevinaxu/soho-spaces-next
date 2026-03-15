@@ -54,7 +54,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
                 }}
               >
                 <ReactCompareSlider
-                  position={20}
+                  defaultPosition={20}
                   style={{ width: "100%", height: "100%" }}
                   itemOne={
                     <ReactCompareSliderImage
