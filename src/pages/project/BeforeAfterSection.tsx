@@ -75,8 +75,8 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
                       buttonStyle={
                         isMobile
                           ? {
-                              width: 40,
-                              height: 40,
+                              width: 50,
+                              height: 50,
                               borderRadius: "50%",
                               border: "2px solid #fff",
                               backdropFilter: "blur(4px)",
