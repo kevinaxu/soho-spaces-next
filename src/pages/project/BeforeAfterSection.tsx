@@ -49,8 +49,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
               <Box
                 sx={{
                   width: "100%",
-                  aspectRatio: { xs: "3/4", md: "3/2" },
-                  minHeight: { xs: 300, md: "unset" },
+                  aspectRatio: { xs: "3/4", lg: "5/3" },
                 }}
               >
                 <ReactCompareSlider
@@ -98,7 +97,7 @@ export default function BeforeAfterSection({ items }: BeforeAfterSectionProps) {
             sx={{
               display: "flex",
               justifyContent: "center",
-              gap: 1,
+              gap: 2,
               mt: {
                 xs: 2,
                 lg: 4,

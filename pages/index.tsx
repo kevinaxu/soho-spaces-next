@@ -74,7 +74,7 @@ export default function HomePage({ home }: { home: HomePageProps }) {
       ([entry]) => {
         setSticky(!entry.isIntersecting);
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
 
     observer.observe(heroRef.current);
@@ -100,7 +100,10 @@ export default function HomePage({ home }: { home: HomePageProps }) {
 
       <FullWidthSection
         sx={{
-          height: "800px",
+          height: {
+            xs: 500,
+            lg: 600,
+          },
           alignItems: "center",
           py: {
             xs: 2,
@@ -269,7 +272,7 @@ export const getStaticProps = async () => {
         }
    }
 `,
-    { id: HOMEPAGE_SANITY_ID }
+    { id: HOMEPAGE_SANITY_ID },
   );
 
   // Validate all required sections are present
