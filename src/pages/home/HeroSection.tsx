@@ -4,7 +4,10 @@ import { forwardRef } from "react";
 import { useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
-import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
+import {
+  buildSanitySrc,
+  ResponsiveSanityImage,
+} from "@/src/components/ResponsiveSanityImage";
 import { useIsMobile } from "@/src/hooks/useIsMobile";
 
 const SLIDE_INTERVAL_MS = 4000;
@@ -54,15 +57,23 @@ export const HeroImageSection = forwardRef<
             sx={{
               position: "absolute",
               inset: 0,
-              backgroundImage: `url(${src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
               opacity: index === activeIndex ? 1 : 0,
               transition: `opacity ${FADE_DURATION_MS}ms ease-in-out`,
               zIndex: 0,
             }}
-          />
+          >
+            <ResponsiveSanityImage
+              src={image}
+              alt=""
+              lazy={false}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </Box>
         );
       })}
 
