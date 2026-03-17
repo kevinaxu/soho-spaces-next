@@ -1,25 +1,38 @@
 import { Box, Typography } from "@mui/material";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { forwardRef } from "react";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Row } from "@/src/components/Layout";
 import { buildSanitySrc } from "@/src/components/ResponsiveSanityImage";
 import { useIsMobile } from "@/src/hooks/useIsMobile";
 
-const VIDEO_PLAYBACK_RATE = 0.5;
+const SLIDE_INTERVAL_MS = 4000;
+const FADE_DURATION_MS = 1500;
 
 interface HeroImageSectionProps {
-  image: SanityImageSource;
-  imageMobile: SanityImageSource;
+  images: SanityImageSource[];
+  imagesMobile: SanityImageSource[];
 }
 
 export const HeroImageSection = forwardRef<
   HTMLDivElement,
   HeroImageSectionProps
->((props, ref) => {
+>(({ images, imagesMobile }, ref) => {
   const isMobile = useIsMobile();
-  const { image, imageMobile } = props;
+  const activeImages = isMobile && imagesMobile ? imagesMobile : images;
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (activeImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % activeImages.length);
+    }, SLIDE_INTERVAL_MS);
+
+    return () => clearInterval(interval);
+  }, [activeImages.length]);
 
   return (
     <Row
@@ -28,17 +41,31 @@ export const HeroImageSection = forwardRef<
         position: "relative",
         height: "100vh",
         width: "100vw",
-        backgroundImage: `url(${buildSanitySrc(
-          isMobile ? imageMobile : image
-        )})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         justifyContent: "center",
         alignItems: "center",
         overflow: "hidden",
       }}
     >
+      {activeImages.map((image, index) => {
+        const src = buildSanitySrc(image);
+        return (
+          <Box
+            key={index}
+            sx={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `url(${src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              opacity: index === activeIndex ? 1 : 0,
+              transition: `opacity ${FADE_DURATION_MS}ms ease-in-out`,
+              zIndex: 0,
+            }}
+          />
+        );
+      })}
+
       {/* Overlay */}
       <Box
         sx={{
@@ -51,6 +78,7 @@ export const HeroImageSection = forwardRef<
           zIndex: 1,
         }}
       />
+
       {/* Content */}
       <Box
         sx={(theme) => ({
@@ -64,74 +92,7 @@ export const HeroImageSection = forwardRef<
     </Row>
   );
 });
-
 HeroImageSection.displayName = "HeroImageSection";
-
-interface HeroVideoSectionProps {
-  video?: string;
-}
-
-export const HeroVideoSection = forwardRef<
-  HTMLDivElement,
-  HeroVideoSectionProps
->((props, ref) => {
-  const { video } = props;
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  return (
-    <Box
-      ref={ref}
-      sx={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      <video
-        // key={video}  // this causes flash on reload
-        ref={videoRef}
-        preload="auto"
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls={false}
-        onError={(e) => console.error("Video failed", e)}
-        onLoadedData={() => {
-          if (videoRef.current) {
-            videoRef.current.playbackRate = VIDEO_PLAYBACK_RATE;
-          }
-        }}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-        src={video}
-      />
-
-      <Row
-        sx={{
-          position: "relative",
-          height: "100vh",
-          width: "100vw",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          zIndex: 1,
-          px: 2,
-        }}
-      >
-        <HeroLogo />
-      </Row>
-    </Box>
-  );
-});
-HeroVideoSection.displayName = "HeroSectionVideo";
 
 function HeroLogo({
   fontFamily = ["Lexend", "sans-serif"].join(","),

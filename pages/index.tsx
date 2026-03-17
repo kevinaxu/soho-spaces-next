@@ -18,9 +18,8 @@ import { client } from "@/src/sanity/client";
 
 interface HomePageProps {
   hero: {
-    // videoUrl: string;
-    image: SanityImageSource;
-    imageMobile: SanityImageSource;
+    images: SanityImageSource[];
+    imagesMobile: SanityImageSource[];
   };
   designPhilosophy: {
     title: string;
@@ -93,8 +92,8 @@ export default function HomePage({ home }: { home: HomePageProps }) {
       />
 
       <HeroImageSection
-        image={home.hero.image}
-        imageMobile={home.hero.imageMobile}
+        images={home.hero.images}
+        imagesMobile={home.hero.imagesMobile}
         ref={heroRef}
       />
 
@@ -213,14 +212,18 @@ export const getStaticProps = async () => {
   const home = await client.fetch(
     `*[_type == "home" && _id == $id][0]{
         hero {
-            "image": image->image{
-                ...,
-                asset->
+            images[] {
+                "image": photo->image {
+                    ...,
+                    asset->
+                }
             },
-            "imageMobile": imageMobile->image{
-                ...,
-                asset->
-            },
+            imagesMobile[] {
+                "image": photo->image {
+                    ...,
+                    asset->
+                }
+            }
         },
         designPhilosophy {
             title,
@@ -290,6 +293,19 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { home },
+    props: {
+      home: {
+        ...home,
+        hero: {
+          images: home.hero.images.map(
+            (item: { image: SanityImageSource }) => item.image,
+          ),
+          imagesMobile:
+            home.hero.imagesMobile?.map(
+              (item: { image: SanityImageSource }) => item.image,
+            ) ?? [],
+        },
+      },
+    },
   };
 };
