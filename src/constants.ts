@@ -28,6 +28,6 @@ export const PROJECTS = {
   mediterraneanGarden: "mediterranean-botanical-master-bathroom",
   belleEpoque: "belle-epoque-powder-room",
   gingkosAndGreys: "gingkos-and-greys-powder-room",
-  soleEMare: "sole-e-mare",
+  costaAmalfitana: "costa-amalfitana-kitchen",
   organicModern: "organic-modern-living-room",
 };

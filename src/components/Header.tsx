@@ -35,8 +35,8 @@ const links = [
         href: `${PAGES.portfolio}/${PROJECTS.modernGothic}`,
       },
       {
-        label: "Sole e Mare",
-        href: `${PAGES.portfolio}/${PROJECTS.soleEMare}`,
+        label: "Costa Amalfitana",
+        href: `${PAGES.portfolio}/${PROJECTS.costaAmalfitana}`,
       },
     ],
   },
