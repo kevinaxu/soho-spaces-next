@@ -43,7 +43,7 @@ export default function Custom404Page({
 
       <FullWidthSection
         sx={{
-          py: { xs: 8, lg: 2 },
+          py: { xs: 8, lg: 10 },
           px: { xs: PADDING_X_MOBILE, lg: PADDING_X_SECTION },
           alignItems: "center",
           minHeight: "70vh",
@@ -150,7 +150,7 @@ export const getStaticProps = async () => {
       "slug": project->slug.current,
     }
   }`,
-    { id: NOT_FOUND_PAGE_SANITY_ID }
+    { id: NOT_FOUND_PAGE_SANITY_ID },
   );
 
   // Validate all required sections are present
