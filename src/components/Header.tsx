@@ -17,9 +17,9 @@ import { useState } from "react";
 import { PADDING_X_MOBILE, PAGES, PROJECTS } from "@/src/constants";
 
 const links = [
-  { label: "About", href: PAGES.about },
+  { label: "ABOUT", href: PAGES.about },
   {
-    label: "Portfolio",
+    label: "PORTFOLIO",
     href: PAGES.portfolio,
     children: [
       {
@@ -40,8 +40,8 @@ const links = [
       },
     ],
   },
-  { label: "Explore", href: PAGES.explore },
-  { label: "Contact", href: PAGES.contact },
+  { label: "EXPLORE", href: PAGES.explore },
+  { label: "CONTACT", href: PAGES.contact },
 ];
 
 export default function Header({
