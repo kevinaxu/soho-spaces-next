@@ -24,9 +24,10 @@ export const PROJECTS = {
   darkAcademia: "dark-academia-living-room",
   modernGothic: "modern-gothic-kitchen",
   moodyRomantic: "moody-romantic-dining-room",
-  poshNouveau: "posh-nouveau-whisky-lounge",
+  poshNouveau: "art-nouveau-whisky-lounge",
   mediterraneanGarden: "mediterranean-botanical-master-bathroom",
   belleEpoque: "belle-epoque-powder-room",
   gingkosAndGreys: "gingkos-and-greys-powder-room",
   soleEMare: "sole-e-mare",
+  organicModern: "organic-modern-living-room",
 };
